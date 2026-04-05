@@ -277,7 +277,7 @@ body::after{
   position:relative;overflow:hidden;
 }
 .services-track{
-  display:flex;width:400vw;
+  display:flex;width:500vw;
   will-change:transform;
 }
 .service-panel{
@@ -336,9 +336,121 @@ body::after{
   height:100%;width:0%;background:var(--white);
   transition:width .05s linear;
 }
+/* 5th panel variant */
+.service-panel.sp-cta{background:rgba(255,255,255,0.015)}
+.sp-cta-title{
+  font-size:clamp(28px,4vw,56px);font-weight:700;
+  letter-spacing:-0.03em;line-height:1.1;margin-bottom:12px;
+}
+.sp-cta-sub{
+  font-size:clamp(14px,1.2vw,17px);font-weight:300;
+  color:var(--w60);margin-bottom:36px;
+}
+.sp-cta-link{
+  font-size:0.85rem;letter-spacing:0.15em;
+  color:rgba(255,255,255,0.35);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+  padding-bottom:2px;
+  transition:color .3s,border-color .3s;
+}
+.sp-cta-link:hover{color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.5)}
+
 @media(max-width:768px){
   .service-panel{padding:32px 24px}
   .sp-number{left:24px}
+}
+
+/* ═══════════════════════════════════════
+   FOUNDATION
+   ═══════════════════════════════════════ */
+.foundation{
+  min-height:100vh;background:#080808;
+  padding:120px 48px;position:relative;
+}
+.foundation-line{
+  position:absolute;top:0;left:0;right:0;
+  height:1px;background:rgba(255,255,255,0.1);
+  transform:scaleX(0);transform-origin:left;
+}
+.foundation-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1.1fr 0.9fr;
+  gap:80px;align-items:center;
+}
+.fnd-label{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-bottom:24px;
+}
+.fnd-title{
+  font-size:clamp(32px,4vw,64px);font-weight:200;
+  letter-spacing:0.08em;line-height:1;
+  text-transform:uppercase;
+  color:var(--white);opacity:0.9;margin-bottom:24px;
+}
+.fnd-title .fnd-char{
+  display:inline-block;opacity:0;transform:translateY(40px);
+}
+.fnd-tagline{
+  font-size:1.2rem;color:var(--w60);line-height:1.6;
+  margin-bottom:28px;
+}
+.fnd-body{
+  font-size:0.95rem;color:rgba(255,255,255,0.45);
+  line-height:1.9;margin-bottom:32px;
+}
+.fnd-pills{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;
+}
+.fnd-pill{
+  padding:5px 14px;border:1px solid var(--w20);
+  border-radius:20px;font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--w60);
+}
+.fnd-who-label{
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-bottom:16px;
+}
+.fnd-who-list{
+  font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:2;
+  margin-bottom:28px;
+}
+.fnd-who-item{
+  opacity:0;transform:translateX(-20px);
+}
+.fnd-note{
+  font-size:11px;color:rgba(255,255,255,0.3);font-style:italic;
+}
+
+/* right column */
+.fnd-right{
+  display:flex;flex-direction:column;justify-content:center;
+}
+.fnd-quote{
+  font-size:clamp(18px,2.8vw,40px);font-weight:300;
+  font-style:italic;color:rgba(255,255,255,0.18);
+  line-height:1.3;margin-bottom:48px;
+}
+.fnd-cta-btn{
+  display:inline-block;
+  padding:1.1rem 3rem;
+  background:var(--white);color:var(--black);
+  border:1px solid var(--white);border-radius:0;
+  font-size:0.9rem;letter-spacing:0.1em;font-weight:500;
+  transition:background .3s,color .3s;
+  text-align:center;
+}
+.fnd-cta-btn:hover{background:transparent;color:var(--white)}
+.fnd-cta-note{
+  font-size:11px;color:rgba(255,255,255,0.3);margin-top:1rem;
+}
+
+@media(max-width:768px){
+  .foundation{padding:80px 2rem}
+  .foundation-grid{grid-template-columns:1fr;gap:48px}
+  .fnd-title{font-size:10vw}
+  .fnd-quote{font-size:5vw;display:none}
+  .fnd-cta-btn{width:100%;text-align:center}
 }
 
 /* ═══════════════════════════════════════
@@ -526,6 +638,7 @@ body::after{
   <ul class="nav-links">
     <li><a href="#servicii">Services</a></li>
     <li><a href="#despre">About</a></li>
+    <li><a href="#foundation">Foundation</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <span class="nav-meta">Cluj-Napoca · 2026</span>
@@ -537,6 +650,7 @@ body::after{
   <a href="#hero">Home</a>
   <a href="#servicii">Services</a>
   <a href="#despre">About</a>
+  <a href="#foundation">Foundation</a>
   <a href="#contact">Contact</a>
 </div>
 
@@ -646,6 +760,15 @@ body::after{
       </div>
     </div>
 
+    <div class="service-panel sp-cta">
+      <div class="sp-number" data-count="5">05</div>
+      <div class="sp-body">
+        <h2 class="sp-cta-title">Just starting out?</h2>
+        <p class="sp-cta-sub">There's a different path for you.</p>
+        <a href="#foundation" class="sp-cta-link" id="foundationLink">Discover Foundation ↓</a>
+      </div>
+    </div>
+
   </div>
   <div class="services-progress"><div class="services-progress-bar" id="servicesProgressBar"></div></div>
 </section>
@@ -686,6 +809,37 @@ body::after{
     </div>
   </div>
 
+</section>
+
+<!-- ═══════════════ FOUNDATION ═══════════════ -->
+<section class="foundation" id="foundation" aria-label="Foundation">
+  <div class="foundation-line" id="foundationLine"></div>
+  <div class="foundation-grid">
+    <div class="fnd-left">
+      <div class="fnd-label" id="fndLabel">Top of Mind — Initiative</div>
+      <h2 class="fnd-title" id="fndTitle">Foundation</h2>
+      <p class="fnd-tagline" id="fndTagline">We build your marketing from zero.<br>You focus on building your business.</p>
+      <p class="fnd-body" id="fndBody">Foundation is our give-back program for early-stage industrial startups. We handle everything — website, ads, social media — until you land your first 5 clients. No retainer. No long-term contract. After the 5 clients, we continue on a percentage of what we generate together.</p>
+      <div class="fnd-pills" id="fndPills">
+        <span class="fnd-pill">Website</span>
+        <span class="fnd-pill">Paid Ads</span>
+        <span class="fnd-pill">Social Media</span>
+      </div>
+      <div class="fnd-who-label">Who is this for?</div>
+      <div class="fnd-who-list" id="fndWhoList">
+        <div class="fnd-who-item">— Industrial startups: construction, metal, manufacturing, materials, automotive</div>
+        <div class="fnd-who-item">— You know exactly who your customer is and why they'd buy from you</div>
+        <div class="fnd-who-item">— You're actively building — this isn't a side project</div>
+        <div class="fnd-who-item">— No active marketing agency or dedicated marketing budget</div>
+      </div>
+      <p class="fnd-note">We accept 1 startup every 2 months. Every application is reviewed personally.</p>
+    </div>
+    <div class="fnd-right" id="fndRight">
+      <p class="fnd-quote">Every industrial company you admire today started with zero clients.</p>
+      <a href="https://forms.gle/EsrN5MCVY2VVARbH9" class="fnd-cta-btn" target="_blank" rel="noopener noreferrer">Apply for Foundation →</a>
+      <p class="fnd-cta-note">We'll get back to you within 3 business days.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════ ABOUT ═══════════════ -->
@@ -1002,6 +1156,70 @@ document.querySelectorAll('.portfolio-item').forEach(item => {
   })
   .to(top, { yPercent: -100, ease: 'none' }, 0)
   .to(bot, { yPercent: 100, ease: 'none' }, 0);
+});
+
+/* ═══════════════════════════════════════
+   FOUNDATION ANIMATIONS
+   ═══════════════════════════════════════ */
+// separator line
+gsap.to('#foundationLine', {
+  scaleX: 1, duration: 0.8, ease: 'power3.out',
+  scrollTrigger: { trigger: '#foundation', start: 'top 85%', toggleActions: 'play none none none' }
+});
+
+// label
+gsap.from('#fndLabel', {
+  opacity: 0, y: 10, duration: 0.6, ease: 'power3.out',
+  scrollTrigger: { trigger: '#foundation', start: 'top 75%', toggleActions: 'play none none none' }
+});
+
+// title — split into chars
+const fndTitle = document.getElementById('fndTitle');
+const fndTitleText = fndTitle.textContent;
+fndTitle.innerHTML = '';
+fndTitleText.split('').forEach(ch => {
+  const span = document.createElement('span');
+  span.className = 'fnd-char';
+  span.textContent = ch === ' ' ? '\u00A0' : ch;
+  fndTitle.appendChild(span);
+});
+gsap.to('.fnd-char', {
+  y: 0, opacity: 1, duration: 0.6, stagger: 0.04, ease: 'power3.out',
+  scrollTrigger: { trigger: '#foundation', start: 'top 70%', toggleActions: 'play none none none' }
+});
+
+// tagline + body
+gsap.from('#fndTagline', {
+  opacity: 0, y: 30, duration: 0.7, ease: 'power3.out',
+  scrollTrigger: { trigger: '#fndTagline', start: 'top 85%', toggleActions: 'play none none none' }
+});
+gsap.from('#fndBody', {
+  opacity: 0, y: 30, duration: 0.7, delay: 0.12, ease: 'power3.out',
+  scrollTrigger: { trigger: '#fndBody', start: 'top 85%', toggleActions: 'play none none none' }
+});
+
+// pills
+gsap.from('.fnd-pill', {
+  opacity: 0, scale: 0.9, duration: 0.5, stagger: 0.08, ease: 'power3.out',
+  scrollTrigger: { trigger: '#fndPills', start: 'top 85%', toggleActions: 'play none none none' }
+});
+
+// who is this for items
+gsap.to('.fnd-who-item', {
+  opacity: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+  scrollTrigger: { trigger: '#fndWhoList', start: 'top 85%', toggleActions: 'play none none none' }
+});
+
+// right column
+gsap.from('#fndRight', {
+  opacity: 0, y: 40, duration: 0.8, delay: 0.3, ease: 'power3.out',
+  scrollTrigger: { trigger: '#foundation', start: 'top 65%', toggleActions: 'play none none none' }
+});
+
+// 5th panel CTA scroll to foundation
+document.getElementById('foundationLink').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('foundation').scrollIntoView({ behavior: 'smooth' });
 });
 
 /* ═══════════════════════════════════════
