@@ -3,1313 +3,190 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Top of Mind — Industrial Marketing Agency</title>
-<meta name="description" content="Strategy, content and digital advertising for companies in construction, metal fabrication, manufacturing and industry."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet"/>
-<style>
-  /* SUGIBA */
-/* ═══════════════════════════════════════
-   RESET & BASE
-   ═══════════════════════════════════════ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --black:#000;--white:#fff;
-  --w04:rgba(255,255,255,0.04);--w06:rgba(255,255,255,0.06);
-  --w08:rgba(255,255,255,0.08);--w12:rgba(255,255,255,0.12);
-  --w20:rgba(255,255,255,0.2);--w40:rgba(255,255,255,0.52);
-  --w60:rgba(255,255,255,0.6);
-  --pop:#e8f4ff;
-}
-html{scroll-behavior:auto;overflow-x:hidden}
-body{
-  background:var(--black);color:var(--white);
-  font-family:'Inter',sans-serif;
-  overflow-x:hidden;cursor:none;
-  -webkit-font-smoothing:antialiased;
-}
-a{color:inherit;text-decoration:none}
-ul{list-style:none}
-button{border:none;background:none;color:inherit;font:inherit;cursor:none}
-
-/* ═══════════════════════════════════════
-   GRAIN OVERLAY
-   ═══════════════════════════════════════ */
-body::after{
-  content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;
-  opacity:0.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat:repeat;background-size:180px;
-}
-
-/* ═══════════════════════════════════════
-   CUSTOM CURSOR
-   ═══════════════════════════════════════ */
-.cursor{
-  position:fixed;width:10px;height:10px;
-  background:var(--white);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .25s cubic-bezier(.23,1,.32,1),
-             height .25s cubic-bezier(.23,1,.32,1),
-             background .25s;
-  mix-blend-mode:difference;
-}
-.cursor.active{width:48px;height:48px;background:rgba(255,255,255,0.15)}
-
-/* ═══════════════════════════════════════
-   PRELOADER
-   ═══════════════════════════════════════ */
-.preloader{
-  position:fixed;inset:0;z-index:10000;
-  background:var(--black);
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;
-}
-.preloader-text{
-  display:flex;gap:0.08em;
-  font-size:clamp(28px,5vw,64px);font-weight:700;
-  letter-spacing:0.18em;text-transform:uppercase;
-  overflow:hidden;
-}
-.preloader-text span{
-  display:inline-block;
-  opacity:0;transform:translateY(100%);
-}
-.preloader-pct{
-  position:absolute;bottom:40px;right:48px;
-  font-size:14px;font-weight:300;
-  color:var(--w40);letter-spacing:0.06em;
-  font-variant-numeric:tabular-nums;
-}
-
-/* ═══════════════════════════════════════
-   NAV
-   ═══════════════════════════════════════ */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:900;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;height:72px;
-  transition:backdrop-filter .4s,background .4s;
-}
-.nav.scrolled{
-  background:rgba(0,0,0,0.55);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--w06);
-}
-.nav-logo{display:flex;align-items:baseline;gap:4px;font-size:13px;letter-spacing:0.14em;text-transform:uppercase}
-.nav-logo .bold{font-weight:700}
-.nav-logo .light{font-weight:300;color:var(--w60)}
-.nav-links{display:flex;gap:36px;align-items:center}
-.nav-links a{
-  font-size:12px;font-weight:400;letter-spacing:0.08em;
-  text-transform:uppercase;color:var(--w60);
-  position:relative;padding-bottom:4px;
-  transition:color .3s;
-}
-.nav-links a::after{
-  content:'';position:absolute;bottom:0;left:0;
-  width:0;height:1px;background:var(--white);
-  transition:width .35s cubic-bezier(.23,1,.32,1);
-}
-.nav-links a:hover{color:var(--white)}
-.nav-links a:hover::after{width:100%}
-.nav-meta{
-  font-size:10px;font-weight:300;color:rgba(255,255,255,0.25);
-  letter-spacing:0.08em;
-}
-
-/* Mobile nav toggle */
-.nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px;cursor:none}
-.nav-toggle span{display:block;width:20px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
-.nav-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.nav-toggle.open span:nth-child(2){opacity:0}
-.nav-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.nav-mobile{
-  display:none;position:fixed;inset:0;z-index:899;
-  background:rgba(0,0,0,0.97);backdrop-filter:blur(20px);
-  flex-direction:column;align-items:center;justify-content:center;gap:32px;
-}
-.nav-mobile.open{display:flex}
-.nav-mobile a{font-size:24px;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:var(--w60);transition:color .3s}
-.nav-mobile a:hover{color:var(--white)}
-
-@media(max-width:768px){
-  .nav-links,.nav-meta{display:none}
-  .nav-toggle{display:flex}
-  .nav{padding:0 24px}
-}
-
-/* ═══════════════════════════════════════
-   HERO
-   ═══════════════════════════════════════ */
-.hero{
-  position:relative;height:100vh;min-height:600px;
-  display:flex;align-items:center;
-  overflow:visible;
-}
-#hero-canvas{
-  position:absolute;inset:0;z-index:0;
-}
-.hero-content{
-  position:relative;z-index:2;
-  padding:0 48px;width:100%;
-}
-.hero-title{
-  font-size:clamp(48px,12vw,180px);
-  font-weight:700;line-height:0.92;
-  letter-spacing:-0.04em;
-  text-transform:uppercase;
-}
-.hero-line{
-  display:block;overflow:hidden;
-}
-.hero-line-inner{
-  display:block;
-  transform:translateY(110%);
-  will-change:transform;
-}
-.hero-line.stroke-line{
-  overflow:visible;
-}
-.hero-line.stroke-line .hero-line-inner{
-  color:rgba(255,255,255,0.28);
-  opacity:1;
-  letter-spacing:0.05em;
-  padding-top:0.15em;
-  font-size:0.95em;
-}
-@media(min-width:769px){
-  .hero-line:nth-child(2) .hero-line-inner{text-align:right}
-}
-.hero-subtitle{
-  margin-top:36px;
-  font-size:clamp(13px,1.3vw,17px);
-  font-weight:300;color:var(--w60);
-  letter-spacing:0.04em;
-  opacity:0;
-}
-.hero-scroll-indicator{
-  position:absolute;bottom:48px;left:48px;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  opacity:0;
-}
-.hero-scroll-line{
-  width:1px;height:60px;
-  background:var(--white);opacity:0.3;
-  transform-origin:top;
-  animation:scrollLine 1.5s ease-in-out infinite;
-}
-@keyframes scrollLine{
-  0%,100%{transform:scaleY(0)}
-  50%{transform:scaleY(1)}
-}
-.hero-scroll-word{
-  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--w40);
-}
-.hero-industries{
-  position:fixed;bottom:5%;right:2%;
-  text-align:right;z-index:900;
-}
-.hero-ind-label{
-  font-size:clamp(0.6rem,0.9vw,0.75rem);letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--w40);margin-bottom:6px;
-}
-.hero-ind-ticker{
-  font-size:clamp(1rem,1.8vw,1.6rem);font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--pop);white-space:nowrap;
-  display:grid;
-  overflow-y:clip;overflow-x:visible;
-}
-.hero-ind-ticker span{
-  grid-row:1;grid-column:1;
-  justify-self:end;
-  white-space:nowrap;width:auto;
-  transform:translateY(100%);opacity:0;
-  transition:transform .5s cubic-bezier(.23,1,.32,1),opacity .4s;
-}
-.hero-ind-ticker span.active{
-  transform:translateY(0);opacity:1;
-}
-.hero-ind-ticker span.exit{
-  transform:translateY(-100%);opacity:0;
-}
-@media(max-width:768px){
-  .hero-content{padding:0 24px}
-  .hero-scroll-label{left:24px;bottom:32px}
-
-  .hero-title{font-size:clamp(40px,14vw,90px)}
-}
-
-/* ═══════════════════════════════════════
-   MARQUEE
-   ═══════════════════════════════════════ */
-.marquee{
-  background:#0a0a0a;
-  border-top:1px solid var(--w06);border-bottom:1px solid var(--w06);
-  padding:20px 0;overflow:hidden;
-  position:relative;
-}
-.marquee-track{
-  display:flex;gap:0;white-space:nowrap;
-  animation:marqueeScroll 28s linear infinite;
-  will-change:transform;
-}
-.marquee:hover .marquee-track{animation-play-state:paused}
-.marquee-item{
-  font-size:clamp(14px,1.6vw,20px);
-  font-weight:500;letter-spacing:0.06em;
-  text-transform:uppercase;color:var(--w60);
-  padding:0 32px;flex-shrink:0;
-}
-.marquee-item .dot{color:var(--pop);margin:0 8px}
-@keyframes marqueeScroll{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-33.333%)}
-}
-
-/* ═══════════════════════════════════════
-   SERVICES — HORIZONTAL SCROLL
-   ═══════════════════════════════════════ */
-.services{
-  position:relative;overflow:hidden;
-}
-.services-track{
-  display:flex;width:500vw;
-  will-change:transform;
-}
-.service-panel{
-  width:100vw;height:100vh;min-height:600px;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;padding:48px;
-  border-right:1px solid var(--w06);
-  overflow:hidden;
-}
-.service-panel:last-child{border-right:none}
-.sp-number{
-  position:absolute;top:10%;left:48px;
-  font-size:clamp(100px,20vw,280px);
-  font-weight:700;color:var(--white);opacity:0.04;
-  line-height:1;letter-spacing:-0.04em;
-  font-variant-numeric:tabular-nums;
-  user-select:none;
-}
-.sp-body{
-  max-width:560px;position:relative;z-index:1;
-}
-.sp-label{
-  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--w40);margin-bottom:16px;
-}
-.sp-title{
-  font-size:clamp(32px,5vw,72px);font-weight:700;
-  letter-spacing:-0.03em;line-height:1.05;
-  margin-bottom:24px;
-}
-.sp-desc{
-  font-size:clamp(14px,1.2vw,16px);font-weight:300;
-  color:var(--w60);line-height:1.7;max-width:440px;
-}
-/* CSS-drawn icons */
-.sp-icon{
-  width:48px;height:48px;margin-bottom:28px;
-  position:relative;
-}
-.sp-icon-ring{
-  width:48px;height:48px;border-radius:50%;
-  border:1px solid var(--w20);
-  position:absolute;top:0;left:0;
-}
-.sp-icon-inner{
-  position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-}
-.sp-icon-bar{display:block;background:var(--w60);border-radius:1px}
-
-.services-progress{
-  position:absolute;bottom:0;left:0;right:0;
-  height:2px;background:var(--w06);z-index:10;
-}
-.services-progress-bar{
-  height:100%;width:0%;background:var(--white);
-  transition:width .05s linear;
-}
-/* 5th panel variant */
-.service-panel.sp-cta{background:rgba(255,255,255,0.015)}
-.sp-cta-title{
-  font-size:clamp(28px,4vw,56px);font-weight:700;
-  letter-spacing:-0.03em;line-height:1.1;margin-bottom:12px;
-}
-.sp-cta-sub{
-  font-size:clamp(14px,1.2vw,17px);font-weight:300;
-  color:var(--w60);margin-bottom:36px;
-}
-.sp-cta-link{
-  font-size:0.85rem;letter-spacing:0.15em;
-  color:rgba(255,255,255,0.35);
-  text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,0.2);
-  padding-bottom:2px;
-  transition:color .3s,border-color .3s;
-}
-.sp-cta-link:hover{color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.5)}
-
-@media(max-width:768px){
-  .service-panel{padding:32px 24px}
-  .sp-number{left:24px}
-}
-
-/* ═══════════════════════════════════════
-   FOUNDATION
-   ═══════════════════════════════════════ */
-.foundation{
-  min-height:100vh;background:#080808;
-  padding:120px 48px;position:relative;
-}
-.foundation-line{
-  position:absolute;top:0;left:0;right:0;
-  height:1px;background:rgba(255,255,255,0.1);
-  transform:scaleX(0);transform-origin:left;
-}
-.foundation-grid{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1.1fr 0.9fr;
-  gap:80px;align-items:center;
-}
-.fnd-label{
-  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
-  color:rgba(255,255,255,0.35);margin-bottom:24px;
-}
-.fnd-title{
-  font-size:clamp(32px,4vw,64px);font-weight:200;
-  letter-spacing:0.08em;line-height:1;
-  text-transform:uppercase;
-  color:var(--white);opacity:0.9;margin-bottom:24px;
-}
-.fnd-title .fnd-char{
-  display:inline-block;opacity:0;transform:translateY(40px);
-}
-.fnd-tagline{
-  font-size:1.2rem;color:var(--w60);line-height:1.6;
-  margin-bottom:28px;
-}
-.fnd-body{
-  font-size:0.95rem;color:rgba(255,255,255,0.45);
-  line-height:1.9;margin-bottom:32px;
-}
-.fnd-pills{
-  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;
-}
-.fnd-pill{
-  padding:5px 14px;border:1px solid var(--w20);
-  border-radius:20px;font-size:11px;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--w60);
-}
-.fnd-who-label{
-  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
-  color:rgba(255,255,255,0.35);margin-bottom:16px;
-}
-.fnd-who-list{
-  font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:2;
-  margin-bottom:28px;
-}
-.fnd-who-item{
-  opacity:0;transform:translateX(-20px);
-}
-.fnd-note{
-  font-size:11px;color:rgba(255,255,255,0.3);font-style:italic;
-}
-
-/* right column */
-.fnd-right{
-  display:flex;flex-direction:column;justify-content:center;
-}
-.fnd-quote{
-  font-size:clamp(18px,2.8vw,40px);font-weight:300;
-  font-style:italic;color:rgba(255,255,255,0.18);
-  line-height:1.3;margin-bottom:48px;
-}
-.fnd-cta-btn{
-  display:inline-block;
-  padding:1.1rem 3rem;
-  background:var(--white);color:var(--black);
-  border:1px solid var(--white);border-radius:0;
-  font-size:0.9rem;letter-spacing:0.1em;font-weight:500;
-  transition:background .3s,color .3s;
-  text-align:center;
-}
-.fnd-cta-btn:hover{background:transparent;color:var(--white)}
-.fnd-cta-note{
-  font-size:11px;color:rgba(255,255,255,0.3);margin-top:1rem;
-}
-
-@media(max-width:768px){
-  .foundation{padding:80px 2rem}
-  .foundation-grid{grid-template-columns:1fr;gap:48px}
-  .fnd-title{font-size:10vw}
-  .fnd-quote{font-size:5vw;display:none}
-  .fnd-cta-btn{width:100%;text-align:center}
-}
-
-/* ═══════════════════════════════════════
-   PORTFOLIO — CURTAIN REVEAL
-   ═══════════════════════════════════════ */
-.portfolio-item{
-  position:relative;height:100vh;min-height:500px;
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.pi-curtain-top,.pi-curtain-bottom{
-  position:absolute;left:0;right:0;z-index:3;
-  height:50%;background:var(--black);
-  will-change:transform;
-}
-.pi-curtain-top{top:0}
-.pi-curtain-bottom{bottom:0}
-.pi-curtain-top::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;
-  height:1px;background:var(--w08);
-}
-.pi-bg{
-  position:absolute;inset:0;z-index:1;
-  opacity:0.4;
-}
-.pi-bg-1{background:linear-gradient(135deg,#080808 0%,#0d0f11 50%,#060608 100%)}
-.pi-bg-2{background:linear-gradient(135deg,#050505 0%,#0a0d0f 50%,#070707 100%)}
-.pi-bg-3{background:linear-gradient(135deg,#090909 0%,#0c0e10 50%,#050507 100%)}
-
-.pi-content{
-  position:relative;z-index:2;text-align:center;
-  padding:0 24px;
-}
-.pi-label{
-  font-size:10px;letter-spacing:0.24em;text-transform:uppercase;
-  color:var(--pop);margin-bottom:12px;font-weight:500;
-}
-.pi-type{
-  font-size:clamp(12px,1vw,14px);
-  color:var(--w40);letter-spacing:0.08em;
-  text-transform:uppercase;margin-bottom:28px;
-}
-.pi-headline{
-  font-size:clamp(24px,3.5vw,52px);
-  font-weight:700;letter-spacing:-0.025em;
-  line-height:1.15;max-width:680px;margin:0 auto;
-}
-
-/* ═══════════════════════════════════════
-   ABOUT — TEXT REVEAL
-   ═══════════════════════════════════════ */
-.about{
-  padding:160px 48px;min-height:100vh;
-  display:flex;align-items:center;
-}
-.about-inner{max-width:900px;margin:0 auto;width:100%}
-.about-text{
-  font-size:clamp(24px,3.5vw,48px);
-  font-weight:700;line-height:1.4;
-  letter-spacing:-0.02em;
-  margin-bottom:80px;
-}
-.about-text .word{
-  display:inline-block;opacity:0.08;
-  transition:opacity .1s;
-  margin-right:0.25em;
-}
-.about-values{display:flex;flex-direction:column;gap:0}
-.about-val{
-  padding:24px 0 24px 28px;
-  border-left:1px solid var(--w12);
-  font-size:clamp(18px,2.2vw,32px);
-  font-weight:500;letter-spacing:-0.01em;
-  color:var(--w40);
-  opacity:0;transform:translateX(-20px);
-  transition:border-color .4s;
-}
-.about-val:hover{border-left-color:var(--white);color:var(--white)}
-@media(max-width:768px){
-  .about{padding:100px 24px}
-}
-
-/* ═══════════════════════════════════════
-   CONTACT
-   ═══════════════════════════════════════ */
-.contact{
-  min-height:100vh;display:flex;
-  align-items:center;justify-content:center;
-  text-align:center;padding:120px 24px;
-  position:relative;overflow:hidden;
-}
-.contact-flash{
-  position:absolute;inset:0;
-  background:#111;opacity:0;z-index:0;
-  pointer-events:none;
-}
-.contact-inner{position:relative;z-index:1}
-.contact-title{
-  font-size:clamp(36px,8vw,120px);font-weight:700;
-  letter-spacing:-0.04em;line-height:0.95;
-  text-transform:uppercase;margin-bottom:24px;
-}
-.contact-sub{
-  font-size:clamp(14px,1.4vw,18px);font-weight:300;
-  color:var(--w60);margin-bottom:56px;letter-spacing:0.02em;
-}
-.contact-phone{
-  display:inline-flex;align-items:center;gap:12px;
-  padding:20px 48px;
-  border:1px solid var(--w20);border-radius:80px;
-  font-size:clamp(16px,2vw,24px);font-weight:500;
-  letter-spacing:0.04em;
-  transition:background .4s,color .4s,border-color .4s;
-  margin-bottom:48px;
-}
-.contact-phone:hover{
-  background:var(--white);color:var(--black);
-  border-color:var(--white);
-}
-.contact-social{display:flex;gap:20px;justify-content:center}
-.contact-social a{
-  display:flex;align-items:center;justify-content:center;
-  width:48px;height:48px;border-radius:50%;
-  border:1px solid var(--w12);
-  color:var(--w60);
-  transition:border-color .3s,color .3s,transform .3s;
-}
-.contact-social a:hover{
-  border-color:var(--w40);color:var(--white);
-  transform:translateY(-3px);
-}
-.contact-social svg{width:18px;height:18px}
-
-/* ═══════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════ */
-.footer{
-  border-top:1px solid var(--w06);
-  padding:40px 48px;
-}
-.footer-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:16px;
-}
-.footer-legal{
-  font-size:11px;color:var(--w40);letter-spacing:0.02em;
-  line-height:1.8;
-}
-.footer-legal a{transition:color .2s}
-.footer-legal a:hover{color:var(--white)}
-.footer-right{
-  font-size:11px;color:rgba(255,255,255,0.25);
-  text-align:right;
-}
-@media(max-width:768px){
-  .footer{padding:32px 24px}
-  .footer-inner{flex-direction:column;align-items:flex-start}
-  .footer-right{text-align:left}
-}
-
-/* ═══════════════════════════════════════
-   UTILITY
-   ═══════════════════════════════════════ */
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
-</style>
+<title>Top of Mind — Marketing run by two people who show their work</title>
+<meta name="description" content="A two-person marketing studio in Cluj-Napoca. We research your market and your competitors before spending a euro of your budget. Paid ads, websites, social — whatever you sell."/>
+<link rel="stylesheet" href="assets/style.css"/>
 </head>
-<body>
+<body data-page="home">
 
-<!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
+<div class="veil show" id="veil"></div>
 
-<!-- ═══════════════ PRELOADER ═══════════════ -->
-<div class="preloader" id="preloader">
-  <div class="preloader-text" id="preloaderText" aria-hidden="true"></div>
-  <div class="preloader-pct" id="preloaderPct">0%</div>
-</div>
-
-<!-- ═══════════════ NAV ═══════════════ -->
-<nav class="nav" id="nav" role="navigation" aria-label="Navigation">
-  <a href="#hero" class="nav-logo">
-    <span class="bold">TOP OF</span>
-    <span class="light">MIND</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#servicii">Services</a></li>
-    <li><a href="#despre">About</a></li>
-    <li><a href="#foundation">Foundation</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <span class="nav-meta">Cluj-Napoca · 2026</span>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-mark"><span class="dot"></span>Top of Mind</a>
+  <div class="nav-links">
+    <a href="index.html" data-page="home">Home</a>
+    <a href="services.html" data-page="services">Services</a>
+    <a href="process.html" data-page="process">Process</a>
+    <a href="industries.html" data-page="industries">Industries</a>
+    <a href="team.html" data-page="team">Team</a>
+    <a href="contact.html" data-page="contact">Contact</a>
+  </div>
+  <a href="https://calendly.com/huianiuliann/30min" target="_blank" rel="noopener" class="nav-cta">Book a call</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile" id="navMobile">
-  <a href="#hero">Home</a>
-  <a href="#servicii">Services</a>
-  <a href="#despre">About</a>
-  <a href="#foundation">Foundation</a>
-  <a href="#contact">Contact</a>
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="process.html">Process</a>
+  <a href="industries.html">Industries</a>
+  <a href="team.html">Team</a>
+  <a href="contact.html">Contact</a>
+  <a href="https://calendly.com/huianiuliann/30min" target="_blank" rel="noopener" class="nav-mobile-cta">Book a 30-min call →</a>
 </div>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<section class="hero" id="hero" aria-label="Hero">
-  <canvas id="hero-canvas"></canvas>
-  <div class="hero-content">
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-spot"></div>
+  <div class="wrap hero-inner">
+    <p class="hero-kicker">Cluj-Napoca · a two-person studio</p>
     <h1 class="hero-title">
-      <span class="hero-line"><span class="hero-line-inner">Be</span></span>
-      <span class="hero-line"><span class="hero-line-inner">Top Of</span></span>
-      <span class="hero-line stroke-line"><span class="hero-line-inner">Mind.</span></span>
+      <span class="hero-line"><span class="hero-line-inner">We research your market</span></span>
+      <span class="hero-line"><span class="hero-line-inner">before we touch <em>a euro</em></span></span>
+      <span class="hero-line"><span class="hero-line-inner">of your budget.</span></span>
     </h1>
-    <p class="hero-subtitle" id="heroSub">Industrial marketing. Real results.</p>
-  </div>
-  <div class="hero-scroll-indicator" id="heroScroll">
-    <div class="hero-scroll-line"></div>
-    <span class="hero-scroll-word">Scroll</span>
+    <div class="hero-foot">
+      <p>Most agencies open with a template. We open with your industry, your competitors, and what's actually getting them attention — then build you something sharper.</p>
+      <div>
+        <div class="col-label">Who we work with</div>
+        <div class="col-val">Manufacturers to consumer brands. If you sell something, we'll research it.</div>
+      </div>
+      <div>
+        <div class="col-label">Start here</div>
+        <a href="https://calendly.com/huianiuliann/30min" target="_blank" rel="noopener" class="btn btn-solid" data-magnetic style="margin-bottom:12px">Book a free 30-min call</a>
+        <div class="col-val" style="opacity:.5;font-size:.8125rem">No pitch deck. Just a conversation.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- INDUSTRY TICKER (fixed, direct child of body) -->
-<div class="hero-industries" aria-hidden="true">
-  <div class="hero-ind-label">Industries</div>
-  <div class="hero-ind-ticker" id="heroTicker">
-    <span class="active">Construction</span>
-    <span>Metal</span>
-    <span>Manufacturing</span>
-    <span>Industry</span>
-  </div>
-</div>
-
-<!-- ═══════════════ MARQUEE ═══════════════ -->
+<!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track" id="marqueeTrack">
-    <!-- filled by JS -->
+  <div class="marquee-track">
+    <div class="marquee-item">PAID ADVERTISING <i>·</i> WEBSITES <i>·</i> SOCIAL MEDIA <i>·</i> LEAD GENERATION <i>·</i> RESEARCH FIRST, ALWAYS <i>·</i> </div>
+    <div class="marquee-item">PAID ADVERTISING <i>·</i> WEBSITES <i>·</i> SOCIAL MEDIA <i>·</i> LEAD GENERATION <i>·</i> RESEARCH FIRST, ALWAYS <i>·</i> </div>
   </div>
 </div>
 
-<!-- ═══════════════ SERVICES (horizontal scroll) ═══════════════ -->
-<section class="services" id="servicii" aria-label="Services">
-  <div class="services-track" id="servicesTrack">
-
-    <div class="service-panel">
-      <div class="sp-number" data-count="1">01</div>
-      <div class="sp-body">
-        <div class="sp-icon">
-          <div class="sp-icon-ring"></div>
-          <div class="sp-icon-inner">
-            <span class="sp-icon-bar" style="width:16px;height:2px;display:block;margin-bottom:4px"></span>
-            <span class="sp-icon-bar" style="width:12px;height:2px;display:block;margin-bottom:4px"></span>
-            <span class="sp-icon-bar" style="width:20px;height:2px;display:block"></span>
-          </div>
-        </div>
-        <div class="sp-label">Service 01</div>
-        <h2 class="sp-title">Paid Ads</h2>
-        <p class="sp-desc">Every campaign is built around your sales cycle, not a standard brief.</p>
-      </div>
-    </div>
-
-    <div class="service-panel">
-      <div class="sp-number" data-count="2">02</div>
-      <div class="sp-body">
-        <div class="sp-icon">
-          <div class="sp-icon-ring"></div>
-          <div class="sp-icon-inner">
-            <span class="sp-icon-bar" style="width:18px;height:18px;display:block;border:1.5px solid rgba(255,255,255,0.6);border-radius:50%"></span>
-          </div>
-        </div>
-        <div class="sp-label">Service 02</div>
-        <h2 class="sp-title">Website &amp; SEO</h2>
-        <p class="sp-desc">A website that speaks your industrial client's language, not the designer's.</p>
-      </div>
-    </div>
-
-    <div class="service-panel">
-      <div class="sp-number" data-count="3">03</div>
-      <div class="sp-body">
-        <div class="sp-icon">
-          <div class="sp-icon-ring"></div>
-          <div class="sp-icon-inner">
-            <span class="sp-icon-bar" style="width:6px;height:6px;display:inline-block;background:var(--w60);border-radius:1px;margin:1px"></span>
-            <span class="sp-icon-bar" style="width:6px;height:6px;display:inline-block;background:var(--w60);border-radius:1px;margin:1px"></span>
-            <br/>
-            <span class="sp-icon-bar" style="width:6px;height:6px;display:inline-block;background:var(--w60);border-radius:1px;margin:1px"></span>
-            <span class="sp-icon-bar" style="width:6px;height:6px;display:inline-block;background:var(--w60);border-radius:1px;margin:1px"></span>
-          </div>
-        </div>
-        <div class="sp-label">Service 03</div>
-        <h2 class="sp-title">Social Media</h2>
-        <p class="sp-desc">Content that shows you know your craft — because your clients check before they call.</p>
-      </div>
-    </div>
-
-    <div class="service-panel">
-      <div class="sp-number" data-count="4">04</div>
-      <div class="sp-body">
-        <div class="sp-icon">
-          <div class="sp-icon-ring"></div>
-          <div class="sp-icon-inner">
-            <span class="sp-icon-bar" style="width:2px;height:16px;display:block;margin:0 auto"></span>
-            <span class="sp-icon-bar" style="width:10px;height:2px;display:block;margin:-9px auto 0;transform:rotate(45deg)"></span>
-          </div>
-        </div>
-        <div class="sp-label">Service 04</div>
-        <h2 class="sp-title">Lead Generation</h2>
-        <p class="sp-desc">We find the real decision-maker in the company, not the receptionist.</p>
-      </div>
-    </div>
-
-    <div class="service-panel sp-cta">
-      <div class="sp-number" data-count="5">05</div>
-      <div class="sp-body">
-        <h2 class="sp-cta-title">Just starting out?</h2>
-        <p class="sp-cta-sub">There's a different path for you.</p>
-        <a href="#foundation" class="sp-cta-link" id="foundationLink">Discover Foundation ↓</a>
-      </div>
-    </div>
-
-  </div>
-  <div class="services-progress"><div class="services-progress-bar" id="servicesProgressBar"></div></div>
-</section>
-
-<!-- ═══════════════ PORTFOLIO ═══════════════ -->
-<section id="portofoliu" aria-label="Portfolio">
-
-  <div class="portfolio-item" data-case="1">
-    <div class="pi-curtain-top"></div>
-    <div class="pi-curtain-bottom"></div>
-    <div class="pi-bg pi-bg-1"></div>
-    <div class="pi-content">
-      <div class="pi-label">Construction</div>
-      <div class="pi-type">Website + Meta Ads</div>
-      <h3 class="pi-headline">From zero online presence to the first client acquired digitally.</h3>
-    </div>
-  </div>
-
-  <div class="portfolio-item" data-case="2">
-    <div class="pi-curtain-top"></div>
-    <div class="pi-curtain-bottom"></div>
-    <div class="pi-bg pi-bg-2"></div>
-    <div class="pi-content">
-      <div class="pi-label">Metal Fabrication</div>
-      <div class="pi-type">Social Media + Website</div>
-      <h3 class="pi-headline">A B2B manufacturer now receiving quote requests without making the first call.</h3>
-    </div>
-  </div>
-
-  <div class="portfolio-item" data-case="3">
-    <div class="pi-curtain-top"></div>
-    <div class="pi-curtain-bottom"></div>
-    <div class="pi-bg pi-bg-3"></div>
-    <div class="pi-content">
-      <div class="pi-label">Building Materials</div>
-      <div class="pi-type">Paid Ads + Lead Gen</div>
-      <h3 class="pi-headline">Campaigns built around seasonality and available stock, not a template.</h3>
-    </div>
-  </div>
-
-</section>
-
-<!-- ═══════════════ FOUNDATION ═══════════════ -->
-<section class="foundation" id="foundation" aria-label="Foundation">
-  <div class="foundation-line" id="foundationLine"></div>
-  <div class="foundation-grid">
-    <div class="fnd-left">
-      <div class="fnd-label" id="fndLabel">Top of Mind — Initiative</div>
-      <h2 class="fnd-title" id="fndTitle">Foundation</h2>
-      <p class="fnd-tagline" id="fndTagline">We build your marketing from zero.<br>You focus on building your business.</p>
-      <p class="fnd-body" id="fndBody">Foundation is our give-back program for early-stage industrial startups. We handle everything — website, ads, social media — until you land your first 5 clients. No retainer. No long-term contract. After the 5 clients, we continue on a percentage of what we generate together.</p>
-      <div class="fnd-pills" id="fndPills">
-        <span class="fnd-pill">Website</span>
-        <span class="fnd-pill">Paid Ads</span>
-        <span class="fnd-pill">Social Media</span>
-      </div>
-      <div class="fnd-who-label">Who is this for?</div>
-      <div class="fnd-who-list" id="fndWhoList">
-        <div class="fnd-who-item">— Industrial startups: construction, metal, manufacturing, materials, automotive</div>
-        <div class="fnd-who-item">— You know exactly who your customer is and why they'd buy from you</div>
-        <div class="fnd-who-item">— You're actively building — this isn't a side project</div>
-        <div class="fnd-who-item">— No active marketing agency or dedicated marketing budget</div>
-      </div>
-      <p class="fnd-note">We accept 1 startup every 2 months. Every application is reviewed personally.</p>
-    </div>
-    <div class="fnd-right" id="fndRight">
-      <p class="fnd-quote">Every industrial company you admire today started with zero clients.</p>
-      <a href="https://forms.gle/EsrN5MCVY2VVARbH9" class="fnd-cta-btn" target="_blank" rel="noopener noreferrer">Apply for Foundation →</a>
-      <p class="fnd-cta-note">We'll get back to you within 3 business days.</p>
+<!-- ============ PROBLEM (paper break) ============ -->
+<section class="paper-break pad">
+  <div class="ghost-num">01</div>
+  <div class="wrap" data-reveal>
+    <div class="statement" data-rev-item>
+      <h2>You've paid an agency before. You know how <em>that</em> story ends.</h2>
+      <p class="lede">A kickoff call full of promises. A monthly report full of numbers nobody explains. A strategy that reads like it was written for any business — because it was. We built Top of Mind to work the opposite way: research first, spend second.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ ABOUT ═══════════════ -->
-<section class="about" id="despre" aria-label="About us">
-  <div class="about-inner">
-    <div class="about-text" id="aboutText">
-      Industrial marketing needs a different language. We understand how people in manufacturing and construction think. We know how to put them on their clients' radar.
+<!-- ============ PROCESS TEASER ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:12px;flex-wrap:wrap">
+      <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,2.6vw + 1rem,3.2rem);letter-spacing:-0.02em">Three steps.<br>No shortcuts.</h2>
+      <a href="process.html" class="tag" style="border-bottom:1px solid currentColor;padding-bottom:2px">See the full process →</a>
     </div>
-    <div class="about-values">
-      <div class="about-val">Clarity</div>
-      <div class="about-val">Measurable Results</div>
-      <div class="about-val">Direct Communication</div>
-      <div class="about-val">Long-term Partnership</div>
+    <div class="proc-list" data-reveal>
+      <div class="proc-row" data-rev-item>
+        <span class="proc-num">01</span>
+        <div><h3 class="proc-h">Research the market</h3><p class="proc-p">What your customers actually care about, before a single ad gets written.</p></div>
+      </div>
+      <div class="proc-row" data-rev-item>
+        <span class="proc-num">02</span>
+        <div><h3 class="proc-h">Map the competition</h3><p class="proc-p">Whoever's already winning attention in your space — taken apart and understood.</p></div>
+      </div>
+      <div class="proc-row" data-rev-item>
+        <span class="proc-num">03</span>
+        <div><h3 class="proc-h">Build you a sharper position</h3><p class="proc-p">What's proven, sharpened, plus what's missing — so you're the name they remember.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ CONTACT ═══════════════ -->
-<section class="contact" id="contact" aria-label="Contact">
-  <div class="contact-flash" id="contactFlash"></div>
-  <div class="contact-inner">
-    <h2 class="contact-title">Let's<br>Talk</h2>
-    <p class="contact-sub">Tell us about your business.</p>
-    <div>
-      <a href="tel:+40756883206" class="contact-phone">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        0756 883 206
+<!-- ============ SERVICES TEASER (paper break, cut top) ============ -->
+<section class="paper-break cut-top pad" style="padding-top:calc(clamp(72px,11vw,140px) + 48px)">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:36px;flex-wrap:wrap">
+      <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,2.6vw + 1rem,3.2rem);letter-spacing:-0.02em">What we<br>actually do</h2>
+      <a href="services.html" class="tag" style="border-bottom:1px solid currentColor;padding-bottom:2px">See all services →</a>
+    </div>
+  </div>
+  <div class="svc-strip" data-reveal>
+    <div class="svc-cell" data-rev-item><span class="n">01</span><div><h3>Paid advertising</h3><p>Meta and Google campaigns built around how your customers actually buy.</p></div></div>
+    <div class="svc-cell" data-rev-item><span class="n">02</span><div><h3>Websites &amp; SEO</h3><p>A site that speaks your customer's language and is built to convert.</p></div></div>
+    <div class="svc-cell" data-rev-item><span class="n">03</span><div><h3>Social media</h3><p>Content that shows you know your craft, because people check first.</p></div></div>
+    <div class="svc-cell" data-rev-item><span class="n">04</span><div><h3>Lead generation</h3><p>Your offer in front of people who are actually ready to decide.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ INDUSTRIES TEASER ============ -->
+<section class="pad cut-bottom" style="padding-bottom:calc(clamp(72px,11vw,140px) + 24px)">
+  <div class="wrap">
+    <div style="margin-bottom:36px">
+      <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,2.6vw + 1rem,3.2rem);letter-spacing:-0.02em">Whoever you sell to, <em style="font-family:var(--serif);font-style:italic;font-weight:400">we've done the homework.</em></h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="grid-varied" data-reveal>
+      <div class="cell big" data-rev-item data-goto="industries.html"><span class="n">01</span><div><h3>Industrial &amp; manufacturing</h3><p>Long sales cycles, technical buyers, decisions made on trust and proof.</p></div></div>
+      <div class="cell" data-rev-item data-goto="industries.html"><span class="n">02</span><div><h3>Retail &amp; e-commerce</h3><p>Won or lost across three open tabs.</p></div></div>
+      <div class="cell" data-rev-item data-goto="industries.html"><span class="n">03</span><div><h3>Consumer brands</h3><p>Fashion, beauty, food — decided on feel.</p></div></div>
+      <div class="cell big" data-rev-item data-goto="industries.html"><span class="n">04</span><div><h3>Something else</h3><p>Tell us what you sell — that's step one anyway. Figuring out what moves your specific customer is step one of our process regardless.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW WE WORK (ink) ============ -->
+<section class="pad">
+  <div class="wrap" data-reveal>
+    <div class="statement" data-rev-item>
+      <h2>Built to be <em>low-risk</em> to try.</h2>
+      <p class="lede">We're a young studio. No long lock-in contracts, a pricing model with a per-lead component tied to results, plain-language reporting, and direct access to the two of us — never a junior relaying your notes.</p>
+    </div>
+    <div class="mt-lg" data-rev-item>
+      <p class="quote">"We'd rather be honest about being new than pretend to be something we're not."<cite>— Iulian, co-founder</cite></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM TEASER (paper break) ============ -->
+<section class="paper-break pad cut-top" style="padding-top:calc(clamp(72px,11vw,140px) + 48px)">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap">
+      <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,2.6vw + 1rem,3.2rem);letter-spacing:-0.02em">Who you'd<br>work with</h2>
+      <a href="team.html" class="tag" style="border-bottom:1px solid currentColor;padding-bottom:2px">Meet the full team →</a>
+    </div>
+    <div class="team-row" data-reveal>
+      <a href="team.html" class="team-card" data-rev-item>
+        <div class="team-ring"><img src="assets/img/iulian.jpg" alt="Iulian, co-founder"/></div>
+        <div><h3>Iulian Huian</h3><p class="role">CEO — Strategy &amp; paid media</p><p>Runs every account's Meta and Google Ads.</p></div>
       </a>
-    </div>
-    <div class="contact-social">
-      <a href="https://www.instagram.com/huianiulian/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <a href="https://ro-ro.facebook.com/people/Iulian-Huian/pfbid02QQgDenaswqaTxAnmcpqc2Xb3MSou3RKDtQCwrNJgK1XDHrcLtYeqv8xj12n3debFl/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a href="https://wa.me/40756883206" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <a href="team.html" class="team-card" data-rev-item>
+        <div class="team-ring"><img src="assets/img/sebi.jpg" alt="Sebastian Răzeșu, co-founder"/></div>
+        <div><h3>Sebastian Răzeșu</h3><p class="role">CTO — Websites &amp; web analytics</p><p>Builds and tracks every client website.</p></div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<footer class="footer" aria-label="Footer">
-  <div class="footer-inner">
-    <div class="footer-legal">
-      TOM BUREAU SRL &nbsp;·&nbsp; CUI: 54043345 &nbsp;·&nbsp; J26/2046/2026 &nbsp;·&nbsp; Cluj-Napoca<br>
-      <a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Cookie Policy</a>
-    </div>
-    <div class="footer-right">
-      © 2026 Top of Mind. All rights reserved.
-    </div>
+<!-- ============ FINAL CTA ============ -->
+<section class="pad center">
+  <div class="wrap">
+    <p class="tag" style="margin-bottom:20px">Let's talk</p>
+    <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,4.6vw + 1rem,5rem);letter-spacing:-0.02em;line-height:1.02;margin-bottom:40px">Tell us what you sell.<br>We'll tell you <em style="font-family:var(--serif);font-style:italic;font-weight:400">honestly</em><br>if we're the right fit.</h2>
+    <a href="https://calendly.com/huianiuliann/30min" target="_blank" rel="noopener" class="btn btn-solid" data-magnetic style="font-size:1.0625rem;padding:20px 38px">Book a free 30-minute call →</a>
+    <p style="margin-top:24px;opacity:.5;font-size:.875rem">No pitch deck. No pressure.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>TOM BUREAU SRL · CUI 54043345 · Cluj-Napoca</span>
+    <span><a href="contact.html">Contact</a> &nbsp;·&nbsp; © 2026 Top of Mind</span>
   </div>
 </footer>
 
-<!-- ═══════════════ SCRIPTS ═══════════════ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-(function(){
-"use strict";
-
-gsap.registerPlugin(ScrollTrigger);
-
-/* ═══════════════════════════════════════
-   CUSTOM CURSOR
-   ═══════════════════════════════════════ */
-const cursor = document.getElementById('cursor');
-let cx = -100, cy = -100;
-document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
-
-function renderCursor() {
-  cursor.style.left = cx + 'px';
-  cursor.style.top = cy + 'px';
-  requestAnimationFrame(renderCursor);
-}
-renderCursor();
-
-const interactiveEls = 'a, button, .contact-phone, .service-panel, .about-val';
-document.addEventListener('mouseover', e => {
-  if (e.target.closest(interactiveEls)) cursor.classList.add('active');
-});
-document.addEventListener('mouseout', e => {
-  if (e.target.closest(interactiveEls)) cursor.classList.remove('active');
-});
-
-// hide custom cursor on touch devices
-if ('ontouchstart' in window) cursor.style.display = 'none';
-
-/* ═══════════════════════════════════════
-   PRELOADER
-   ═══════════════════════════════════════ */
-const preloader = document.getElementById('preloader');
-const preloaderText = document.getElementById('preloaderText');
-const preloaderPct = document.getElementById('preloaderPct');
-
-const letters = 'TOPOFMIND'.split('');
-letters.forEach(l => {
-  const s = document.createElement('span');
-  s.textContent = l;
-  preloaderText.appendChild(s);
-});
-
-// space between words
-preloaderText.children[3].style.marginLeft = '0.25em';
-preloaderText.children[5].style.marginLeft = '0.25em';
-
-const plSpans = preloaderText.querySelectorAll('span');
-
-const plTl = gsap.timeline({
-  onComplete: () => {
-    gsap.to(preloader, {
-      yPercent: -100, duration: 0.8,
-      ease: 'power3.inOut',
-      onComplete: () => {
-        preloader.style.display = 'none';
-        startHeroAnimations();
-      }
-    });
-  }
-});
-
-// letter reveal
-plTl.to(plSpans, {
-  y: 0, opacity: 1,
-  duration: 0.6, stagger: 0.05,
-  ease: 'power3.out'
-}, 0);
-
-// counter
-let pctObj = { val: 0 };
-plTl.to(pctObj, {
-  val: 100, duration: 1.6, ease: 'power2.inOut',
-  onUpdate: () => { preloaderPct.textContent = Math.round(pctObj.val) + '%'; }
-}, 0);
-
-plTl.to({}, { duration: 0.3 }); // brief pause before slide up
-
-/* ═══════════════════════════════════════
-   THREE.JS HERO
-   ═══════════════════════════════════════ */
-const canvas = document.getElementById('hero-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(window.innerWidth, window.innerHeight);
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.z = 8;
-
-const shapes = [];
-const geos = [
-  new THREE.IcosahedronGeometry(1, 0),
-  new THREE.OctahedronGeometry(0.9, 0),
-  new THREE.TetrahedronGeometry(0.7, 0),
-  new THREE.IcosahedronGeometry(0.6, 0),
-  new THREE.OctahedronGeometry(0.5, 0),
-];
-const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.12 });
-
-for (let i = 0; i < geos.length; i++) {
-  const mesh = new THREE.Mesh(geos[i], mat.clone());
-  mesh.position.set(
-    (Math.random() - 0.5) * 12,
-    (Math.random() - 0.5) * 6,
-    (Math.random() - 0.5) * 6 - 2
-  );
-  mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-  mesh.userData = {
-    rotSpeedX: (Math.random() - 0.5) * 0.004,
-    rotSpeedY: (Math.random() - 0.5) * 0.006,
-    baseY: mesh.position.y
-  };
-  scene.add(mesh);
-  shapes.push(mesh);
-}
-
-let scrollY = 0;
-window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
-
-function animateThree() {
-  requestAnimationFrame(animateThree);
-  const heroH = window.innerHeight;
-  const progress = Math.min(scrollY / heroH, 1);
-
-  shapes.forEach((m, i) => {
-    m.rotation.x += m.userData.rotSpeedX;
-    m.rotation.y += m.userData.rotSpeedY;
-    m.position.y = m.userData.baseY + progress * 3;
-    m.material.opacity = 0.12 * (1 - progress);
-  });
-
-  renderer.render(scene, camera);
-}
-animateThree();
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-/* ═══════════════════════════════════════
-   HERO ANIMATIONS
-   ═══════════════════════════════════════ */
-function startHeroAnimations() {
-  const lines = document.querySelectorAll('.hero-line-inner');
-  const tl = gsap.timeline();
-
-  tl.to(lines[0], { y: 0, duration: 0.9, ease: 'power3.out' })
-    .to(lines[1], { y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.55')
-    .to(lines[2], { y: 0, duration: 1, ease: 'power3.out' }, '-=0.5')
-    .to('#heroSub', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.4')
-    .to('#heroScroll', { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4');
-}
-
-/* ═══════════════════════════════════════
-   INDUSTRY TICKER
-   ═══════════════════════════════════════ */
-const tickerItems = document.querySelectorAll('#heroTicker span');
-let tickerIdx = 0;
-
-setInterval(() => {
-  tickerItems[tickerIdx].classList.remove('active');
-  tickerItems[tickerIdx].classList.add('exit');
-  setTimeout(() => { tickerItems[tickerIdx].classList.remove('exit'); }, 500);
-
-  tickerIdx = (tickerIdx + 1) % tickerItems.length;
-  tickerItems[tickerIdx].classList.add('active');
-}, 2200);
-
-/* hide ticker after hero */
-gsap.to('.hero-industries', {
-  opacity: 0, pointerEvents: 'none',
-  scrollTrigger: {
-    trigger: '.hero',
-    start: 'bottom 80%',
-    end: 'bottom 30%',
-    scrub: true
-  }
-});
-
-/* ═══════════════════════════════════════
-   NAV SCROLL EFFECT + MOBILE MENU
-   ═══════════════════════════════════════ */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-const navToggle = document.getElementById('navToggle');
-const navMobile = document.getElementById('navMobile');
-navToggle.addEventListener('click', () => {
-  const open = navMobile.classList.toggle('open');
-  navToggle.classList.toggle('open', open);
-  navToggle.setAttribute('aria-expanded', open);
-});
-navMobile.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navMobile.classList.remove('open');
-    navToggle.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  });
-});
-
-/* ═══════════════════════════════════════
-   MARQUEE
-   ═══════════════════════════════════════ */
-const marqueeTrack = document.getElementById('marqueeTrack');
-const marqueeContent = 'PAID ADS <span class="dot">•</span> WEBSITE & SEO <span class="dot">•</span> SOCIAL MEDIA <span class="dot">•</span> LEAD GENERATION <span class="dot">•</span> DIGITAL STRATEGY <span class="dot">•</span> INDUSTRIAL MARKETING <span class="dot">•</span> ';
-for (let i = 0; i < 4; i++) {
-  const div = document.createElement('div');
-  div.className = 'marquee-item';
-  div.innerHTML = marqueeContent;
-  marqueeTrack.appendChild(div);
-}
-
-/* ═══════════════════════════════════════
-   SERVICES — HORIZONTAL SCROLL
-   ═══════════════════════════════════════ */
-const servicesTrack = document.getElementById('servicesTrack');
-const progressBar = document.getElementById('servicesProgressBar');
-
-const hScroll = gsap.to(servicesTrack, {
-  x: () => -(servicesTrack.scrollWidth - window.innerWidth),
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '.services',
-    pin: true,
-    scrub: 1,
-    end: () => '+=' + servicesTrack.scrollWidth,
-    onUpdate: self => {
-      progressBar.style.width = (self.progress * 100) + '%';
-    }
-  }
-});
-
-/* ═══════════════════════════════════════
-   PORTFOLIO — CURTAIN REVEAL
-   ═══════════════════════════════════════ */
-document.querySelectorAll('.portfolio-item').forEach(item => {
-  const top = item.querySelector('.pi-curtain-top');
-  const bot = item.querySelector('.pi-curtain-bottom');
-
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: item,
-      start: 'top 70%',
-      end: 'top 20%',
-      scrub: 1,
-    }
-  })
-  .to(top, { yPercent: -100, ease: 'none' }, 0)
-  .to(bot, { yPercent: 100, ease: 'none' }, 0);
-});
-
-/* ═══════════════════════════════════════
-   FOUNDATION ANIMATIONS
-   ═══════════════════════════════════════ */
-// separator line
-gsap.to('#foundationLine', {
-  scaleX: 1, duration: 0.8, ease: 'power3.out',
-  scrollTrigger: { trigger: '#foundation', start: 'top 85%', toggleActions: 'play none none none' }
-});
-
-// label
-gsap.from('#fndLabel', {
-  opacity: 0, y: 10, duration: 0.6, ease: 'power3.out',
-  scrollTrigger: { trigger: '#foundation', start: 'top 75%', toggleActions: 'play none none none' }
-});
-
-// title — split into chars
-const fndTitle = document.getElementById('fndTitle');
-const fndTitleText = fndTitle.textContent;
-fndTitle.innerHTML = '';
-fndTitleText.split('').forEach(ch => {
-  const span = document.createElement('span');
-  span.className = 'fnd-char';
-  span.textContent = ch === ' ' ? '\u00A0' : ch;
-  fndTitle.appendChild(span);
-});
-gsap.to('.fnd-char', {
-  y: 0, opacity: 1, duration: 0.6, stagger: 0.04, ease: 'power3.out',
-  scrollTrigger: { trigger: '#foundation', start: 'top 70%', toggleActions: 'play none none none' }
-});
-
-// tagline + body
-gsap.from('#fndTagline', {
-  opacity: 0, y: 30, duration: 0.7, ease: 'power3.out',
-  scrollTrigger: { trigger: '#fndTagline', start: 'top 85%', toggleActions: 'play none none none' }
-});
-gsap.from('#fndBody', {
-  opacity: 0, y: 30, duration: 0.7, delay: 0.12, ease: 'power3.out',
-  scrollTrigger: { trigger: '#fndBody', start: 'top 85%', toggleActions: 'play none none none' }
-});
-
-// pills
-gsap.from('.fnd-pill', {
-  opacity: 0, scale: 0.9, duration: 0.5, stagger: 0.08, ease: 'power3.out',
-  scrollTrigger: { trigger: '#fndPills', start: 'top 85%', toggleActions: 'play none none none' }
-});
-
-// who is this for items
-gsap.to('.fnd-who-item', {
-  opacity: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out',
-  scrollTrigger: { trigger: '#fndWhoList', start: 'top 85%', toggleActions: 'play none none none' }
-});
-
-// right column
-gsap.from('#fndRight', {
-  opacity: 0, y: 40, duration: 0.8, delay: 0.3, ease: 'power3.out',
-  scrollTrigger: { trigger: '#foundation', start: 'top 65%', toggleActions: 'play none none none' }
-});
-
-// 5th panel CTA scroll to foundation
-document.getElementById('foundationLink').addEventListener('click', function(e) {
-  e.preventDefault();
-  document.getElementById('foundation').scrollIntoView({ behavior: 'smooth' });
-});
-
-/* ═══════════════════════════════════════
-   ABOUT — WORD REVEAL
-   ═══════════════════════════════════════ */
-const aboutText = document.getElementById('aboutText');
-const rawText = aboutText.textContent.trim();
-aboutText.innerHTML = '';
-const words = rawText.split(/\s+/);
-words.forEach(w => {
-  const span = document.createElement('span');
-  span.className = 'word';
-  span.textContent = w;
-  aboutText.appendChild(span);
-});
-
-const wordEls = aboutText.querySelectorAll('.word');
-
-gsap.to(wordEls, {
-  opacity: 1,
-  stagger: 0.04,
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '.about',
-    start: 'top 70%',
-    end: 'top 10%',
-    scrub: 1,
-  }
-});
-
-/* About values stagger */
-gsap.to('.about-val', {
-  opacity: 1, x: 0,
-  duration: 0.7,
-  stagger: 0.15,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.about-values',
-    start: 'top 80%',
-    toggleActions: 'play none none none'
-  }
-});
-
-/* ═══════════════════════════════════════
-   CONTACT — FLASH EFFECT
-   ═══════════════════════════════════════ */
-const contactFlash = document.getElementById('contactFlash');
-
-ScrollTrigger.create({
-  trigger: '.contact',
-  start: 'top 80%',
-  onEnter: () => {
-    gsap.to(contactFlash, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: 'power2.in' });
-  },
-  once: true
-});
-
-// Animate contact elements
-gsap.from('.contact-title', {
-  y: 60, opacity: 0, duration: 1, ease: 'power3.out',
-  scrollTrigger: { trigger: '.contact', start: 'top 60%', toggleActions: 'play none none none' }
-});
-gsap.from('.contact-sub', {
-  y: 30, opacity: 0, duration: 0.8, delay: 0.2, ease: 'power3.out',
-  scrollTrigger: { trigger: '.contact', start: 'top 60%', toggleActions: 'play none none none' }
-});
-gsap.from('.contact-phone', {
-  y: 20, opacity: 0, duration: 0.7, delay: 0.4, ease: 'power3.out',
-  scrollTrigger: { trigger: '.contact', start: 'top 60%', toggleActions: 'play none none none' }
-});
-gsap.from('.contact-social', {
-  y: 20, opacity: 0, duration: 0.6, delay: 0.5, ease: 'power3.out',
-  scrollTrigger: { trigger: '.contact', start: 'top 60%', toggleActions: 'play none none none' }
-});
-
-/* ═══════════════════════════════════════
-   SMOOTH SCROLL FOR ANCHOR LINKS
-   ═══════════════════════════════════════ */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
-    if (href === '#') return;
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-})();
-</script>
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/main.js"></script>
 </body>
 </html>
