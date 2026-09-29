@@ -53,6 +53,7 @@
   --btn-bg-hover: #4f46e5;
   --btn-text: #fff;
   --header-h: 56px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --font-head: "Bricolage", "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color-scheme: dark;
@@ -144,7 +145,7 @@ a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  transition: color 150ms ease;
+  transition: color 150ms ease, text-decoration-color 150ms ease, text-underline-offset 150ms var(--ease);
 }
 a:hover {
   color: var(--accent-hover);
@@ -277,27 +278,27 @@ img {
   width: 8px;
   height: 8px;
   background: var(--accent);
+  transition: rotate 200ms var(--ease);
 }
 .wordmark:hover {
   color: var(--text);
 }
+/* Mobile menu: native popover (popovertarget). Box in both states so it fades out;
+   :where() yields to the desktop reset. */
 .site-nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  order: 3;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border-strong);
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 150ms ease, visibility 0s linear 150ms;
+  order: 3; /* in-flow list where popover is unsupported */
+  flex-basis: 100%;
 }
-html:not(.js) .site-nav:target,
-.site-nav.is-open {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 150ms ease;
+:where(.site-nav[popover]) {
+  inset: calc(var(--header-h) + 1px) 0 auto;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border-width: 0 0 1px;
+  border-color: var(--border-strong);
+  background: var(--bg);
+  color: inherit;
+  transition: opacity 150ms ease, translate 200ms var(--ease), overlay 200ms allow-discrete, display 200ms allow-discrete;
 }
 .site-nav__list {
   max-width: 1120px;
@@ -335,11 +336,7 @@ html:not(.js) .site-nav:target,
   border: 0;
   font: inherit;
   font-weight: 700;
-  text-decoration: none;
   cursor: pointer;
-}
-.menu-toggle:hover {
-  color: var(--text);
 }
 .menu-toggle__icon {
   display: block;
@@ -348,8 +345,10 @@ html:not(.js) .site-nav:target,
   position: relative;
   border-top: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
+  transition: border-color 150ms ease;
 }
-.menu-toggle__icon::before {
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
   content: "";
   position: absolute;
   left: 0;
@@ -357,6 +356,16 @@ html:not(.js) .site-nav:target,
   top: 4px;
   height: 2px;
   background: currentColor;
+  transition: rotate 200ms var(--ease);
+}
+.site-header:has(:popover-open) .menu-toggle__icon {
+  border-color: transparent;
+}
+.site-header:has(:popover-open) .menu-toggle__icon::before {
+  rotate: 45deg;
+}
+.site-header:has(:popover-open) .menu-toggle__icon::after {
+  rotate: -45deg;
 }
 .menu-toggle__label {
   position: absolute;
@@ -392,7 +401,7 @@ html:not(.js) .site-nav:target,
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, translate 150ms var(--ease), scale 80ms ease;
 }
 .btn:hover {
   background: var(--btn-bg-hover);
@@ -586,6 +595,7 @@ html:not(.js) .site-nav:target,
 .mode {
   padding-left: 16px;
   border-left: 2px solid var(--border-strong);
+  transition: border-left-color 200ms ease;
 }
 .mode:target {
   border-left-color: var(--accent);
@@ -626,6 +636,7 @@ html:not(.js) .site-nav:target,
 }
 .faq__item {
   border-top: 1px solid var(--border);
+  interpolate-size: allow-keywords;
 }
 .faq__item summary {
   display: flex;
@@ -775,7 +786,7 @@ html:not(.js) .site-nav:target,
   box-shadow: 0 -8px 32px rgb(0 0 0 / 0.5);
   color: var(--text);
   opacity: 0;
-  transition: opacity 200ms ease;
+  transition: opacity 200ms ease, translate 200ms var(--ease);
 }
 .consent-overlay.is-visible,
 .consent.is-visible {
@@ -902,13 +913,8 @@ html:not(.js) .site-nav:target,
     margin-right: 0;
   }
   .site-nav {
-    position: static;
-    order: 0;
+    all: unset; /* drop the popover UA styles: always shown inline */
     flex: 1;
-    background: none;
-    border: 0;
-    visibility: visible;
-    opacity: 1;
   }
   .site-nav__list {
     display: flex;
@@ -933,9 +939,97 @@ html:not(.js) .site-nav:target,
   }
 }
 
+/* Motion states (transitions sit on base rules); none under reduced motion.
+   The scroll reveal is the one keyframe animation: an approved rule 4 exception. */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+  @view-transition {
+    navigation: auto;
+  }
+  .site-header {
+    view-transition-name: site-header;
+  }
+  ::view-transition-group(*) {
+    animation-duration: 180ms;
+  }
+
+  /* Hero rises in on load; the figure (LCP image) stays still. */
+  .hero .container > * {
+    transition: opacity 200ms var(--ease), translate 200ms var(--ease);
+  }
+  .hero .container > :nth-child(2) {
+    transition-delay: 50ms;
+  }
+  .hero .container > :nth-child(n + 3) {
+    transition-delay: 100ms;
+  }
+  @starting-style {
+    .hero .container > :not(.figure) {
+      opacity: 0;
+      translate: 0 12px;
+    }
+  }
+
+  /* Fixed range: tall blocks never stay half-faded. */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 16px;
+    }
+  }
+  @supports (animation-timeline: view()) {
+    .section:not(.hero) .container > * {
+      animation: rise var(--ease) both;
+      animation-timeline: view();
+      animation-range: entry 0 entry 160px;
+    }
+  }
+
+  a:hover {
+    text-underline-offset: 5px;
+  }
+  .site-nav__list a {
+    text-decoration: underline transparent;
+  }
+  .site-nav__list a:hover,
+  .site-nav__list a[aria-current="page"] {
+    text-decoration-color: currentColor;
+  }
+  .btn:hover {
+    translate: 0 -1px;
+  }
+  .btn:active {
+    translate: 0 0;
+    scale: 0.97;
+  }
+  .wordmark:hover::before {
+    rotate: 45deg;
+  }
+  .faq__item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 200ms var(--ease), content-visibility 200ms allow-discrete;
+  }
+  .faq__item[open]::details-content {
+    block-size: auto;
+  }
+  :where(.site-nav:not(:popover-open)) {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+  @starting-style {
+    .site-nav:popover-open {
+      opacity: 0;
+      translate: 0 -8px;
+    }
+  }
+  .consent {
+    translate: 0 12px;
+  }
+  .consent.is-visible {
+    translate: none;
   }
 }
 

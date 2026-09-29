@@ -1,44 +1,13 @@
 /* Top of Mind | main.js
    Progressive enhancement only: every page is complete without this file.
-   1. Mobile menu  2. Cookie consent */
+   Cookie consent */
 (function () {
   "use strict";
   var doc = document;
   var root = doc.documentElement;
   root.classList.add("js");
 
-  /* 1. Mobile menu --------------------------------------------------- */
-  var toggle = doc.querySelector(".menu-toggle");
-  var nav = doc.getElementById("site-nav");
-  if (toggle && nav) {
-    // Without JS the toggle is a link to #site-nav (opened by :target); here it becomes a button.
-    toggle.setAttribute("role", "button");
-    toggle.setAttribute("aria-expanded", "false");
-    var setMenu = function (open, returnFocus) {
-      toggle.setAttribute("aria-expanded", String(open));
-      nav.classList.toggle("is-open", open);
-      if (!open && returnFocus) toggle.focus();
-    };
-    var flip = function (e) {
-      e.preventDefault();
-      setMenu(toggle.getAttribute("aria-expanded") !== "true", false);
-    };
-    toggle.addEventListener("click", flip);
-    toggle.addEventListener("keydown", function (e) {
-      if (e.key === " ") flip(e);
-    });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) setMenu(false, false);
-    });
-    doc.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") setMenu(false, true);
-    });
-    doc.addEventListener("click", function (e) {
-      if (toggle.getAttribute("aria-expanded") === "true" && !e.target.closest(".site-header")) setMenu(false, false);
-    });
-  }
-
-  /* 2. Cookie consent ------------------------------------------------ */
+  /* Cookie consent ------------------------------------------------ */
   // Tools that need consent, listed by category. Bump VERSION whenever this list changes,
   // so every visitor is asked again. Load such tools as
   // <script type="text/plain" data-consent="analytics" src="..."></script>
