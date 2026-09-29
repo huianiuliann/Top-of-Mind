@@ -11,14 +11,21 @@
   var toggle = doc.querySelector(".menu-toggle");
   var nav = doc.getElementById("site-nav");
   if (toggle && nav) {
-    toggle.hidden = false;
+    // Without JS the toggle is a link to #site-nav (opened by :target); here it becomes a button.
+    toggle.setAttribute("role", "button");
+    toggle.setAttribute("aria-expanded", "false");
     var setMenu = function (open, returnFocus) {
       toggle.setAttribute("aria-expanded", String(open));
       nav.classList.toggle("is-open", open);
       if (!open && returnFocus) toggle.focus();
     };
-    toggle.addEventListener("click", function () {
+    var flip = function (e) {
+      e.preventDefault();
       setMenu(toggle.getAttribute("aria-expanded") !== "true", false);
+    };
+    toggle.addEventListener("click", flip);
+    toggle.addEventListener("keydown", function (e) {
+      if (e.key === " ") flip(e);
     });
     nav.addEventListener("click", function (e) {
       if (e.target.closest("a")) setMenu(false, false);
@@ -216,8 +223,6 @@
   window.tomConsent = { get: read, open: open };
 
   doc.querySelectorAll("[data-consent-open]").forEach(function (btn) {
-    var item = btn.closest("[hidden]");
-    if (item) item.hidden = false;
     btn.addEventListener("click", function () { open(true); });
   });
 

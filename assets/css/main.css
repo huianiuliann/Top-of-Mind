@@ -2,7 +2,7 @@
    Mobile-first: base styles target 360px, then min-width steps at 480, 768 and 1024px.
 
    Class reference (pages use only these):
-   Layout      .container .section .section--light .section--tight .stack .two-col .measure
+   Layout      .container .section .section--light .stack .two-col .measure
    Header      .site-header .site-header__inner .wordmark .site-nav .site-nav__list .menu-toggle .menu-toggle__label
    Footer      .site-footer .site-footer__about .site-footer__contact .site-footer__legal .site-footer__company .link-button
    Type        .lead .small .muted .next-link .visually-hidden .skip-link
@@ -85,6 +85,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   background: var(--bg);
+  scrollbar-gutter: stable;
 }
 body {
   margin: 0;
@@ -208,9 +209,6 @@ img {
 .section--light + .section {
   border-top: 0;
 }
-.section--tight {
-  padding-block: 48px;
-}
 .stack > * + * {
   margin-top: 24px;
 }
@@ -248,14 +246,11 @@ img {
 
 /* Header */
 .site-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 50;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
-}
-.js .site-header {
-  position: sticky;
-  top: 0;
 }
 .site-header__inner {
   display: flex;
@@ -287,22 +282,38 @@ img {
   color: var(--text);
 }
 .site-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   order: 3;
-  flex-basis: 100%;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-strong);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 150ms ease, visibility 0s linear 150ms;
+}
+html:not(.js) .site-nav:target,
+.site-nav.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 150ms ease;
 }
 .site-nav__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 20px;
-  margin: 0;
-  padding: 0 0 8px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 max(20px, env(safe-area-inset-right)) 8px max(20px, env(safe-area-inset-left));
   list-style: none;
+}
+.site-nav__list li + li {
+  border-top: 1px solid var(--border);
 }
 .site-nav__list a {
   display: flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 48px;
   color: var(--text-2-strong);
+  font-size: 1.125rem;
   text-decoration: none;
 }
 .site-nav__list a:hover,
@@ -324,10 +335,11 @@ img {
   border: 0;
   font: inherit;
   font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
 }
-.menu-toggle[hidden] {
-  display: none;
+.menu-toggle:hover {
+  color: var(--text);
 }
 .menu-toggle__icon {
   display: block;
@@ -354,34 +366,11 @@ img {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-.js .site-nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border-strong);
+.js-only {
   visibility: hidden;
-  opacity: 0;
-  transition: opacity 150ms ease, visibility 0s linear 150ms;
 }
-.js .site-nav.is-open {
+.js .js-only {
   visibility: visible;
-  opacity: 1;
-  transition: opacity 150ms ease;
-}
-.js .site-nav__list {
-  display: block;
-  max-width: 1120px;
-  margin-inline: auto;
-  padding: 0 max(20px, env(safe-area-inset-right)) 8px max(20px, env(safe-area-inset-left));
-}
-.js .site-nav__list li + li {
-  border-top: 1px solid var(--border);
-}
-.js .site-nav__list a {
-  min-height: 48px;
-  font-size: 1.125rem;
 }
 
 /* Buttons */
@@ -545,7 +534,7 @@ img {
   color: var(--text-2-strong);
 }
 .figure {
-  margin: 32px 0 0;
+  margin: 32px 0 24px;
 }
 .figure img {
   width: 100%;
@@ -688,10 +677,10 @@ img {
 }
 .toc ol {
   margin: 0;
+  padding-left: 28px;
 }
-.toc a {
-  display: inline-block;
-  padding-block: 8px;
+.toc li + li {
+  margin-top: 12px;
 }
 .prose {
   max-width: 68ch;
@@ -912,29 +901,26 @@ img {
   .wordmark {
     margin-right: 0;
   }
-  .site-nav,
-  .js .site-nav {
+  .site-nav {
     position: static;
     order: 0;
     flex: 1;
-    flex-basis: auto;
     background: none;
     border: 0;
     visibility: visible;
     opacity: 1;
   }
-  .site-nav__list,
-  .js .site-nav__list {
+  .site-nav__list {
     display: flex;
     gap: 0 28px;
     max-width: none;
     margin: 0;
     padding: 0;
   }
-  .js .site-nav__list li + li {
+  .site-nav__list li + li {
     border-top: 0;
   }
-  .js .site-nav__list a {
+  .site-nav__list a {
     min-height: 44px;
     font-size: 1rem;
   }
