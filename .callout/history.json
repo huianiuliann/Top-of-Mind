@@ -1,0 +1,31 @@
+{
+  "reviews": [
+    {
+      "date": "2026-09-29",
+      "perspectives": [
+        "cto",
+        "product",
+        "customer"
+      ],
+      "findingSummary": "3 MUST FIX, 4 SHOULD FIX, 4 GOOD. Key: no proof of results on site; new ownership/sprint promises must match customer-policy.html; fee structure needs a public explanation without figures."
+    },
+    {
+      "date": "2026-09-30",
+      "perspectives": [
+        "cto",
+        "product",
+        "customer"
+      ],
+      "findingSummary": "(findings will be filled by the AI after review execution)"
+    },
+    {
+      "date": "2026-09-30",
+      "perspectives": [
+        "cto",
+        "product",
+        "customer"
+      ],
+      "findingSummary": "Redesign review (cto, product, customer), 2026-09-30: 1 MUST FIX (parallel i18n session editing main.css/index.html; sequenced via gate G0), 3 SHOULD FIX (header/footer copied in 19 files; KB ideas limited to what is honest without proof; CTA repeated 3x on homepage, watch fatigue), 3 GOOD (no new deps/JS, CSP intact, reused .list-numbered/.compare__col/.mode; free-preview section makes the CTA concrete; hero answers what/for whom/why in 3s). Implemented: index.html + ro/index.html KlientBoost structure, main.css system under 24,576 B, all 7 runnable gates green."
+    }
+  ]
+}

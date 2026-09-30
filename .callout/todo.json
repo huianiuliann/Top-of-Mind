@@ -1,0 +1,135 @@
+{
+  "nextId": 14,
+  "items": [
+    {
+      "id": 1,
+      "title": "No proof of results on the site yet",
+      "description": "Top reason a prospect says no to a young studio. Partly addressed by Research Sprint and ownership promises. Add a case study when the user has one (see memory pending-case-study).",
+      "priority": "must",
+      "status": "open",
+      "source": "Customer review",
+      "createdAt": "2026-09-30T08:43:10.274Z",
+      "updatedAt": "2026-09-30T08:43:10.274Z"
+    },
+    {
+      "id": 2,
+      "title": "Keep customer-policy.html in sync with new promises",
+      "description": "Ownership and Research Sprint promises contradict the current policy wording (\"set out in your proposal\"). Update customer-policy.html, contact FAQ, services and research pages with one identical wording.",
+      "priority": "must",
+      "status": "open",
+      "source": "Product/CTO review",
+      "createdAt": "2026-09-30T08:43:10.288Z",
+      "updatedAt": "2026-09-30T08:43:10.288Z"
+    },
+    {
+      "id": 3,
+      "title": "Pricing opaque: explain fee structure without figures",
+      "description": "Add services.html#fee with the three result-linked fee mechanisms. No figures by decision of the user.",
+      "priority": "must",
+      "status": "open",
+      "source": "Customer review",
+      "createdAt": "2026-09-30T08:43:10.297Z",
+      "updatedAt": "2026-09-30T08:43:10.297Z"
+    },
+    {
+      "id": 4,
+      "title": "Nav duplicated in 10 HTML files: guard with a check script",
+      "description": "No build step (over-engineering for 10 pages). A Node check that the nav block is identical across pages catches drift.",
+      "priority": "should",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-09-30T08:43:10.305Z",
+      "updatedAt": "2026-09-30T08:43:10.305Z"
+    },
+    {
+      "id": 5,
+      "title": "Manual sync points: sitemap, llms.txt, dateModified, FAQPage JSON-LD",
+      "description": "Verify with scripted checks on every content change.",
+      "priority": "should",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-09-30T08:43:10.313Z",
+      "updatedAt": "2026-09-30T08:43:10.313Z"
+    },
+    {
+      "id": 6,
+      "title": "Second entry point besides \"Book a call\"",
+      "description": "research.html with the Research Sprint gives visitors a concrete, lower-risk first step.",
+      "priority": "should",
+      "status": "open",
+      "source": "Product review",
+      "createdAt": "2026-09-30T08:43:10.322Z",
+      "updatedAt": "2026-09-30T08:43:10.322Z"
+    },
+    {
+      "id": 7,
+      "title": "Human read of the new contractual text in customer-policy.html",
+      "description": "Gate G13: the user (or a lawyer) reads the Ownership, How we start and Duration sections before publishing.",
+      "priority": "should",
+      "status": "open",
+      "source": "Customer review",
+      "createdAt": "2026-09-30T08:43:10.331Z",
+      "updatedAt": "2026-09-30T08:43:10.331Z"
+    },
+    {
+      "id": 8,
+      "title": "Verify the geo redirect on the deployed site (i18n G12)",
+      "description": "After deploy: from a Romanian IP, / -> 307 /ro and /index.html -> 200 English; from abroad, / -> 200 English; /ro -> 200. The local python server cannot simulate x-vercel-ip-country.",
+      "priority": "must",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-09-30T09:23:54.362Z",
+      "updatedAt": "2026-09-30T09:23:54.362Z"
+    },
+    {
+      "id": 9,
+      "title": "Owner reads the Romanian copy, especially ro/privacy-policy and ro/customer-policy (i18n G13)",
+      "description": "A stilted translation reads as cheap to a Romanian buyer, and the legal pages carry contractual wording. Read all 9 pages under ro/ before publishing.",
+      "priority": "must",
+      "status": "open",
+      "source": "Customer review",
+      "createdAt": "2026-09-30T09:23:54.372Z",
+      "updatedAt": "2026-09-30T09:23:54.372Z"
+    },
+    {
+      "id": 10,
+      "title": "Every EN content edit must be mirrored in its ro/ twin",
+      "description": "19 HTML files now share header/footer and structure. Run node .unlazy/i18n/verify.mjs parity (and the other modes) after any content change; parity fails when a section, list item or id exists in only one language.",
+      "priority": "should",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-09-30T09:23:54.378Z",
+      "updatedAt": "2026-09-30T09:23:54.378Z"
+    },
+    {
+      "id": 11,
+      "title": "Romanian OG share image",
+      "description": "RO pages reuse assets/img/og.png, whose text is English. A link shared on WhatsApp/Facebook from /ro/ shows an English card.",
+      "priority": "nice",
+      "status": "open",
+      "source": "Customer review",
+      "createdAt": "2026-09-30T09:23:54.384Z",
+      "updatedAt": "2026-09-30T09:23:54.384Z"
+    },
+    {
+      "id": 12,
+      "title": "Homepage CTA repeated 3x: evaluate fatigue after first real traffic",
+      "description": "index.html and ro/index.html now carry the same Calendly button in the hero, in the free-preview section and in the closing band. Without proof on the page a third repetition may tire a prospect. Check Clarity recordings once traffic exists; if the middle button is ignored, remove it from both pages (keep the research.html next-link) and re-run node .unlazy/i18n/verify.mjs parity.",
+      "priority": "should",
+      "status": "open",
+      "source": "Customer review",
+      "createdAt": "2026-09-30T09:37:14.474Z",
+      "updatedAt": "2026-09-30T09:37:14.474Z"
+    },
+    {
+      "id": 13,
+      "title": "Redesign step 2: apply the CSS system's structure to the other 8 pages and their ro/ twins",
+      "description": "Only index.html and ro/index.html got eyebrows, the hero CTA, the preview section and the .section--cta band. services, how-you-sell, research, process, team, contact and the two policy pages inherit typography, cards, numerals and bands automatically but keep their old structure. Any structural change to an EN page must be mirrored in ro/ in the same commit because node .unlazy/i18n/verify.mjs parity compares ids and element counts per pair.",
+      "priority": "nice",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-09-30T09:37:14.483Z",
+      "updatedAt": "2026-09-30T09:37:14.483Z"
+    }
+  ]
+}

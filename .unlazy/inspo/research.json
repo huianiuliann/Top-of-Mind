@@ -1,0 +1,633 @@
+[
+ {
+  "name": "Optimized",
+  "url": "https://www.optimized.ro/en/",
+  "location": "Bucharest, Romania",
+  "category": "ro-cee",
+  "team_size": "2-3",
+  "success": [
+   {
+    "claim": "Turnover 1,102,198 RON, net profit 490,306 RON in 2025 with 3 employees; >835k RON every year since 2021",
+    "source_url": "https://www.totalfirme.ro/optimized-performance-srl-36716680"
+   },
+   {
+    "claim": "Self-reported: 'Best Performance Max Campaign for Retail', Search Excellence Awards (Google)",
+    "source_url": "https://www.optimized.ro/en/"
+   },
+   {
+    "claim": "Self-reported: founder 7 yrs at Google, Google Certified Trainer 2018, Premier Partner 2024",
+    "source_url": "https://www.optimized.ro/en/timeline/"
+   }
+  ],
+  "borrow": [
+   "Fit filter on homepage: 'not looking to work with hundreds of companies' + 3 criteria — small size framed as selectivity",
+   "Results page: one client logo + exactly one metric + one named quote per card",
+   "Year-by-year timeline page as founder story + credibility ladder",
+   "Free deep guide per segment (Google Ads for eCommerce / Lead Gen) + press strip"
+  ],
+  "weakness": "/en/ half translated; award year inconsistent"
+ },
+ {
+  "name": "Pixer Agency",
+  "url": "https://pixeragency.ro/",
+  "location": "Bucharest, Romania",
+  "category": "ro-cee",
+  "team_size": "8 (2025)",
+  "success": [
+   {
+    "claim": "Minimal Development SRL: turnover 87,781 RON (2022, 1 employee) -> 1,814,389 RON (2025, 8 employees), net profit 453,102 RON",
+    "source_url": "https://www.totalfirme.ro/minimal-development-srl-43951565"
+   },
+   {
+    "claim": "Footer identifies operator as Minimal Development SRL, RO43951565",
+    "source_url": "https://pixeragency.ro/"
+   }
+  ],
+  "borrow": [
+   "Result cards: vertical+channel tag ('E-COMMERCE · GOOGLE ADS') + one sentence with spend, outcome, mechanism",
+   "Named methods with visuals ('Performance Labels', 'Audit 360°') make process tangible",
+   "Anonymous-client case template: context, objectives, actions, Google/Meta result boxes, YoY charts",
+   "Team grid with photo, name, role for everyone",
+   "13-question FAQ on choosing an agency"
+  ],
+  "weakness": "POAS calculator links to suspended domain; all cases anonymous"
+ },
+ {
+  "name": "Digital Diggers",
+  "url": "https://digital-diggers.com/",
+  "location": "Cluj-Napoca, Romania",
+  "category": "ro-cee",
+  "team_size": "10-49",
+  "success": [
+   {
+    "claim": "Clutch 5.0 from 5 reviews; Cluj-Napoca; founded 2011",
+    "source_url": "https://clutch.co/profile/digital-diggers"
+   }
+  ],
+  "borrow": [
+   "Public PPC price tiers, each stating reporting cadence and team size",
+   "Testimonials with hard outcome from verified Clutch reviews ('sales up 4-5x')",
+   "Case cards tagged by strategy/client/country, filterable",
+   "'Global Market Entry' niche page for foreign brands entering Romania"
+  ],
+  "weakness": "No numbers in case cards; JS-only counters show 0 in HTML; 3-12 month lock-in"
+ },
+ {
+  "name": "Zest",
+  "url": "https://zest.agency/en",
+  "location": "Warsaw, Poland",
+  "category": "ro-cee",
+  "team_size": "10-49",
+  "success": [
+   {
+    "claim": "Clutch 4.9 from 23 reviews; founded 2012",
+    "source_url": "https://clutch.co/profile/zest-1"
+   },
+   {
+    "claim": "Self-reported: 30.7% avg revenue growth from paid channels in first 6 months; EUR 1.23M additional revenue this year",
+    "source_url": "https://zest.agency/en"
+   }
+  ],
+  "borrow": [
+   "Free no-email tools proving tracking skill: GA4 Audit, Consent Mode Checker (3 passes), UX audit, ROI calculator",
+   "ROI calculator first step = pick business model (ecom / B2B / local) — mirrors quote/cart/calendar",
+   "Ownership guarantee: 'All ad accounts, pixels, CAPI and creatives are 100% yours from day one'",
+   "Case: cost per phone call 100.58 -> 51.64 PLN via call tracking — calendar/quote story",
+   "Counters with honest specific labels"
+  ],
+  "weakness": "Self-ranked '#1 agency' listicles on own blog"
+ },
+ {
+  "name": "Harbingers",
+  "url": "https://harbingers.io/",
+  "location": "Krakow, Poland",
+  "category": "ro-cee",
+  "team_size": "50-249",
+  "success": [
+   {
+    "claim": "Clutch 5.0 from 7 reviews; since 2017",
+    "source_url": "https://clutch.co/profile/harbingers"
+   },
+   {
+    "claim": "Self-reported: 98 awards and nominations (European Search Awards, Google Premier Partner Awards...); clients Castorama, Karcher, Empik",
+    "source_url": "https://harbingers.io/"
+   }
+  ],
+  "borrow": [
+   "Success fee stated in hero copy, not footnote",
+   "Named 3-phase process block with 12-month forecast + quick wins",
+   "CEO face + personal guarantee card ('write to me directly')",
+   "Case headline = result + constraint ('ROAS to 1120% without raising budget')",
+   "'For whom' + 'Your goal' menus as segmentation"
+  ],
+  "weakness": "70+ service links bury the message; success-fee math never explained"
+ },
+ {
+  "name": "Growww Digital",
+  "url": "https://www.growwwdigital.com/",
+  "location": "Budapest, Hungary",
+  "category": "ro-cee",
+  "team_size": "~50",
+  "success": [
+   {
+    "claim": "European Business Awards 2019 National Winner, digital technology, second consecutive win",
+    "source_url": "https://piacesprofit.hu/cikkek/kkv_cegblog/europa-legjobb-vallalkozasai-kozott-a-growww-digital.html"
+   },
+   {
+    "claim": "Bluerank (PL) bought stake in Growww Digital (Jan 2023)",
+    "source_url": "https://kosarertek.hu/piac/tavozik-a-growww-digitaltol-dunder-krisztian-tarsalapito-tulajdonos/"
+   }
+  ],
+  "borrow": [
+   "Success-fee business model in hero and meta description",
+   "One aggregate outcome vs market benchmark (61% YoY vs <15% CEE average)",
+   "First-person goal CTAs ('I want to expand')",
+   "Partners' photos directly under final contact button",
+   "NPS score as proof"
+  ],
+  "weakness": "61% vs 77% contradiction; no written case studies"
+ },
+ {
+  "name": "MAIRA",
+  "url": "https://mairateam.com/en/",
+  "location": "Prague, Czechia",
+  "category": "ro-cee",
+  "team_size": "34",
+  "success": [
+   {
+    "claim": "Clutch 5.0 from 17 reviews; founded 2013",
+    "source_url": "https://clutch.co/profile/maira"
+   },
+   {
+    "claim": "Self-reported: EUR 52M+ budget managed yearly (22M in 2019), 90% of clients 5+ years; JetBrains, Skoda",
+    "source_url": "https://mairateam.com/en/"
+   }
+  ],
+  "borrow": [
+   "Metric in case card and URL slug (/sanitino-948-revenue-growth/)",
+   "Retention as proof: '90% of clients with us 5+ years' — fits no-lock-in",
+   "Year-by-year bar chart of growth",
+   "Named in-house tools/report with one-line promises",
+   "Vertical pages in main nav + free audit CTA"
+  ],
+  "weakness": "Enterprise-scale tone, no pricing"
+ },
+ {
+  "name": "Serpact",
+  "url": "https://serpact.com/",
+  "location": "Sofia, Bulgaria",
+  "category": "ro-cee",
+  "team_size": "22 (2023)",
+  "success": [
+   {
+    "claim": "'Small Bulgarian SEO agency established in 2016', team of 22, 13 international awards in 4 years, finalist Best Small SEO Agency",
+    "source_url": "https://europeansearchawards.com/2023/05/04/serpact-how-does-a-small-seo-agency-become-one-of-the-markets-leaders-in-bulgaria/"
+   }
+  ],
+  "borrow": [
+   "Knowledge center + founder-launched conference as authority engine",
+   "Award strip under hero + video testimonials with one-line pull quote",
+   "Vertical case teaser (5-star hotel SEO) on homepage",
+   "'New service!' tag for AI-search optimization"
+  ],
+  "weakness": "Counters count deliverables not outcomes"
+ },
+ {
+  "name": "LGG Media",
+  "url": "https://www.lgg.media/",
+  "location": "Ottawa, Canada",
+  "category": "boutique-intl",
+  "team_size": "founder-led, caps at 15 accounts",
+  "success": [
+   {
+    "claim": "Self-reported: #182 Globe and Mail Canada's Top Growing Companies 2026, 147% 3-yr revenue growth",
+    "source_url": "https://www.lgg.media/blog/lgg-media-top-growing-companies-2026/"
+   },
+   {
+    "claim": "2026 Google Ads Impact Award (press release): health-insurance brokerage scaled $5K -> $130K daily spend",
+    "source_url": "https://techbullion.com/lgg-media-honored-with-2026-google-ads-impact-award-for-transformative-client-results/"
+   }
+  ],
+  "borrow": [
+   "Numbered process with tracking BEFORE ads: discovery -> tracking infra -> campaigns -> scale on verified revenue",
+   "Reporting defined by data source: CRM/POS/payment data matched to ad click, not platform estimates; 'no status calls about CTR'",
+   "Founder access backed by published client cap (max 15 accounts)",
+   "No-lock-in in FAQ + qualifier in hero (spend threshold)",
+   "Case cards: one bold figure + spend trajectory + timeframe; free ROAS calculator"
+  ],
+  "weakness": "Bare multipliers without baseline; only founder shown"
+ },
+ {
+  "name": "Grow and Convert",
+  "url": "https://www.growandconvert.com/",
+  "location": "San Francisco, USA (remote)",
+  "category": "boutique-intl",
+  "team_size": "~20",
+  "success": [
+   {
+    "claim": "Two co-founders launched May 2017; 4 months later $34,000/month revenue",
+    "source_url": "https://www.iwillteachyoutoberich.com/turned-failed-product-business-34000month-service-business/"
+   },
+   {
+    "claim": "100+ clients in 10 years; logos Yelp, LastPass, Wrike, Patreon",
+    "source_url": "https://www.growandconvert.com/about/"
+   },
+   {
+    "claim": "Public price $6K then $10K/month; 14.3% close rate",
+    "source_url": "https://www.growandconvert.com/marketing/positioning-case-study/"
+   }
+  ],
+  "borrow": [
+   "Price and terms on service page: '$10k/month', 'no 6 or 12 month contract'",
+   "Monthly report = leads and sales produced, first/last-touch; accountable to conversions not traffic",
+   "'All clients work directly with our strategists, no intermediary account managers'",
+   "Case studies as long-form research posts with conversion data (proof + SEO asset)",
+   "Named method ('Pain Point SEO') everywhere — method is the brand"
+  ],
+  "weakness": "Differentiators buried on inner pages; stale $199 services page"
+ },
+ {
+  "name": "KlientBoost",
+  "url": "https://www.klientboost.com/",
+  "location": "Costa Mesa, USA",
+  "category": "boutique-intl",
+  "team_size": "50-249",
+  "success": [
+   {
+    "claim": "Clutch 4.9 from 405 reviews; founded 2015",
+    "source_url": "https://clutch.co/profile/klientboost"
+   },
+   {
+    "claim": "$500K MRR after three years (2018), $1.4M profit 2017, ~150 clients, 45 people",
+    "source_url": "https://www.klientboost.com/marketing/growing-agency/"
+   }
+  ],
+  "borrow": [
+   "Dated accountability stat: 'We Hit 83% of Client Goals In Q2 2026' with quarter shown",
+   "Primary CTA = free research deliverable ('Free Marketing Plan': ICP, top-3 competitors, keywords, mockups)",
+   "Results gallery filterable by 'Buyer type' — maps to quote/cart/calendar",
+   "Testimonials grouped by objection (Results, Cost, Speed...)",
+   "Mechanism framing: 'KPI vs time tracking'"
+  ],
+  "weakness": "'Pricing' page with no prices; loud tone"
+ },
+ {
+  "name": "Refine Labs",
+  "url": "https://www.refinelabs.com/",
+  "location": "Boston, USA",
+  "category": "boutique-intl",
+  "team_size": "80+ (2022)",
+  "success": [
+   {
+    "claim": "Bootstrapped 1 -> 4 -> 30 -> 80+ people; ARR $600K (2019), $2M (2020), $8M (2021), on track for $21M (2022)",
+    "source_url": "https://timiacapital.com/5-million-investment-in-bootstrapped-refine-labs-helps-company-scale-250/"
+   }
+  ],
+  "borrow": [
+   "Research sold as fixed product: 'Revenue Performance Assessment — from $35,000 — 6 weeks' with deliverable list, no long-term commitment",
+   "Aggregate stats with denominator: '5 of 8 clients grew high-intent demand'",
+   "Like-for-like period cases ('H1 2023 vs H1 2024')",
+   "3-word method + 3 CTAs by intent level"
+  ],
+  "weakness": "Founder face gone from site after he stepped back"
+ },
+ {
+  "name": "Disruptive Advertising",
+  "url": "https://disruptiveadvertising.com/",
+  "location": "Pleasant Grove, USA",
+  "category": "boutique-intl",
+  "team_size": "160+",
+  "success": [
+   {
+    "claim": "Inc. 5000 five years: #145 (2017) ... #2,926 (2021)",
+    "source_url": "https://www.inc.com/profile/disruptive-advertising"
+   },
+   {
+    "claim": "From two employees in founder's basement to 120+ and $18M run rate",
+    "source_url": "https://ideamensch.com/jacob-baadsgaard/"
+   },
+   {
+    "claim": "Self-reported: 4.8 from 350+ Clutch reviews, 90+ clients retained 4+ years",
+    "source_url": "https://disruptiveadvertising.com/"
+   }
+  ],
+  "borrow": [
+   "Dedicated risk-reversal block ('Results in 90 days or you don't pay') — model for per-qualified-lead fee block",
+   "Free audit valuable even if they never hire you",
+   "Retention stat next to 'no long-term contracts'",
+   "Empathy hero: blame the system, not the reader"
+  ],
+  "weakness": "Scarcity/hype devices, unsourced stats — don't copy"
+ },
+ {
+  "name": "Wolfgang Digital",
+  "url": "https://www.wolfgangdigital.com/",
+  "location": "Dublin, Ireland",
+  "category": "boutique-intl",
+  "team_size": "~70+ (employee-owned)",
+  "success": [
+   {
+    "claim": "Kitchen-table start 2007; 100+ international awards; Google #1 agency in EMEA x3 (self-reported)",
+    "source_url": "https://www.wolfgangdigital.com/about-us/"
+   },
+   {
+    "claim": "Six awards at European Search Awards 2025 incl. Best Large SEO Agency",
+    "source_url": "https://www.adworld.ie/2025/05/16/wolfgang-digital-bags-six-european-search-awards/"
+   },
+   {
+    "claim": "Largest independent Irish digital agency, ~70 staff pre-Covid, plan to 120",
+    "source_url": "https://www.irishtimes.com/business/media-and-marketing/wolfgang-digital-eyes-doubling-of-workforce-and-revenues-1.4693029"
+   }
+  ],
+  "borrow": [
+   "Annual open-access benchmark study (E-commerce KPI Report, 130M sessions) as PR + proof engine",
+   "Each case card carries exactly 3 comparable metrics",
+   "One-sentence humble origin story",
+   "Owner mindset as client benefit"
+  ],
+  "weakness": "Rotating-label hero says nothing about outcome; award wall"
+ },
+ {
+  "name": "Exposure Ninja",
+  "url": "https://exposureninja.com/",
+  "location": "Nottingham, UK",
+  "category": "boutique-intl",
+  "team_size": "100+",
+  "success": [
+   {
+    "claim": "Five awards at Global Search Awards 2025 (e.g. The Ordinary 395% ROI)",
+    "source_url": "https://globalsearchawards.net/2025/10/27/exposure-ninja-wins-five-awards-at-global-search-awards-2025/"
+   },
+   {
+    "claim": "Founded 2012 from a neighbour's plastering site; 100+ people; 50,000+ copies of its book",
+    "source_url": "https://exposureninja.com/about/"
+   }
+  ],
+  "borrow": [
+   "Free review page 'By a Person, Not a Tool — no AI, no template PDF', live walkthrough, eligibility stated",
+   "Results labelled client-type + metric ('640% more conversions for finance firm') — anonymous but concrete",
+   "Industry research reports as lead magnets",
+   "Nav: Industries / Results / Resources for self-selection"
+  ],
+  "weakness": "Award + lead-magnet overload competes with one CTA"
+ },
+ {
+  "name": "Rise at Seven",
+  "url": "https://riseatseven.com/",
+  "location": "Manchester, UK",
+  "category": "boutique-intl",
+  "team_size": "~100 (started with 2)",
+  "success": [
+   {
+    "claim": "Founded 2019 by two; GBP 1.5m turnover year one, 2 -> 24 people in 12 months",
+    "source_url": "https://www.prolificnorth.co.uk/news/sheffield-agency-hits-ps15m-first-year-and-grows-revenue-110-lockdown/"
+   },
+   {
+    "claim": "Self-reported: 79 global awards",
+    "source_url": "https://riseatseven.com/about/"
+   }
+  ],
+  "borrow": [
+   "Triage by problem type ('Demand or Discovery') not service — same idea as quote/cart/calendar",
+   "Case teasers = one metric + brand",
+   "One-line philosophy repeated on every page",
+   "Forwardable results PDF for internal champions"
+  ],
+  "weakness": "Jargon hero; Work page gated"
+ },
+ {
+  "name": "Gorilla 76",
+  "url": "https://www.gorilla76.com/",
+  "location": "St. Louis, USA",
+  "category": "niche-quote",
+  "team_size": "10-49 (Clutch)",
+  "success": [
+   {
+    "claim": "Davron Technologies case: 8 new customers in 12 months (vs 1-2/yr), +20% revenue in 2021, $9M marketing-sourced pipeline",
+    "source_url": "https://www.gorilla76.com/case-study-driving-9m-in-pipeline-for-an-industrial-oven-manufacturer/"
+   },
+   {
+    "claim": "Clutch 5.0 (only 1 verified review)",
+    "source_url": "https://clutch.co/profile/gorilla-76"
+   }
+  ],
+  "borrow": [
+   "Fixed-price paid diagnostic ('Road Map' $12K, no further commitment, 4h discovery -> 3 weeks -> 90-min readout)",
+   "Public 'Methodology and pricing' page with spend bands and the variables that move price",
+   "'Marketing-sourced pipeline is our success metric' — one metric stated bluntly, case headline in pipeline dollars",
+   "'We don't do everything. And we don't do it for everyone.' + explicit ideal-client / non-fit page",
+   "Problem list in buyer's words; messaging mapped to buying committee",
+   "Founder CTA: 'no-pressure conversation with our cofounder... worst case we'll point you in the right direction'"
+  ],
+  "weakness": "Numbers contradict across pages; flagship case 2020-2021"
+ },
+ {
+  "name": "Weidert Group",
+  "url": "https://www.weidert.com/",
+  "location": "Appleton, USA",
+  "category": "niche-quote",
+  "team_size": "28, employee-owned",
+  "success": [
+   {
+    "claim": "Inc. 5000 #4,687 (2022) and #4,867 (2023); HubSpot Diamond Partner",
+    "source_url": "https://www.inc.com/profile/weidert-group"
+   },
+   {
+    "claim": "HubSpot Diamond Solutions Partner, one of first 20 HubSpot partners, Impact Awards 2017/2019/2021",
+    "source_url": "https://www.weidert.com/hubspot-agency"
+   },
+   {
+    "claim": "Strouse (die cutter): $2,500/mo Meta+Google -> $80,000 sale after first campaign, +90% quote requests after 1 year",
+    "source_url": "https://www.weidert.com/case-studies"
+   }
+  ],
+  "borrow": [
+   "Public pricing ranges + 'We don't lock clients into contracts, we provide firm quotes before any work starts'",
+   "Case index filterable by industry/service; each card = problem, 3 bullets, one bold 'Results:' line in business terms",
+   "Self-qualification checklist 'Is Yours a Complex Industry?'",
+   "Consult form asks situation checkboxes + states call agenda ('half-hour, no pitch')",
+   "Primary CTA 'Are We A Fit?' instead of 'Contact us'",
+   "ROI/payback calculator as sales asset for capital-equipment buyers"
+  ],
+  "weakness": "Same case with different numbers on homepage vs index; homepage leads with service lists"
+ },
+ {
+  "name": "Hook Agency",
+  "url": "https://hookagency.com/",
+  "location": "Minneapolis, USA",
+  "category": "niche-quote",
+  "team_size": "~30-32 (grew 1->30 in 6 years)",
+  "success": [
+   {
+    "claim": "Inc. 5000 #2,031 (2025), #1,959 (2026, 175% 3-yr growth)",
+    "source_url": "https://www.inc.com/profile/hook-agency"
+   },
+   {
+    "claim": "Twin Cities Fast 50 #10, 168.55% growth since 2021, >$4M revenue",
+    "source_url": "https://hookagency.com/about-us/"
+   },
+   {
+    "claim": "Courtney Construction: ~$105K sold work from ~$6K ad spend, 8 jobs, $13,162 avg ticket, 65% qualification",
+    "source_url": "https://hookagency.com/blog/case-studies/courtney-construction/"
+   }
+  ],
+  "borrow": [
+   "Case headline in sold revenue per ad dollar + month-by-month table (jobs, avg ticket, qualification rate, cost per qualified/booked lead)",
+   "Public pricing page with starting monthly fee per service",
+   "Hard qualifier in form ('Under $1M – Not a Fit') + free playbook for non-fits",
+   "FAQ vs buyer's current alternative ('vs buying leads from HomeAdvisor')",
+   "Expectation chart 'SEO Emotional Rollercoaster' + 5-step process",
+   "Industry dropdown with exact trades served"
+  ],
+  "weakness": "Prices/headcount contradict across pages; very long pages"
+ },
+ {
+  "name": "Common Thread Collective",
+  "url": "https://commonthreadco.com/",
+  "location": "Orange County, USA",
+  "category": "niche-cart",
+  "team_size": "unknown",
+  "success": [
+   {
+    "claim": "Inc. 5000 #345 (2018), #322 (2019), #618 (2020)",
+    "source_url": "https://www.inc.com/profile/common-thread-collective"
+   },
+   {
+    "claim": "Average client tenure 14+ months; Love Wellness 1,290% growth; logos Nike Strength, Igloo, Skullcandy, Fender",
+    "source_url": "https://commonthreadco.com/pages/case-studies"
+   }
+  ],
+  "borrow": [
+   "'Creative is the constraint' thesis + creative sold in countable packages (20/40/80 ads) with turnaround times",
+   "SKU selection explained by margin, inventory, seasonality — profit not ROAS",
+   "'Ecommerce profit partner' + one named accountable owner per client",
+   "Case titles pair lever + result ('191% more purchases with Google Demand Gen')",
+   "Revenue-band dropdown in lead form",
+   "Public methodology pages (forecasting, measurement)"
+  ],
+  "weakness": "Stats contradict between pages; coined jargon, no pricing"
+ },
+ {
+  "name": "Pilothouse",
+  "url": "https://www.pilothouse.co/",
+  "location": "Victoria, Canada",
+  "category": "niche-cart",
+  "team_size": "175",
+  "success": [
+   {
+    "claim": "Founded 2019; 100+ people 2021; $500M attributable client revenue 2022; now 175 people, 125+ brands",
+    "source_url": "https://www.pilothouse.co/teams"
+   },
+   {
+    "claim": "Benchmade video testimonial: Meta revenue +200%, new-customer CPA -25%, new-customer ROAS +48%",
+    "source_url": "https://www.pilothouse.co/"
+   }
+  ],
+  "borrow": [
+   "Video testimonials from named roles quoting new-customer KPIs, not blended ROAS",
+   "Case grid with channel chips (Meta/Google/Email/CRO) + numeric headline",
+   "Honest pricing FAQ: retainers + performance-based incentives",
+   "Onboarding promise '5 to 10 business days after signing'",
+   "Dated growth timeline on About page"
+  ],
+  "weakness": "Unanchored percentages, NDA logos; no longer small"
+ },
+ {
+  "name": "Flighted",
+  "url": "https://www.flighted.co/",
+  "location": "New York, USA",
+  "category": "niche-cart",
+  "team_size": "20+",
+  "success": [
+   {
+    "claim": "Clutch 4.9 from 13 reviews, founded 2021; Blip CEO review: 5x pipeline ROAS month 1, $150K ACV from Meta",
+    "source_url": "https://clutch.co/profile/flighted"
+   },
+   {
+    "claim": "Self-reported: Meta Agency Partner, $6M/month spend, 1,000+ creatives/month",
+    "source_url": "https://www.flighted.co/"
+   }
+  ],
+  "borrow": [
+   "Published client cap: 'no Growth Manager works with more than 3 clients; founder works with all brands at launch'",
+   "Product = Paid Media + Creative Strategy + Landing Page Optimization (mobile-first, A/B)",
+   "Case cards: metric chip + timeframe ('3.3x Month 1 ROAS')",
+   "Real 9:16 ads playing as homepage reel",
+   "'Book A Call' straight to Calendly, no form"
+  ],
+  "weakness": "Stale-dated blog; unsourced '<1% of agencies' claim"
+ },
+ {
+  "name": "Gourmet Marketing",
+  "url": "https://www.gourmetmarketing.net/",
+  "location": "New York, USA",
+  "category": "niche-calendar",
+  "team_size": "16",
+  "success": [
+   {
+    "claim": "HotelTechReport 5.0 from 19 verified hotelier reviews",
+    "source_url": "https://hoteltechreport.com/marketing/hotel-digital-marketing/gourmet-marketing-agency"
+   },
+   {
+    "claim": "The Wallace Hotel: +94% traffic, +14% booking engine contribution, -26% OTA contribution",
+    "source_url": "https://www.gourmetmarketing.net/work/the-wallace-hotel"
+   },
+   {
+    "claim": "Self-reported: $462M partner revenue 2025, PPC 17:1 ROAS; clients Arlo, Roost, The Lucerne",
+    "source_url": "https://www.gourmetmarketing.net/"
+   }
+  ],
+  "borrow": [
+   "Every service block carries its own hospitality KPI (ROAS, look-to-book, checkout drop-off)",
+   "Hotelier language: Looks, Checkouts, ADR, 'OTA contribution down'; meta description 'Stop losing revenue to OTAs.'",
+   "Case = 3-stat strip (traffic, direct share, OTA share)",
+   "Vertical sub-sections (boutique, luxury, restaurant groups)",
+   "Booking-funnel diagnostic (drop-off points) as tracking proof",
+   "Candid FAQ: revenue impact beyond direct bookings, time to results per channel"
+  ],
+  "weakness": "No pricing; no baselines/timeframes in cases"
+ },
+ {
+  "name": "Blue Magnet Interactive",
+  "url": "https://www.bluemagnetinteractive.com/",
+  "location": "Chicago, USA",
+  "category": "niche-calendar",
+  "team_size": "29",
+  "success": [
+   {
+    "claim": "Inc. 5000 #2,437 (2016), #4,013 (2017); founded 2007",
+    "source_url": "https://www.inc.com/profile/blue-magnet-interactive-marketing-media"
+   },
+   {
+    "claim": "70% revenue growth over 3 years (2013-2016) cited in Inc. 5000 announcement",
+    "source_url": "https://www.bluemagnetinteractive.com/blog/inc-5000-award/"
+   }
+  ],
+  "borrow": [
+   "Annual hotel budget guide with $ ranges per channel + free-audit CTA",
+   "Anti-lock-in article: you own domain, design, analytics data",
+   "One-liner: 'The most profitable booking is the one made through your website.'",
+   "Single primary conversion: complimentary audit"
+  ],
+  "weakness": "Visibly stale (Google+, '14 years' counter)"
+ },
+ {
+  "name": "MedSpa Advertising",
+  "url": "https://www.medspaadvertising.com/",
+  "location": "Franklin, USA",
+  "category": "niche-calendar",
+  "team_size": "1-10",
+  "success": [
+   {
+    "claim": "Inc. Regionals Southeast 2024 #99; founded 2017",
+    "source_url": "https://www.inc.com/profile/medspa-advertising"
+   }
+  ],
+  "borrow": [
+   "'Beyond Lead Gen: Turning Leads into Booked Appointments' — speed-to-lead, front-desk training, database reactivation",
+   "Two-step page: watch video -> calendar embedded, no form",
+   "Video testimonial wall titled with client-worded outcomes"
+  ],
+  "weakness": "Hype voice, 'not remotely typical' disclaimer — copy mechanism, not tone"
+ }
+]
