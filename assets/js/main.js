@@ -22,6 +22,39 @@
   var overlay = null;
   var lastFocus = null;
   var scrollY = 0;
+  var T = root.lang === "ro" ? {
+    title: "Cookie-uri pe acest site",
+    introInUse: "Folosim stocare strict necesară pentru funcționarea site-ului și, doar dacă ești de acord, instrumentele de analiză și marketing listate la Personalizează. Poți schimba alegerea oricând din Setări cookie, în subsolul paginii.",
+    introNone: "Acest site folosește doar stocare strict necesară: o singură intrare în browserul tău, care ține minte această alegere. Nu folosim instrumente de analiză sau marketing. Dacă vom adăuga vreunul, te întrebăm mai întâi.",
+    policy: "/ro/privacy-policy.html#cookies",
+    policyText: "Citește secțiunea despre cookie-uri din Politica de confidențialitate",
+    legend: "Alege categoriile",
+    necessary: "Strict necesare",
+    necessaryText: "Ține minte alegerea ta privind cookie-urile. Mereu activ.",
+    analytics: "Analiză",
+    marketing: "Marketing",
+    usedBy: "Folosit de: ",
+    save: "Salvează alegerile",
+    accept: "Acceptă toate",
+    reject: "Refuză toate",
+    customize: "Personalizează"
+  } : {
+    title: "Cookies on this site",
+    introInUse: "We use strictly necessary storage to run this site and, only if you agree, the analytics and marketing tools listed under Customize. You can change your choice at any time from Cookie settings in the footer.",
+    introNone: "This site only uses strictly necessary storage: one entry in your browser that remembers this choice. We don't run analytics or marketing tools. If we add any, we will ask you first.",
+    policy: "/privacy-policy.html#cookies",
+    policyText: "Read the cookie section of our Privacy Policy",
+    legend: "Choose categories",
+    necessary: "Strictly necessary",
+    necessaryText: "Remembers your cookie choice. Always on.",
+    analytics: "Analytics",
+    marketing: "Marketing",
+    usedBy: "Used by: ",
+    save: "Save choices",
+    accept: "Accept all",
+    reject: "Reject all",
+    customize: "Customize"
+  };
 
   function read() {
     try {
@@ -73,20 +106,17 @@
   }
 
   function build(current) {
-    var intro = inUse
-      ? "We use strictly necessary storage to run this site and, only if you agree, the analytics and marketing tools listed under Customize. You can change your choice at any time from Cookie settings in the footer."
-      : "This site only uses strictly necessary storage: one entry in your browser that remembers this choice. We don't run analytics or marketing tools. If we add any, we will ask you first.";
-    var html = '<h2 class="consent__title" id="consent-title">Cookies on this site</h2>' +
-      '<p id="consent-text">' + intro + ' <a href="privacy-policy.html#cookies">Read the cookie section of our Privacy Policy</a>.</p>' +
-      '<fieldset class="consent__panel" id="consent-panel" hidden><legend class="visually-hidden">Choose categories</legend>' +
-      option("necessary", "Strictly necessary", "Remembers your cookie choice. Always on.", true, true);
-    if (TOOLS.analytics.length) html += option("analytics", "Analytics", "Used by: " + TOOLS.analytics.join(", ") + ".", current && current.analytics, false);
-    if (TOOLS.marketing.length) html += option("marketing", "Marketing", "Used by: " + TOOLS.marketing.join(", ") + ".", current && current.marketing, false);
-    html += '<button type="button" class="btn" data-action="save">Save choices</button></fieldset>' +
+    var html = '<h2 class="consent__title" id="consent-title">' + T.title + '</h2>' +
+      '<p id="consent-text">' + (inUse ? T.introInUse : T.introNone) + ' <a href="' + T.policy + '">' + T.policyText + '</a>.</p>' +
+      '<fieldset class="consent__panel" id="consent-panel" hidden><legend class="visually-hidden">' + T.legend + '</legend>' +
+      option("necessary", T.necessary, T.necessaryText, true, true);
+    if (TOOLS.analytics.length) html += option("analytics", T.analytics, T.usedBy + TOOLS.analytics.join(", ") + ".", current && current.analytics, false);
+    if (TOOLS.marketing.length) html += option("marketing", T.marketing, T.usedBy + TOOLS.marketing.join(", ") + ".", current && current.marketing, false);
+    html += '<button type="button" class="btn" data-action="save">' + T.save + '</button></fieldset>' +
       '<div class="consent__actions">' +
-      '<button type="button" class="btn" data-action="accept">Accept all</button>' +
-      '<button type="button" class="btn" data-action="reject">Reject all</button>' +
-      '<button type="button" class="btn btn--secondary" data-action="customize" aria-expanded="false" aria-controls="consent-panel">Customize</button>' +
+      '<button type="button" class="btn" data-action="accept">' + T.accept + '</button>' +
+      '<button type="button" class="btn" data-action="reject">' + T.reject + '</button>' +
+      '<button type="button" class="btn btn--secondary" data-action="customize" aria-expanded="false" aria-controls="consent-panel">' + T.customize + '</button>' +
       "</div>";
 
     dialog = doc.createElement("div");

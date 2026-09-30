@@ -1,4 +1,6 @@
 .unlazy/
 .unlazy-hook-state.json
+.callout/
+.claude/launch.json
 .claude/settings.local.json
 .DS_Store

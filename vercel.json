@@ -3,7 +3,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/industries.html", "destination": "/how-you-sell.html", "permanent": true },
-    { "source": "/industries", "destination": "/how-you-sell.html", "permanent": true }
+    { "source": "/industries", "destination": "/how-you-sell.html", "permanent": true },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "RO" }], "destination": "/ro", "permanent": false }
   ],
   "headers": [
     {

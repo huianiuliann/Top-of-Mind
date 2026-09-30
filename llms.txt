@@ -6,6 +6,7 @@
 - [Home](https://topofmind.me/): what the studio does and how it works
 - [How you sell](https://topofmind.me/how-you-sell.html): the three buying modes and what we build for each
 - [Services](https://topofmind.me/services.html): paid advertising, websites & SEO, social media, lead generation, tracking
+- [Research Sprint](https://topofmind.me/research.html): weeks one and two of the process, sold on their own at a fixed price confirmed in writing before the work starts
 - [Process](https://topofmind.me/process.html): the three-step method and the first month, week by week
 - [Team](https://topofmind.me/team.html): the two founders
 - [Contact](https://topofmind.me/contact.html): booking, WhatsApp, email and FAQ
@@ -13,3 +14,6 @@
 ## Policies
 - [Privacy Policy](https://topofmind.me/privacy-policy.html)
 - [Customer Policy](https://topofmind.me/customer-policy.html)
+
+## Romanian
+- [Română](https://topofmind.me/ro): the same site in Romanian, every page under /ro/
