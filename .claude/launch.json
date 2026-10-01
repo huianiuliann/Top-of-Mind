@@ -2,16 +2,23 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "static-site",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5173", "--bind", "127.0.0.1"],
-      "port": 5173
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5175", "--strictPort", "--host", "127.0.0.1"],
+      "port": 5175
     },
     {
-      "name": "static-site-alt",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5174", "--bind", "127.0.0.1"],
-      "port": 5174
+      "name": "dev-alt",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "--host", "127.0.0.1"],
+      "port": 5176,
+      "autoPort": true
+    },
+    {
+      "name": "preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "--", "--port", "4173", "--strictPort", "--host", "127.0.0.1"],
+      "port": 4173
     }
   ]
 }

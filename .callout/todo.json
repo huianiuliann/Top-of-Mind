@@ -1,5 +1,5 @@
 {
-  "nextId": 14,
+  "nextId": 24,
   "items": [
     {
       "id": 1,
@@ -130,6 +130,106 @@
       "source": "CTO review",
       "createdAt": "2026-09-30T09:37:14.483Z",
       "updatedAt": "2026-09-30T09:37:14.483Z"
+    },
+    {
+      "id": 14,
+      "title": "Isolate bilingual work from parallel font session",
+      "description": "Worked in a scratch copy and 3-way merged back: 57 files clean, 43 created, 0 conflicts; font/team-cards session edits kept.",
+      "priority": "must",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:12:48.710Z",
+      "updatedAt": "2026-10-01T08:05:49.057Z"
+    },
+    {
+      "id": 15,
+      "title": "Prove EN pages unchanged by the RO work",
+      "description": "Gate G2: EN prerender byte-identical to the pre-change render (switch, two wrappers and /assets slashes normalised).",
+      "priority": "must",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:12:48.717Z",
+      "updatedAt": "2026-10-01T08:05:49.065Z"
+    },
+    {
+      "id": 16,
+      "title": "t(en, ro) layer + full RO version of all 6 pages at /ro/",
+      "description": "t/L/useLink in src/i18n; all 6 pages at /ro/; G3 parity + G3b source scan pass (no English left, incl. hidden states).",
+      "priority": "must",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:12:48.724Z",
+      "updatedAt": "2026-10-01T08:05:49.073Z"
+    },
+    {
+      "id": 17,
+      "title": "RO links and assets root-absolute; EN home link never \"/\"",
+      "description": "G5/G6: RO links root-absolute, EN home never \"/\", RO->EN home switch is /index.html.",
+      "priority": "must",
+      "status": "done",
+      "source": "Product review",
+      "createdAt": "2026-10-01T07:12:48.730Z",
+      "updatedAt": "2026-10-01T08:05:49.081Z"
+    },
+    {
+      "id": 18,
+      "title": "vercel.json geo redirect: x-vercel-ip-country RO, only \"/\"",
+      "description": "vercel.json rule verified by a simulator (G7) and matches Vercel's documented header-redirect form; not tested on a live deploy.",
+      "priority": "should",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:12:48.736Z",
+      "updatedAt": "2026-10-01T08:05:49.087Z"
+    },
+    {
+      "id": 19,
+      "title": "html lang, hreflang and hydration lang agreement",
+      "description": "G4 head/hreflang/og:locale; hydration verified in real Chrome (G10) and the in-app browser.",
+      "priority": "should",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:12:48.742Z",
+      "updatedAt": "2026-10-01T08:05:49.094Z"
+    },
+    {
+      "id": 20,
+      "title": "Language switch visible on mobile header, desktop nav and footer",
+      "description": "EN | RO switch in desktop nav, mobile header and footer on all 12 pages (G6, G10).",
+      "priority": "should",
+      "status": "done",
+      "source": "Product review",
+      "createdAt": "2026-10-01T07:12:48.749Z",
+      "updatedAt": "2026-10-01T08:05:49.100Z"
+    },
+    {
+      "id": 21,
+      "title": "RO copy quality, overflow at 375px, facts identical to EN policy",
+      "description": "Layout and policy checked (G10, G11). Owner still to read: contact \"Lucrăm în română și în engleză\", FAQ \"pagină de Facebook\", shortened hero CTA, \"Schiță de poziționare\".",
+      "priority": "should",
+      "status": "in_progress",
+      "source": "Customer review",
+      "createdAt": "2026-10-01T07:12:48.756Z",
+      "updatedAt": "2026-10-01T08:05:49.106Z"
+    },
+    {
+      "id": 22,
+      "title": "Revisit 6 duplicate src/entries/ro-*.jsx if Vite stops emitting 13 module scripts for shared entries",
+      "description": "Sharing one entry module between EN and RO shells made Vite 8 emit 13 script tags instead of 1 plus modulepreloads. Separate 4-line RO entries avoid it. Drop them if a future Vite handles shared entries.",
+      "priority": "nice",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:34:56.817Z",
+      "updatedAt": "2026-10-01T07:34:56.817Z"
+    },
+    {
+      "id": 23,
+      "title": "ro-react oracle: en-unchanged baseline and deps gate are point-in-time",
+      "description": ".unlazy/ro-react/ref/en holds the EN render from before the RO work. After the next intentional EN edit, regenerate it (or drop gate G2). Gates ro/head/links/switch/geo/fonts/browser stay valid as the site evolves.",
+      "priority": "should",
+      "status": "open",
+      "source": "CTO review",
+      "createdAt": "2026-10-01T07:34:56.828Z",
+      "updatedAt": "2026-10-01T07:34:56.828Z"
     }
   ]
 }

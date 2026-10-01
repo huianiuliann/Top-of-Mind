@@ -26,6 +26,23 @@
         "customer"
       ],
       "findingSummary": "Redesign review (cto, product, customer), 2026-09-30: 1 MUST FIX (parallel i18n session editing main.css/index.html; sequenced via gate G0), 3 SHOULD FIX (header/footer copied in 19 files; KB ideas limited to what is honest without proof; CTA repeated 3x on homepage, watch fatigue), 3 GOOD (no new deps/JS, CSP intact, reused .list-numbered/.compare__col/.mode; free-preview section makes the CTA concrete; hero answers what/for whom/why in 3s). Implemented: index.html + ro/index.html KlientBoost structure, main.css system under 24,576 B, all 7 runnable gates green."
+    },
+    {
+      "date": "2026-10-01",
+      "perspectives": [
+        "cto",
+        "product",
+        "customer"
+      ],
+      "findingSummary": "Bilingual React site review (cto, product, customer), 2026-10-01: 4 MUST FIX (parallel font session edits same files -> isolated copy + merge; EN must stay byte-identical; t(en,ro) layer across ~70 JSX files; RO links/assets root-absolute and EN home never \"/\"), 4 SHOULD FIX (vercel.json geo rule missing on REact; hreflang + lang/hydration match; switch visible on mobile; RO overflow + facts match pricing policy), 4 GOOD (prerender gives RO static HTML free; header redirect needs no JS/cookie/IP API; fonts already cover ă â î ș ț; RO default fits Cluj SMB target). Key: isolate from the parallel session first."
+    },
+    {
+      "date": "2026-10-01",
+      "perspectives": [
+        "cto",
+        "product"
+      ],
+      "findingSummary": "New-file challenge for the bilingual work (cto, product), 2026-10-01: 0 MUST FIX, 2 SHOULD FIX (6 duplicate ro-*.jsx entries needed because Vite 8 emits 13 module scripts for shared entries; en/deps oracle gates are point-in-time and decay), 5 GOOD (i18n core 35 lines no library; LangSwitch; vercel.json single rule; ro/*.html shells fit the MPA design; no speculative cookie/persistence). Key: nothing speculative, accept the tiny duplicates."
     }
   ]
 }

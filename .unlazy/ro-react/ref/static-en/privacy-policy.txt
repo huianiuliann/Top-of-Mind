@@ -1,0 +1,102 @@
+Privacy policy and cookies | Top of Mind
+Skip to content
+Top of Mind
+Menu
+Services
+How you sell
+Research
+Process
+Team
+Contact
+RO
+Book a call (opens in a new tab)
+Privacy policy
+This policy explains how TOM BUREAU SRL, the company behind Top of Mind in Cluj-Napoca, Romania, handles personal data when you visit topofmind.me or get in touch. We collect little: what you send us, the technical data our host needs to serve the site and your cookie choice. We run no analytics or marketing tools.
+Last updated: 30 September 2026
+Who we are
+What data we collect and when
+Purposes and legal basis
+How long we keep your data
+Who receives your data
+Transfers outside the EEA
+Cookies and local storage
+Your rights
+Security, children and changes
+Who we are
+The controller of your personal data is TOM BUREAU SRL, a Romanian company based in Cluj-Napoca, Romania, with tax identification number (CUI) 54043345. Top of Mind is our brand.
+For any question about your data, or to use the rights described below, email iulian@topofmind.me or call +40 756 883 206.
+What data we collect and when
+The site has no forms and no user accounts. We receive personal data only in these situations:
+When you contact us. If you email us, message us on WhatsApp or call, we receive your name, your email address or phone number and whatever you write or tell us.
+When you book a call. The booking link opens Calendly, a separate service. Calendly collects what you enter there, such as your name and email address, under its own privacy notice (opens in a new tab), and shares the booking details with us so we can hold the call.
+When you visit the site. Our host, Vercel, processes the technical data needed to deliver each page: your IP address, your browser's user agent and request logs, such as which page was requested and when. On the home page, Vercel also reads the country of your IP address, without storing it, so that visitors from Romania see the Romanian version first (our legitimate interest in showing the site in your language, art. 6(1)(f)).
+When you answer the cookie banner. Your browser stores your choice in its local storage. It stays on your device and is not sent to us (see Cookies and local storage).
+If you become a client. We keep the contact details of the people we work with, the company details needed for invoices and our correspondence.
+We use no analytics or marketing tools today. If we ever add one, it will run only after you consent, and we will list it in this policy. Fonts, images and scripts are served from topofmind.me itself, not from services such as Google Fonts, so loading a page does not share your visit with them.
+Purposes and legal basis
+To answer you, hold the call and prepare a proposal. Taking steps you ask for before a contract (GDPR art. 6(1)(b)). If you write on behalf of a company, or about something else, our legitimate interest in replying (art. 6(1)(f)).
+To deliver the work for our clients. Performing the contract (art. 6(1)(b)), and our legitimate interest in working with the people who act for a client company (art. 6(1)(f)).
+To keep the site secure and working. Our legitimate interest in running a safe, reliable website, which is why our host keeps server logs (art. 6(1)(f)).
+To meet legal obligations. For example, keeping accounting records for our clients (art. 6(1)(c)).
+Analytics or marketing, if we ever add them. Only with your consent (art. 6(1)(a)), which you can withdraw at any time.
+You don't have to give us any data to read this site. If you want a reply or a proposal, we need a way to contact you. We make no decisions about you by automated means.
+How long we keep your data
+We keep personal data only for as long as we need it for the purpose we collected it for, and for the periods Romanian law requires.
+Messages and bookings. For as long as our conversation about working together continues. If it doesn't lead to a contract, we delete them once we no longer need them.
+Client records. For the length of our work together, then for the periods required by Romanian law, for example for accounting documents.
+Server logs. For as long as Vercel keeps them to deliver and protect the site, under its own retention rules.
+Your cookie choice. 180 days in your browser, or until you clear your browser's storage. After that, the banner asks again.
+Who receives your data
+We don't sell your data and we don't share it for advertising. It reaches only the services below, and public authorities when the law requires it.
+Vercel Inc. (United States) hosts this site and processes the technical data of each visit for us.
+Zoho provides our email (Zoho Mail). Our mailboxes are hosted in Zoho's EU data centre.
+Calendly, LLC (United States) runs the booking page and processes what you enter there under its own privacy notice.
+WhatsApp, provided in Europe by WhatsApp Ireland Limited, a Meta company, carries the messages you send us there, under its own privacy policy (opens in a new tab).
+Transfers outside the EEA
+Some of these providers are based in the United States or can process data outside the European Economic Area. Each transfer relies on a safeguard recognised by the GDPR:
+Vercel is certified under the EU-US Data Privacy Framework and uses Standard Contractual Clauses where needed.
+Zoho keeps our email in its EU data centre. Where Zoho group companies outside the EEA process it, Zoho uses agreements based on the European Commission's Standard Contractual Clauses.
+Calendly is certified under the EU-US Data Privacy Framework and also relies on Standard Contractual Clauses.
+WhatsApp shares data with WhatsApp LLC in the United States, which is certified under the EU-US Data Privacy Framework.
+Each provider's privacy notice describes these safeguards in full, and you can ask us for details.
+Cookies and local storage
+This site sets no cookies. It uses one entry in your browser's local storage to remember your answer to the cookie banner.
+Name
+Purpose
+Category
+Duration
+tom_consent
+Stores your cookie choice
+Strictly necessary
+180 days
+Because it is strictly necessary, this entry doesn't need your consent. We use no other cookies, storage or trackers today. If we add analytics or marketing tools, they will stay off until you accept them, and the banner will ask you again.
+To change your choice at any time, open
+Cookie settings
+.
+You can also remove the entry by clearing this site's data in your browser settings.
+Your rights
+Under the GDPR you can:
+Access. Ask for a copy of the data we hold about you.
+Rectification. Ask us to correct data that is wrong or incomplete.
+Erasure. Ask us to delete your data.
+Restriction. Ask us to limit how we use it.
+Portability. Receive the data you gave us in a common, machine-readable format, or ask us to send it to another company.
+Objection. Object to processing based on our legitimate interest.
+Withdrawing consent. Withdraw consent at any time, without affecting what was done before.
+To use any of these rights, email iulian@topofmind.me. We answer within one month. If a request is complex, we can extend this by up to two more months, and we will tell you why within the first month. We may ask you to confirm your identity first.
+If you think we have handled your data wrongly, you can complain to the Romanian data protection authority, ANSPDCP (Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal), at dataprotection.ro (opens in a new tab), or to the authority in the EU country where you live or work. We'd like the chance to put things right first, so please tell us too.
+Security, children and changes
+Security. The site is served only over HTTPS, and what you send us stays with the two founders and the providers listed above. No way of sending data over the internet is completely secure, so please don't send us sensitive information such as health data or passwords.
+Children. Our site and services are meant for businesses and are not aimed at anyone under 16. We don't knowingly collect data about children. If you think we have, tell us and we will delete it.
+Changes. When we change this policy, we update this page and the date at the top. If a change needs your consent, such as a new analytics tool, the cookie banner will ask you before it applies.
+Questions about your data? Contact us
+Top of Mind is a two-person, research-first marketing studio in Cluj-Napoca, Romania.
+Book a call on Calendly (opens in a new tab)
+iulian@topofmind.me
+WhatsApp (opens in a new tab)
++40 756 883 206
+Cluj-Napoca, Romania
+Privacy Policy
+Customer Policy
+Cookie settings
+TOM BUREAU SRL · CUI 54043345 · Cluj-Napoca · © 2026 Top of Mind

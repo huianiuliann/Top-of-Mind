@@ -1,0 +1,5 @@
+# Exceptions for source.mjs: one `file :: exact text` per line (file relative to src/). Each one is English on purpose or never shown.
+# The `fee` field of homeBuyingModes is data that no component renders (the visible fee line is written inline next to it).
+pages/home/HowYouSell.jsx :: per qualified lead
+pages/home/HowYouSell.jsx :: tied to ad performance
+pages/home/HowYouSell.jsx :: tied to direct bookings

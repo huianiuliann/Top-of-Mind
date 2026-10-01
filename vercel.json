@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "RO" }], "destination": "/ro", "permanent": false }
+  ]
+}
