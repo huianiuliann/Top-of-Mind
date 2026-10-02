@@ -29,6 +29,9 @@ export function TeamHeroFounderOrbit() {
               <img
                 src={founder.duo}
                 alt=""
+                width={640}
+                height={640}
+                decoding="async"
                 style={avatarStyle(founder)}
                 className="relative size-full rounded-full object-cover"
               />

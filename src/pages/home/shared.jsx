@@ -8,7 +8,7 @@ export function ArrowTextLink({ href, children, className }) {
     <a
       href={link(href)}
       className={cn(
-        "group inline-flex items-center gap-1.5 font-mono text-[13px] text-neutral-300 transition-colors hover:text-accent-300",
+        "group inline-flex items-center gap-1.5 py-1 font-mono text-[13px] text-neutral-300 transition-colors hover:text-accent-300",
         className,
       )}
     >

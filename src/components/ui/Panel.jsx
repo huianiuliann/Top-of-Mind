@@ -3,7 +3,7 @@ export function Panel({ children, className }) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[linear-gradient(180deg,#17171b_0%,#121215_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]",
+        "relative overflow-hidden rounded-card border border-white/10 bg-[linear-gradient(180deg,var(--color-ink-900)_0%,var(--color-ink-950)_100%)] shadow-[inset_0_1px_0_rgba(254,250,241,0.03)]",
         className,
       )}
     >

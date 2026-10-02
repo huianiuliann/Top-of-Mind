@@ -18,14 +18,14 @@ export function SplitTestVisual({ className }) {
     {
       k: "A",
       label: t("Before / after", "Înainte / după"),
-      bg: "bg-[linear-gradient(135deg,#2c2c31,#19191d)]",
+      bg: "bg-[linear-gradient(135deg,var(--color-ink-600),var(--color-ink-900))]",
     },
     {
       k: "B",
       label: t("Founder on camera", "Fondator pe video"),
-      bg: "bg-[linear-gradient(135deg,#45454c,#1b1b1f)]",
+      bg: "bg-[linear-gradient(135deg,var(--color-neutral-700),var(--color-ink-900))]",
     },
-    { k: "C", label: t("Price-led", "Pe preț"), bg: "bg-[linear-gradient(135deg,#222226,#17171b)]" },
+    { k: "C", label: t("Price-led", "Pe preț"), bg: "bg-[linear-gradient(135deg,var(--color-ink-800),var(--color-ink-900))]" },
   ];
   return (
     <div ref={containerRef} className={cn("w-full select-none", className)} aria-hidden="true">
@@ -52,24 +52,29 @@ export function SplitTestVisual({ className }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 flex items-center justify-between font-mono text-[10.5px] text-neutral-500">
+      <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-neutral-500">
         <span>{t("Budget this week", "Bugetul săptămânii")}</span>
         <span className="text-neutral-300">{t("moves to what works", "se mută spre ce merge")}</span>
       </div>
-      <div className="mt-2 flex h-3 overflow-hidden rounded-full bg-white/[0.04]">
-        {shares.map((share, index) => (
-          <motion.div
-            key={index}
-            animate={{ width: `${share}%` }}
-            initial={false}
-            style={{ width: `${share}%` }}
-            transition={{ duration: 1, ease: easeOutExpo }}
-            className={cn(
-              "h-full border-r border-black/60",
-              index === 1 ? "bg-accent-500" : index === 0 ? "bg-[#36363c]" : "bg-[#28282d]",
-            )}
-          />
-        ))}
+      {/* Stacked full-width layers scaled from the left (compositor only, no layout per frame): each layer ends where
+          its share ends and covers the next one */}
+      <div className="relative mt-2 h-3 overflow-hidden rounded-full bg-white/[0.04]">
+        {shares.map((_share, index) => {
+          const end = shares.slice(0, index + 1).reduce((sum, share) => sum + share, 0) / 100;
+          return (
+            <motion.div
+              key={index}
+              animate={{ scaleX: end }}
+              initial={false}
+              style={{ scaleX: end, zIndex: shares.length - index }}
+              transition={{ duration: 1, ease: easeOutExpo }}
+              className={cn(
+                "absolute inset-0 origin-left border-r border-black/60",
+                index === 1 ? "bg-accent-500" : index === 0 ? "bg-ink-600" : "bg-ink-700",
+              )}
+            />
+          );
+        })}
       </div>
     </div>
   );

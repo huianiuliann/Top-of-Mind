@@ -48,6 +48,10 @@ function FounderNode({ ref, founder }) {
         <img
           src={founder.duo}
           alt={founder.name}
+          width={640}
+          height={640}
+          loading="lazy"
+          decoding="async"
           style={avatarStyle(founder)}
           className="h-full w-full object-cover"
         />

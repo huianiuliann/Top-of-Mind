@@ -29,6 +29,17 @@ function useTypewriterCycle(phrases, running) {
   }, [phase, charCount, phraseIndex, running, phrases]);
   return phrases[phraseIndex].slice(0, charCount);
 }
+// Owns the typing state, so each keystroke (every 18-42 ms) re-renders this span only, not the whole panel;
+// one truncated line, so long queries never wrap and shift the panel on narrow phones.
+function TypedQuery({ phrases, running }) {
+  const typedText = useTypewriterCycle(phrases, running);
+  return (
+    <span className="min-w-0 truncate font-mono text-[13px] text-neutral-200">
+      {typedText}
+      <span className="ml-0.5 inline-block h-4 w-px translate-y-0.5 animate-pulse bg-white/70" />
+    </span>
+  );
+}
 const buyerSearchQueries = [
   L("how long does a custom quote take", "cât durează o ofertă personalizată"),
   L("best mattress for a sore back", "cea mai bună saltea pentru dureri de spate"),
@@ -60,22 +71,23 @@ export function BuyerResearchPanel() {
   const lang = useLang();
   // one stable array per language: the typewriter effect depends on `phrases`, a new array each render would restart its timers
   const phrases = useMemo(() => buyerSearchQueries.map((query) => t(query)), [lang]);
-  const typedText = useTypewriterCycle(phrases, inView);
   return (
     <Panel className="flex h-full w-full flex-col gap-4 p-5 sm:p-6">
       <div
         ref={searchRef}
         className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-4 py-3"
       >
-        <IconSearch className="size-4 text-neutral-500" stroke={1.6} />
-        <span className="font-mono text-[13px] text-neutral-200">
-          {typedText}
-          <span className="ml-0.5 inline-block h-4 w-px translate-y-0.5 animate-pulse bg-white/70" />
+        <IconSearch className="size-4 shrink-0 text-neutral-500" stroke={1.6} />
+        <TypedQuery phrases={phrases} running={inView} />
+      </div>
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-mono text-[11px] text-neutral-500">
+          {t("What buyers actually say", "Ce spun clienții, de fapt")}
+        </p>
+        <span className="rounded-md border border-white/15 px-2.5 py-0.5 font-mono text-[10px] text-neutral-400">
+          {t("Example", "Exemplu")}
         </span>
       </div>
-      <p className="font-mono text-[11px] text-neutral-500">
-        {t("What buyers actually say", "Ce spun clienții, de fapt")}
-      </p>
       <div className="space-y-2.5">
         {buyerSignals.map((signal, index) => (
           <motion.div

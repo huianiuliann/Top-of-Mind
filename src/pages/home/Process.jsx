@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { useScroll, useMotionValueEvent, motion, useTransform } from "framer-motion";
+import { useScroll, useMotionValueEvent, motion } from "framer-motion";
 import { cn } from "../../lib/cn";
 import { BuyerResearchPanel } from "../../components/effects/BuyerResearchPanel";
 import { CompetitorTeardownPanel } from "../../components/effects/CompetitorTeardownPanel";
+import { DesktopOnly } from "../../components/effects/DesktopOnly";
 import { PositioningPanel } from "../../components/effects/PositioningPanel";
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
@@ -18,14 +19,13 @@ function StickyScrollSteps({ steps }) {
     const nextStep = Math.min(steps.length - 1, Math.max(0, Math.floor(latest * steps.length)));
     setActiveStep(nextStep);
   });
-  const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (
-    <div ref={containerRef} className="relative mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
+    <div ref={containerRef} className="relative mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
       <div className="relative">
         <div className="absolute top-2 bottom-2 left-[15px] hidden w-px bg-white/10 lg:block">
           <motion.div
-            style={{ height: progressHeight }}
-            className="w-px bg-gradient-to-b from-accent-300 to-accent-500"
+            style={{ scaleY: scrollYProgress }}
+            className="h-full w-px origin-top bg-gradient-to-b from-accent-300 to-accent-500"
           />
         </div>
         {steps.map((step, index) => (
@@ -40,7 +40,7 @@ function StickyScrollSteps({ steps }) {
               className={cn(
                 "absolute top-1/2 left-0 hidden size-[31px] -translate-y-1/2 place-items-center rounded-full border font-mono text-[13px] transition-colors duration-500 lg:grid",
                 activeStep === index
-                  ? "border-accent-400 bg-accent-500 text-[#ffffff]"
+                  ? "border-accent-400 bg-accent-500 text-on-accent"
                   : "border-white/15 bg-ink-950 text-neutral-500",
               )}
             >
@@ -73,35 +73,34 @@ function StickyScrollSteps({ steps }) {
               {t(step.body)}
             </div>
             <div className="mt-8 h-[25rem] lg:hidden">
-              <div className="theme-dark h-full">
-                <step.Visual />
-              </div>
+              <div className="theme-dark h-full">{step.visual}</div>
             </div>
           </div>
         ))}
       </div>
-      <div className="relative hidden lg:block">
-        <div className="sticky top-[calc(50vh-15rem)] h-[30rem]">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.title.en}
-              className="absolute inset-0"
-              initial={false}
-              animate={{
-                opacity: activeStep === index ? 1 : 0,
-                scale: activeStep === index ? 1 : 0.97,
-                y: activeStep === index ? 0 : 14,
-              }}
-              transition={{ duration: 0.6, ease: easeOutExpo }}
-              style={{ pointerEvents: activeStep === index ? "auto" : "none" }}
-            >
-              <div className="theme-dark h-full">
-                <step.Visual />
-              </div>
-            </motion.div>
-          ))}
+      {/* The sticky desktop copy of the panels is not mounted below lg, so phones build and hydrate each panel once */}
+      <DesktopOnly minWidth={1024}>
+        <div className="relative hidden lg:block">
+          <div className="sticky top-[calc(50vh-15rem)] h-[30rem]">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.title.en}
+                className="absolute inset-0"
+                initial={false}
+                animate={{
+                  opacity: activeStep === index ? 1 : 0,
+                  scale: activeStep === index ? 1 : 0.97,
+                  y: activeStep === index ? 0 : 14,
+                }}
+                transition={{ duration: 0.6, ease: easeOutExpo }}
+                style={{ pointerEvents: activeStep === index ? "auto" : "none" }}
+              >
+                <div className="theme-dark h-full">{step.visual}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
+      </DesktopOnly>
     </div>
   );
 }
@@ -109,7 +108,7 @@ export function HomeProcess() {
   const t = useT();
   const link = useLink();
   return (
-    <section className="theme-light relative py-20 md:py-28">
+    <section className="theme-light relative py-16 md:py-24">
       <Container>
         <SectionHeading
           eyebrow={t("Process", "Proces")}
@@ -132,7 +131,7 @@ export function HomeProcess() {
                 "What your customers actually care about, where they spend attention, and what makes them trust a brand enough to pay — before a single ad gets written.",
                 "Ce contează cu adevărat pentru clienții tăi, unde își petrec atenția și ce îi face să aibă destulă încredere într-un brand ca să plătească — înainte să scriem prima reclamă.",
               ),
-              Visual: BuyerResearchPanel,
+              visual: <BuyerResearchPanel />,
             },
             {
               title: L("Map the competition", "Analizăm concurența"),
@@ -140,7 +139,7 @@ export function HomeProcess() {
                 "Whoever's already winning attention in your space, taken apart: what's working, what's copied from somewhere else, and what they're leaving on the table for you.",
                 "Îi luăm la bani mărunți pe cei care câștigă deja atenția în domeniul tău: ce le merge, ce au copiat de altundeva și ce lasă liber pentru tine.",
               ),
-              Visual: CompetitorTeardownPanel,
+              visual: <CompetitorTeardownPanel />,
             },
             {
               title: L("Build a sharper position", "Construim o poziționare mai clară"),
@@ -148,7 +147,7 @@ export function HomeProcess() {
                 "What's proven, sharpened, plus what's missing — the ads, the site, the content — so that when your customer is ready to decide, yours is the name they remember.",
                 "Ce funcționează deja, spus mai clar, plus ce lipsește — reclamele, site-ul, conținutul — ca atunci când clientul tău e gata să decidă, numele tău să fie primul care îi vine în minte.",
               ),
-              Visual: PositioningPanel,
+              visual: <PositioningPanel />,
             },
           ]}
         />

@@ -18,7 +18,7 @@ const levelColor = (level, weight) =>
 export function ServicesDisciplineMix() {
   const t = useT();
   return (
-    <section className="theme-light relative py-20 md:py-28">
+    <section className="theme-light relative py-16 md:py-24">
       <Container>
         <SectionHeading
           eyebrow={t("Same disciplines, different weight", "Aceleași servicii, altă pondere")}
@@ -34,7 +34,7 @@ export function ServicesDisciplineMix() {
           )}
         />
         <Reveal className="mt-12">
-          <div className="hidden overflow-x-auto rounded-3xl border border-white/[0.07] bg-ink-900/60 md:block">
+          <div className="hidden overflow-x-auto rounded-card border border-white/10 bg-ink-900/60 md:block">
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
@@ -53,7 +53,7 @@ export function ServicesDisciplineMix() {
               </thead>
               <tbody>
                 {disciplineWeightsByBuyingMode.map(([discipline, weights], rowIndex) => (
-                  <tr key={discipline.en} className="border-b border-white/[0.04] last:border-0">
+                  <tr key={discipline.en} className="border-b border-white/[0.06] last:border-0">
                     <td className="p-5 text-neutral-200">{t(discipline)}</td>
                     {weights.map((weight, modeIndex) => (
                       <td key={modeIndex} className="p-5">
@@ -86,7 +86,7 @@ export function ServicesDisciplineMix() {
           </div>
           <div className="grid grid-cols-1 gap-3 md:hidden">
             {disciplineWeightsByBuyingMode.map(([discipline, weights]) => (
-              <div key={discipline.en} className="rounded-2xl border border-white/[0.07] bg-ink-900/60 p-4">
+              <div key={discipline.en} className="rounded-2xl border border-white/10 bg-ink-900/60 p-4">
                 <p className="font-display font-bold text-white">{t(discipline)}</p>
                 <div className="mt-3 space-y-2">
                   {buyingModes.map((mode, modeIndex) => (

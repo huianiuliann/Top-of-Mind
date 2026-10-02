@@ -4,7 +4,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { L, useT } from "../../i18n";
 import { easeOutExpo } from "../../components/effects/motion";
-const contactFaqItems = [
+export const contactFaqItems = [
   {
     q: L("Do you have case studies?", "Aveți studii de caz?"),
     a: L(
@@ -48,12 +48,12 @@ const contactFaqItems = [
     ),
   },
 ];
-export function ContactFaq() {
+export function ContactFaq({ items = contactFaqItems }) {
   const t = useT();
   const [openIndex, setOpenIndex] = useState(0);
   return (
-    <div className="divide-y divide-white/[0.06] rounded-3xl border border-white/[0.07] bg-ink-900/50">
-      {contactFaqItems.map((item, index) => {
+    <div className="divide-y divide-white/[0.06] rounded-card border border-white/10 bg-ink-900/50">
+      {items.map((item, index) => {
         const isOpen = openIndex === index;
         return (
           <div key={item.q.en} className="px-5 md:px-7">
@@ -77,7 +77,7 @@ export function ContactFaq() {
                 className={cn(
                   "grid size-8 shrink-0 place-items-center rounded-full border transition-colors",
                   isOpen
-                    ? "border-accent-400/70 bg-accent-500/15 text-accent-300"
+                    ? "border-accent-400 bg-white/[0.06] text-accent-300"
                     : "border-white/10 text-neutral-400",
                 )}
               >

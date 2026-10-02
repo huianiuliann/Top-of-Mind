@@ -50,7 +50,7 @@ export default function HowYouSellPage() {
           ))}
         </div>
       </PageHero>
-      <section className="theme-light relative py-16 md:py-20">
+      <section className="theme-light relative py-16 md:py-24">
         <Container>
           <Reveal>
             <HowYouSellQuickCheck />

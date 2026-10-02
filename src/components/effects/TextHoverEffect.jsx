@@ -26,9 +26,9 @@ export const TextHoverEffect = ({ text, viewBox = "0 0 300 100" }) => {
         <linearGradient id={`tg-${uniqueId}`} gradientUnits="userSpaceOnUse" cx="50%" cy="50%" r="25%">
           {hovered && (
             <>
-              <stop offset="0%" stopColor="#c7cdfe" />
-              <stop offset="50%" stopColor="#818cf8" />
-              <stop offset="100%" stopColor="#5b54f5" />
+              <stop offset="0%" stopColor="var(--color-accent-200)" />
+              <stop offset="50%" stopColor="var(--color-accent-400)" />
+              <stop offset="100%" stopColor="var(--color-accent-500)" />
             </>
           )}
         </linearGradient>

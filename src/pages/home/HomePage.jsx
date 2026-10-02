@@ -1,5 +1,6 @@
 import { SiteLayout } from "../../components/layout/SiteLayout";
 import { HomeAgencyProblem } from "./AgencyProblem";
+import { HomeFaq } from "./Faq";
 import { HomeFinalCta } from "./FinalCta";
 import { HomeHero } from "./Hero";
 import { HomeHowWeWork } from "./HowWeWork";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <HomeServices />
       <HomeHowWeWork />
       <HomeTeam />
+      <HomeFaq />
       <HomeFinalCta />
     </SiteLayout>
   );

@@ -1,4 +1,5 @@
 import { IconBolt, IconBrain, IconMessageCircle } from "@tabler/icons-react";
+import { DesktopOnly } from "../../components/effects/DesktopOnly";
 import { Reveal } from "../../components/effects/Reveal";
 import { SiteLayout } from "../../components/layout/SiteLayout";
 import { CtaBand } from "../../components/sections/CtaBand";
@@ -16,9 +17,11 @@ export default function TeamPage() {
   const founders = useFounders();
   return (
     <SiteLayout current="team">
-      <div className="pointer-events-none absolute top-28 right-[3%] z-10 hidden min-[1680px]:block">
-        <TeamHeroFounderOrbit />
-      </div>
+      <DesktopOnly minWidth={1680}>
+        <div className="pointer-events-none absolute top-28 right-[3%] z-10 hidden min-[1680px]:block">
+          <TeamHeroFounderOrbit />
+        </div>
+      </DesktopOnly>
       <PageHero
         eyebrow={t("Team", "Echipă")}
         title={
@@ -41,10 +44,9 @@ export default function TeamPage() {
           </Reveal>
         </Container>
       </section>
-      <section className="theme-light relative py-16 md:py-28">
+      <section className="theme-light relative py-16 md:py-24">
         <Container>
           <SectionHeading
-            align="center"
             eyebrow={t("How we split the work", "Cum ne împărțim treaba")}
             title={
               <>
@@ -64,12 +66,16 @@ export default function TeamPage() {
             {founders.map((founder) => (
               <div
                 key={founder.name}
-                className="flex items-center gap-4 rounded-2xl border border-white/[0.07] p-4"
+                className="flex items-center gap-4 rounded-2xl border border-white/10 p-4"
               >
                 <span className="block size-14 overflow-hidden rounded-full">
                   <img
                     src={founder.duo}
                     alt={founder.name}
+                    width={640}
+                    height={640}
+                    loading="lazy"
+                    decoding="async"
                     style={avatarStyle(founder)}
                     className="size-full object-cover"
                   />
@@ -83,7 +89,7 @@ export default function TeamPage() {
           </div>
         </Container>
       </section>
-      <section className="theme-light relative pb-16 md:pb-28">
+      <section className="theme-light relative pb-16 md:pb-24">
         <Container>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {[

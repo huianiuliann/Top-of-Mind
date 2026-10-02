@@ -32,7 +32,7 @@ export function EventStreamVisual({ className }) {
               animate={{ opacity: 1 - index * 0.2, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.45 }}
-              className="mb-1.5 flex items-center justify-between gap-2 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-1.5"
+              className="mb-1.5 flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5"
             >
               <span className="truncate text-[11px] text-neutral-200">
                 {event.e}

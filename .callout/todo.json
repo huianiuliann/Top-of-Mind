@@ -1,5 +1,5 @@
 {
-  "nextId": 24,
+  "nextId": 32,
   "items": [
     {
       "id": 1,
@@ -230,6 +230,86 @@
       "source": "CTO review",
       "createdAt": "2026-10-01T07:34:56.828Z",
       "updatedAt": "2026-10-01T07:34:56.828Z"
+    },
+    {
+      "id": 24,
+      "title": "Deploy REact to production (merge into main)",
+      "description": "Live www.topofmind.me still serves the old site from main (PSI mobile 91, LCP render delay 3.26 s, no /ro). All performance fixes from .claude/plans/performanta-mobil-2026-10-02.md live on branch REact. After deploy: PSI web on / and /ro (mobile), curl -I a hashed /assets/*.js for immutable caching.",
+      "priority": "must",
+      "status": "open",
+      "source": "Product review",
+      "createdAt": "2026-10-02T06:58:07.881Z",
+      "updatedAt": "2026-10-02T06:58:07.881Z"
+    },
+    {
+      "id": 25,
+      "title": "Vercel: make topofmind.me the primary domain (www redirects to apex)",
+      "description": "Today topofmind.me answers 307 to www.topofmind.me while every canonical/hreflang/og:url points at the apex. Romanian visitors on the apex would take two redirects (apex -> www -> /ro). User action in Vercel -> Settings -> Domains.",
+      "priority": "should",
+      "status": "open",
+      "source": "Product review",
+      "createdAt": "2026-10-02T06:58:07.888Z",
+      "updatedAt": "2026-10-02T06:58:07.888Z"
+    },
+    {
+      "id": 26,
+      "title": "Content prerendered at opacity:0 until hydration",
+      "description": "Reveal/SectionHeading/CtaBand/FinalCta/AgencyProblem/Team carousel/QuickCheck rendered hidden until JS. Fixed 2026-10-02: Reveal is visible in HTML and only hides blocks still below the fold after hydration (CSS [data-reveal]); carousel and QuickCheck use initial={false}.",
+      "priority": "must",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-02T06:58:24.083Z",
+      "updatedAt": "2026-10-02T06:58:30.016Z"
+    },
+    {
+      "id": 27,
+      "title": "213 KB of fonts preloaded on every page",
+      "description": "Fixed 2026-10-02: .unlazy/perf/subset.py cut Inter 175->28 KB and Space Grotesk 38->11 KB (Latin + Romanian, used weights only); the 4 first-screen fonts (69 KB total) are preloaded; unused InstrumentSerif upright and RedHatMono 700 removed.",
+      "priority": "must",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-02T06:58:24.092Z",
+      "updatedAt": "2026-10-02T06:58:30.025Z"
+    },
+    {
+      "id": 28,
+      "title": "Desktop-only decor and endless loops running on phones",
+      "description": "Fixed 2026-10-02: DesktopOnly wraps the home floating cards, services orbit, contact chat, team orbit and the sticky process panels; competitor scan is CSS keyframes; fee rotation uses useInViewCycle; AnimatedBeam dropped its window resize listener; beams and funnel drops respect reduced motion.",
+      "priority": "should",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-02T06:58:24.101Z",
+      "updatedAt": "2026-10-02T06:58:30.032Z"
+    },
+    {
+      "id": 29,
+      "title": "No long-lived caching; vendor hash changed with every component edit",
+      "description": "Fixed in code 2026-10-02: vercel.json serves hashed /assets/*-xxxxxxxx.(js|css) as immutable and fonts/img with 1 day + stale-while-revalidate; vite.config.js puts react/react-dom/framer-motion/tailwind-merge in a separate vendor chunk. Verify with curl -I after deploy.",
+      "priority": "should",
+      "status": "in_progress",
+      "source": "CTO review",
+      "createdAt": "2026-10-02T06:58:24.107Z",
+      "updatedAt": "2026-10-02T06:58:30.039Z"
+    },
+    {
+      "id": 30,
+      "title": "Layout-triggering animations (mobile navbar, bars, lamp, timeline)",
+      "description": "Fixed 2026-10-02: mobile navbar is a solid bar with only y animated (desktop unchanged); width/height animations in SplitTest, CreativeFatigue, Modes, FinalCta lamp, FirstMonth and home Process timelines now use scaleX/scaleY.",
+      "priority": "should",
+      "status": "done",
+      "source": "CTO review",
+      "createdAt": "2026-10-02T06:58:24.114Z",
+      "updatedAt": "2026-10-02T06:58:30.045Z"
+    },
+    {
+      "id": 31,
+      "title": "Typewriter re-rendered the whole panel and wrapped at 375px",
+      "description": "Fixed 2026-10-02: TypedQuery child owns the typing state (only the span re-renders) and the query is one truncated line.",
+      "priority": "should",
+      "status": "done",
+      "source": "Customer review",
+      "createdAt": "2026-10-02T06:58:24.120Z",
+      "updatedAt": "2026-10-02T06:58:30.051Z"
     }
   ]
 }

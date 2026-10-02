@@ -17,9 +17,10 @@ const normalizeVec3 = (vec) => {
   const length = Math.hypot(vec[0], vec[1], vec[2]) || 1;
   return [vec[0] / length, vec[1] / length, vec[2] / length];
 };
-const globeDotColor = [0.831, 0.831, 0.847, 0.6];
-const arcHeadColor = [0.647, 0.706, 0.988];
-const arcTailColor = [0.506, 0.549, 0.973];
+// palette: page cream dots, arcs fade from cream to red (the globe sits on a forest sphere, .theme-dark)
+const globeDotColor = [0.996, 0.98, 0.945, 0.5];
+const arcHeadColor = [0.996, 0.98, 0.945];
+const arcTailColor = [0.773, 0.18, 0.102];
 const globeDotVertexShader = `attribute vec3 aPos; attribute float aSize; attribute vec4 aColor;
 uniform mat3 uRot; uniform float uScale; uniform float uDpr;
 varying vec4 vColor;
@@ -435,11 +436,11 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
       ref={containerRef}
       role="img"
       aria-label={ariaLabel}
-      className={cn("group/globe relative mx-auto aspect-square w-full", className)}
+      className={cn("group/globe theme-dark relative mx-auto aspect-square w-full", className)}
     >
       <div
         aria-hidden
-        className="absolute inset-[15%] rounded-full bg-[radial-gradient(circle_at_30%_25%,#26262d_0%,#1a1a1f_38%,#111114_72%)] shadow-[inset_0_0_0_1px_rgba(129,140,248,0.1),inset_0_0_40px_rgba(129,140,248,0.16),0_0_56px_-6px_rgba(91,84,245,0.42)]"
+        className="absolute inset-[15%] rounded-full bg-[radial-gradient(circle_at_30%_25%,var(--color-ink-700)_0%,var(--color-ink-900)_38%,var(--color-ink-950)_72%)] shadow-[inset_0_0_0_1px_rgba(254,250,241,0.08),inset_0_0_40px_rgba(254,250,241,0.06),0_24px_60px_-20px_rgba(3,33,19,0.35)]"
       />
       <canvas ref={canvasRef} aria-hidden className="absolute inset-0 size-full cursor-grab touch-pan-y" />
       <span
@@ -447,7 +448,7 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
         aria-hidden
         className="pointer-events-none absolute top-0 left-0 opacity-0 transition-opacity duration-500 will-change-transform"
       >
-        <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg border border-white/10 bg-ink-900/95 px-3 py-1.5 font-mono text-[12px] whitespace-nowrap text-neutral-200 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)]">
+        <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg border border-white/10 bg-ink-900/95 px-3 py-1.5 font-mono text-[12px] whitespace-nowrap text-neutral-200 shadow-[0_8px_24px_-12px_rgba(3,33,19,0.24)]">
           <span className="size-1.5 rounded-full bg-accent-400" />
           {origin.label}
         </span>

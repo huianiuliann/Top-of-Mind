@@ -1,5 +1,5 @@
 import { useRef, useState, useId, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { easeOutExpo } from "./motion";
 export function AnimatedBeam({
   containerRef,
@@ -16,6 +16,7 @@ export function AnimatedBeam({
   const gradientId = "beam-" + useId().replace(/:/g, "");
   const svgRef = useRef(null);
   const isInView = useInView(svgRef, { margin: "120px" });
+  const reduceMotion = useReducedMotion();
   const [pathD, setPathD] = useState("");
   const [svgDimensions, setSvgDimensions] = useState({ w: 0, h: 0 });
   useEffect(() => {
@@ -28,18 +29,20 @@ export function AnimatedBeam({
       const startY = fromRect.top - containerRect.top + fromRect.height / 2 + startYOffset;
       const endX = toRect.left - containerRect.left + toRect.width / 2;
       const endY = toRect.top - containerRect.top + toRect.height / 2 + endYOffset;
-      setSvgDimensions({ w: containerRect.width, h: containerRect.height });
+      // Same size keeps the same object, so an unchanged layout does not re-render the beam.
+      setSvgDimensions((prev) =>
+        prev.w === containerRect.width && prev.h === containerRect.height ? prev : { w: containerRect.width, h: containerRect.height },
+      );
       setPathD(`M ${startX},${startY} Q ${(startX + endX) / 2},${startY - curvature} ${endX},${endY}`);
     };
     updatePath();
+    // The container observer covers viewport changes too; a window "resize" listener would also fire on every
+    // mobile address-bar show/hide while scrolling.
     const resizeObserver = new ResizeObserver(updatePath);
     containerRef.current && resizeObserver.observe(containerRef.current);
-    window.addEventListener("resize", updatePath);
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", updatePath);
-    };
+    return () => resizeObserver.disconnect();
   }, [containerRef, fromRef, toRef, curvature, startYOffset, endYOffset]);
+  const running = isInView && !reduceMotion;
   const gradientCoords = reverse
     ? { x1: ["90%", "-10%"], x2: ["100%", "0%"] }
     : { x1: ["10%", "110%"], x2: ["0%", "100%"] };
@@ -73,12 +76,12 @@ export function AnimatedBeam({
           gradientUnits="userSpaceOnUse"
           initial={{ x1: "0%", x2: "0%", y1: "0%", y2: "0%" }}
           animate={
-            isInView
+            running
               ? { x1: gradientCoords.x1, x2: gradientCoords.x2, y1: ["0%", "0%"], y2: ["0%", "0%"] }
               : { x1: "0%", x2: "0%", y1: "0%", y2: "0%" }
           }
           transition={
-            isInView
+            running
               ? { delay, duration, ease: easeOutExpo, repeat: Infinity, repeatDelay: 0 }
               : { duration: 0 }
           }

@@ -13,11 +13,11 @@ export function WebsiteBuildVisual({ className }) {
   const { ref: containerRef, step } = useInViewCycle(6, 900);
   return (
     <div ref={containerRef} className={cn("relative w-full select-none", className)} aria-hidden="true">
-      <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-[#121215]">
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-ink-950">
         <div className="flex items-center gap-2 border-b border-white/[0.06] px-3 py-2">
-          <span className="size-2 rounded-full bg-[#36363c]" />
-          <span className="size-2 rounded-full bg-[#36363c]" />
-          <span className="size-2 rounded-full bg-[#36363c]" />
+          <span className="size-2 rounded-full bg-ink-600" />
+          <span className="size-2 rounded-full bg-ink-600" />
+          <span className="size-2 rounded-full bg-ink-600" />
           <span className="ml-2 flex-1 truncate rounded-md bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-neutral-500">
             {t("yourcompany.com", "firma-ta.ro")}
           </span>
@@ -42,23 +42,23 @@ export function WebsiteBuildVisual({ className }) {
           </div>
         </div>
       </div>
-      <div className="absolute -right-1 -bottom-4 w-[62%] rounded-xl border border-white/12 bg-ink-900 p-2.5 shadow-[0_18px_40px_rgba(0,0,0,0.6)] sm:-right-3">
+      <div className="absolute -right-1 -bottom-4 w-[62%] rounded-xl border border-white/10 bg-ink-900 p-2.5 shadow-[0_18px_40px_rgba(3,33,19,0.18)] sm:-right-3">
         {websitePrinciples.map((principle, index) => (
           <div key={principle.en} className="flex items-center gap-2 py-0.5">
-            <motion.span
-              animate={{
-                backgroundColor: step > index + 1 ? "rgba(232,232,236,0.92)" : "rgba(255,255,255,0.06)",
-              }}
-              className="grid size-4 shrink-0 place-items-center rounded-full"
+            <span
+              className={cn(
+                "grid size-4 shrink-0 place-items-center rounded-full transition-colors duration-300",
+                step > index + 1 ? "bg-neutral-200" : "bg-white/[0.06]",
+              )}
             >
               <IconCheck
                 className={cn(
                   "size-2.5 transition-colors",
-                  step > index + 1 ? "text-black" : "text-transparent",
+                  step > index + 1 ? "text-ink-950" : "text-transparent",
                 )}
                 stroke={3.5}
               />
-            </motion.span>
+            </span>
             <span
               className={cn(
                 "truncate text-[10px] transition-colors",

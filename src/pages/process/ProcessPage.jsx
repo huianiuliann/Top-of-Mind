@@ -66,7 +66,7 @@ export default function ProcessPage() {
                       </h3>
                       <p className="mt-6 text-lg leading-relaxed text-neutral-300">{t(step.body)}</p>
                       <p className="mt-4 text-[15px] leading-relaxed text-neutral-500">{t(step.modes)}</p>
-                      <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                      <div className="mt-8 rounded-card border border-white/10 bg-white/[0.02] p-5">
                         <p className="font-mono text-[12px] text-neutral-400">
                           {t("What you get", "Ce primești")}
                         </p>
@@ -189,7 +189,7 @@ export default function ProcessPage() {
                       "Pornesc reclamele, conținutul sau lucrul la site — la scară mică și sub control, nu o lansare cu surle și trâmbițe. Banii încep să se mute acolo unde apar rezultate.",
                     )}
                   >
-                    <div className="theme-dark rounded-2xl border border-white/[0.06] bg-ink-950 p-5">
+                    <div className="theme-dark rounded-card-inner border border-white/[0.06] bg-ink-950 p-5">
                       <SplitTestVisual />
                     </div>
                   </FirstMonthWeekCard>
@@ -207,7 +207,7 @@ export default function ProcessPage() {
                       "Ce s-a întâmplat, de ce și ce schimbăm mai departe — pe înțelesul tău, scris de noi doi.",
                     )}
                   >
-                    <div className="theme-dark overflow-hidden rounded-2xl border border-white/10 sm:h-[22rem]">
+                    <div className="theme-dark overflow-hidden rounded-card-inner border border-white/10 sm:h-[22rem]">
                       <MonthlyReportPanel />
                     </div>
                   </FirstMonthWeekCard>

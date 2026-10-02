@@ -15,7 +15,7 @@ function ServiceBentoCard({ name, desc, icon: Icon, Visual, className, kicker })
           <div className="relative flex min-h-[13.5rem] flex-1 items-center overflow-hidden px-6 pt-6 pb-4">
             <Visual />
           </div>
-          <div className="border-t border-white/[0.05] p-6">
+          <div className="border-t border-white/[0.06] p-6">
             {kicker && <p className="mb-1 font-mono text-[12px] text-neutral-500">{kicker}</p>}
             <div className="flex items-center gap-2.5">
               <Icon className="size-5 text-neutral-500" stroke={1.6} />
@@ -32,7 +32,7 @@ export function HomeServices() {
   const t = useT();
   const link = useLink();
   return (
-    <section className="relative py-20 md:py-28">
+    <section className="relative py-16 md:py-24">
       <Container>
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading

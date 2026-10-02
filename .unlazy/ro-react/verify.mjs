@@ -416,10 +416,11 @@ if (cmd === "build") {
       if (englishLeft(s || "").length) bad.push(`${p}: RO ${what} has English words (${englishLeft(s).join(", ")})`);
       if (CEDILLA.test(s || "") || ASCII_RO.test(s || "")) bad.push(`${p}: RO ${what} has wrong diacritics`);
     }
-    // RO head must use root-absolute URLs (the page may be served as /ro, without a trailing slash)
+    // RO head must use root-absolute URLs (the page may be served as /ro, without a trailing slash);
+    // data: URLs never resolve against the page path (the empty `data:,` icon stops the /favicon.ico request, 2026-10-02)
     for (const t of tags(ro.head)) {
       const u = attrIn(t, "href");
-      if (u && !/^(https?:|\/)/.test(u)) bad.push(`${p}: RO head link is not root-absolute: ${u}`);
+      if (u && !/^(https?:|\/|data:)/.test(u)) bad.push(`${p}: RO head link is not root-absolute: ${u}`);
     }
     if (/l\.href="assets\//.test(ro.head)) bad.push(`${p}: RO font preload script uses a relative path`);
     for (const [who, html] of [["EN", read(enFile(p))], ["RO", read(roFile(p))]]) {

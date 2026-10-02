@@ -5,6 +5,7 @@ import {
   IconClockHour4,
   IconMail,
 } from "@tabler/icons-react";
+import { DesktopOnly } from "../../components/effects/DesktopOnly";
 import { Reveal } from "../../components/effects/Reveal";
 import { SiteLayout } from "../../components/layout/SiteLayout";
 import { PageHero } from "../../components/sections/PageHero";
@@ -12,18 +13,21 @@ import { PrimaryButton } from "../../components/ui/Button";
 import { Container } from "../../components/ui/Container";
 import { FramedCard } from "../../components/ui/FramedCard";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
-import { CALENDLY_URL, CONTACT_EMAIL, PHONE_DISPLAY, WHATSAPP_URL } from "../../data/site";
+import { CONTACT_EMAIL, PHONE_DISPLAY, WHATSAPP_URL, useCalendly } from "../../data/site";
 import { L, useT } from "../../i18n";
 import { ArcGlobe } from "./ArcGlobe";
 import { ContactFaq } from "./Faq";
 import { ContactHeroChat } from "./Hero";
 export default function ContactPage() {
   const t = useT();
+  const calendly = useCalendly();
   return (
     <SiteLayout current="contact">
-      <div className="pointer-events-none absolute top-36 right-[6%] z-10 hidden min-[1400px]:block">
-        <ContactHeroChat />
-      </div>
+      <DesktopOnly>
+        <div className="pointer-events-none absolute top-36 right-[6%] z-10 hidden min-[1400px]:block">
+          <ContactHeroChat />
+        </div>
+      </DesktopOnly>
       <PageHero
         eyebrow="Contact"
         title={
@@ -42,13 +46,13 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.3fr_1fr]">
             <Reveal className="h-full">
               <a
-                href={CALENDLY_URL}
+                href={calendly("contact-card")}
                 target="_blank"
                 rel="noopener"
-                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[1.8rem] border border-accent-400/35 bg-ink-900 p-7 transition-colors hover:border-accent-400/60 md:p-10"
+                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-card border border-accent-400 bg-ink-900 p-7 transition-colors hover:border-accent-400 md:p-10"
               >
                 <div className="flex items-center justify-between">
-                  <span className="grid size-12 place-items-center rounded-2xl border border-accent-400/45 text-accent-300">
+                  <span className="grid size-12 place-items-center rounded-2xl border border-accent-400 text-accent-300">
                     <IconCalendarEvent className="size-6" stroke={1.6} />
                   </span>
                   <span className="flex items-center gap-1.5 rounded-lg border border-white/15 px-3 py-1 font-mono text-[12px] text-neutral-300">
@@ -71,7 +75,7 @@ export default function ContactPage() {
                     )}
                   </p>
                 </div>
-                <span className="relative mt-8 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-xl bg-accent-500 px-6 py-3.5 font-sans font-semibold text-[14px] text-[#ffffff] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] transition-colors group-hover:bg-[#6660f6]">
+                <span className="relative mt-8 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-xl border border-transparent bg-accent-500 px-5 py-4.5 font-sans sm:px-8 font-semibold text-[15px] text-on-accent shadow-[inset_0_1px_0_rgba(254,250,241,0.22),0_8px_20px_-12px_rgba(3,33,19,0.45)] transition-colors group-hover:bg-accent-450">
                   {t("Open Calendly ", "Deschide Calendly ")}
                   <IconArrowUpRight
                     className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -155,7 +159,7 @@ export default function ContactPage() {
               },
             ].map((step, index) => (
               <Reveal key={step.m.en} delay={index * 0.1} className="h-full">
-                <div className="relative h-full overflow-hidden rounded-[1.6rem] border border-white/[0.07] bg-ink-900 p-7">
+                <div className="relative h-full overflow-hidden rounded-card border border-white/10 bg-ink-900 p-7">
                   <p className="font-mono text-[13px] text-neutral-400">{t(step.m)}</p>
                   <h3 className="mt-3 font-display text-2xl font-bold tracking-[-0.01em] text-white">
                     {t(step.t)}
@@ -232,8 +236,8 @@ export default function ContactPage() {
             />
           </Reveal>
           <div className="mt-8 flex justify-center">
-            <PrimaryButton href={CALENDLY_URL} external size="lg">
-              {t("Book a free 30-minute call", "Programează un apel gratuit de 30 de minute")}
+            <PrimaryButton href={calendly("contact-bottom")} external size="lg">
+              {t("Book a free 30-minute call", "Apel gratuit de 30 de minute")}
             </PrimaryButton>
           </div>
         </Container>

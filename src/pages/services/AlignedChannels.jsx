@@ -11,11 +11,11 @@ const convergingPathShapes = [
   "M0.5 364C145.288 362.349 195 361.5 265.5 378C322 391.223 399.182 457.5 411 467.5C424.176 478.649 456.916 491.677 496.259 502.699C498.746 503.396 501.16 504.304 503.511 505.374C517.104 511.558 541.149 520.911 551.5 521.236C571.5 521.236 590 498.736 611.5 498.736C631.5 498.736 652.5 529.236 669.5 528.736C685.171 528.736 697.81 510.924 721.274 501.036C728.505 497.988 736.716 497.231 743.812 500.579C761.362 508.857 778.421 529.148 794 528.736C810.375 528.736 829.35 508.68 848.364 502.179C854.243 500.169 860.624 500.802 866.535 502.718C886.961 509.338 898.141 519.866 916 520.236C932.8 520.583 934.5 510.236 967.5 501.736C1011.5 491 1007.5 493.5 1029.5 480C1069.5 453.5 1072 440.442 1128.5 403.5C1180.5 369.5 1275 360.374 1439 364",
 ];
 const convergingPathColors = [
-  "rgba(244,244,246,0.22)",
-  "rgba(244,244,246,0.4)",
-  "#818cf8",
-  "rgba(244,244,246,0.5)",
-  "rgba(244,244,246,0.26)",
+  "color-mix(in oklab, var(--color-white) 22%, transparent)",
+  "color-mix(in oklab, var(--color-white) 40%, transparent)",
+  "var(--color-accent-400)",
+  "color-mix(in oklab, var(--color-white) 50%, transparent)",
+  "color-mix(in oklab, var(--color-white) 26%, transparent)",
 ];
 // Each path starts partly drawn (bottom path, tracking, the furthest) and completes as the section scrolls.
 const pathStarts = [0.2, 0.15, 0.1, 0.05, 0];
@@ -52,7 +52,7 @@ export function ServicesAlignedChannels() {
         </p>
         <div className="absolute -top-60 flex h-[890px] w-full items-center justify-center md:-top-40">
           <div className="z-30 mt-8 md:mt-24">
-            <span className="relative inline-flex items-center gap-2.5 rounded-xl border border-accent-400/50 bg-ink-950 px-5 py-2.5 font-mono text-[13px] text-neutral-100 md:text-sm">
+            <span className="relative inline-flex items-center gap-2.5 rounded-xl border border-accent-400 bg-ink-950 px-5 py-2.5 font-mono text-[13px] text-neutral-100 md:text-sm">
               <span className="size-1.5 rounded-full bg-accent-400" />
               {t("One message they remember", "Un mesaj pe care îl țin minte")}
             </span>

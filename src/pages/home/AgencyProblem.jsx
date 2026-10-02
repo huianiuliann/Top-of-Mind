@@ -42,12 +42,11 @@ function StrikethroughPillList({ items }) {
   return (
     <ul className="flex flex-wrap gap-3">
       {items.map((item, index) => (
-        <motion.li
+        <Reveal
+          as="li"
           key={item.en}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.8 }}
-          transition={{ delay: index * 0.1, duration: 0.5 }}
+          variant="blur-in"
+          delay={index * 0.1}
           className="relative rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-[15px] text-neutral-500"
         >
           {t(item)}
@@ -70,7 +69,7 @@ function StrikethroughPillList({ items }) {
               transition={{ delay: 0.45 + index * 0.18, duration: 0.55, ease: "easeInOut" }}
             />
           </motion.svg>
-        </motion.li>
+        </Reveal>
       ))}
     </ul>
   );
@@ -128,7 +127,7 @@ export function HomeAgencyProblem() {
       <SpotlightHoverBackground>
         <Container>
           <Reveal variant="blur-in">
-            <h2 className="font-display text-[2.6rem] leading-[1] font-bold tracking-[-0.02em] text-white md:text-7xl">
+            <h2 className="font-display text-4xl leading-[1] font-bold tracking-[-0.02em] text-white md:text-7xl">
               {t("You've paid an agency before.", "Ai mai plătit o agenție.")}
             </h2>
           </Reveal>
@@ -138,7 +137,7 @@ export function HomeAgencyProblem() {
               "Un prim apel plin de promisiuni. Un raport lunar plin de cifre pe care nu ți le explică nimeni. O strategie care pare scrisă pentru orice afacere — pentru că chiar a fost.",
             )}
             accentFrom={t("because it was.", "pentru că chiar a fost.")}
-            className="mt-10 max-w-5xl font-display text-[1.9rem] leading-[1.14] font-bold tracking-[-0.02em] text-neutral-100 md:text-5xl"
+            className="mt-10 max-w-5xl font-display text-3xl leading-[1.14] font-bold tracking-[-0.02em] text-neutral-100 md:text-5xl"
           />
           <div className="mt-16 grid grid-cols-1 items-end gap-10 lg:grid-cols-[1.2fr_1fr]">
             <StrikethroughPillList

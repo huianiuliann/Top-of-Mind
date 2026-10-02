@@ -12,12 +12,13 @@ import {
   IconTargetArrow,
   IconTrendingUp,
 } from "@tabler/icons-react";
+import { DesktopOnly } from "../../components/effects/DesktopOnly";
 import { SiteLayout } from "../../components/layout/SiteLayout";
 import { CtaBand } from "../../components/sections/CtaBand";
 import { PageHero } from "../../components/sections/PageHero";
 import { PrimaryButton, SecondaryButton } from "../../components/ui/Button";
 import { SerifEm } from "../../components/ui/SectionHeading";
-import { CALENDLY_URL } from "../../data/site";
+import { useCalendly } from "../../data/site";
 import { ServicesAlignedChannels } from "./AlignedChannels";
 import { ServicesDiscipline } from "./Discipline";
 import { ServicesDisciplineMix } from "./DisciplineMix";
@@ -26,12 +27,15 @@ import { L, useT } from "../../i18n";
 import { ADS, DISCIPLINES, LEADS, SOCIAL, TRACKING, WEBSITES } from "../../data/disciplines";
 export default function ServicesPage() {
   const t = useT();
+  const calendly = useCalendly();
   return (
     <SiteLayout current="services">
       <div className="relative">
-        <div className="pointer-events-none absolute top-44 right-[5%] z-10 hidden min-[1400px]:block">
-          <ServicesHeroOrbit />
-        </div>
+        <DesktopOnly>
+          <div className="pointer-events-none absolute top-44 right-[5%] z-10 hidden min-[1400px]:block">
+            <ServicesHeroOrbit />
+          </div>
+        </DesktopOnly>
         <PageHero
           eyebrow={t("Services", "Servicii")}
           title={
@@ -46,8 +50,8 @@ export default function ServicesPage() {
           )}
         >
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <PrimaryButton href={CALENDLY_URL} external size="lg">
-              {t("Book a free 30-min call", "Programează un apel gratuit de 30 de minute")}
+            <PrimaryButton href={calendly("services-hero")} external size="lg">
+              {t("Book a free 30-min call", "Apel gratuit de 30 de minute")}
             </PrimaryButton>
             <SecondaryButton href="#paid-advertising" size="lg">
               {t("See the disciplines", "Vezi serviciile")}

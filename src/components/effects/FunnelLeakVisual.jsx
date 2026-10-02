@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "../../lib/cn";
 import { L, useT } from "../../i18n";
 import { easeOutExpo } from "./motion";
@@ -19,12 +19,12 @@ const funnelLeakDrops = Array.from({ length: 14 }, (_, index) => ({
 // Leaking drops fall through "the gap" between interested and conversation; the rest run the whole pipe.
 const dropPaths = {
   leak: {
-    fill: "#818cf8",
+    fill: "var(--color-accent-400)",
     animate: { cx: [14, 138, 146], cy: [182, 182, 212], opacity: [0, 1, 1, 0] },
     transition: { duration: 3.4, times: [0, 0.62, 1], repeatDelay: 1.2 },
   },
   through: {
-    fill: "#e8e8ec",
+    fill: "var(--color-neutral-200)",
     animate: { cx: [14, 346], cy: [182, 182], opacity: [0, 1, 1, 0] },
     transition: { duration: 4.6, repeatDelay: 0.6 },
   },
@@ -34,21 +34,23 @@ export function FunnelLeakVisual({ className }) {
   const barCenters = [36, 108, 180, 252, 324];
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { margin: "80px" });
+  // The drops loop forever, so they stay off for visitors who ask for reduced motion.
+  const reduceMotion = useReducedMotion();
   return (
     <div ref={containerRef} className={cn("relative w-full select-none", className)} aria-hidden="true">
       <svg viewBox="0 0 360 214" className="w-full">
         <defs>
           <linearGradient id="ql-lit" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#eeeef2" />
-            <stop offset="100%" stopColor="#76767e" />
+            <stop offset="0%" stopColor="var(--color-neutral-200)" />
+            <stop offset="100%" stopColor="var(--color-neutral-500)" />
           </linearGradient>
           <linearGradient id="ql-dim" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#2e2e34" />
-            <stop offset="100%" stopColor="#181816" />
+            <stop offset="0%" stopColor="var(--color-ink-600)" />
+            <stop offset="100%" stopColor="var(--color-ink-900)" />
           </linearGradient>
           <radialGradient id="ql-puddle">
-            <stop offset="0%" stopColor="#818cf8" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#818cf8" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--color-accent-400)" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="var(--color-accent-400)" stopOpacity="0" />
           </radialGradient>
         </defs>
         {barCenters.map((centerX, index) => (
@@ -73,14 +75,14 @@ export function FunnelLeakVisual({ className }) {
         >
           <path
             d="M 128 44 L 122 44 L 122 158 L 128 158"
-            stroke="#818cf8"
+            stroke="var(--color-accent-400)"
             strokeWidth="1"
             fill="none"
             strokeDasharray="3 3"
           />
           <path
             d="M 160 44 L 166 44 L 166 158 L 160 158"
-            stroke="#818cf8"
+            stroke="var(--color-accent-400)"
             strokeWidth="1"
             fill="none"
             strokeDasharray="3 3"
@@ -91,8 +93,8 @@ export function FunnelLeakVisual({ className }) {
             width="71"
             height="20"
             rx="10"
-            fill="#121215"
-            stroke="#818cf8"
+            fill="var(--color-ink-950)"
+            stroke="var(--color-accent-400)"
             strokeWidth="1"
           />
           <text
@@ -100,16 +102,17 @@ export function FunnelLeakVisual({ className }) {
             y="32"
             textAnchor="middle"
             fontSize="10.5"
-            fill="#a5b4fc"
+            fill="var(--color-accent-300)"
             fontFamily="RedHatMono, ui-monospace, monospace"
           >
             {t("the gap", "golul")}
           </text>
         </motion.g>
-        <line x1="14" y1="182" x2="134" y2="182" stroke="#28282d" strokeWidth="8" strokeLinecap="round" />
-        <line x1="154" y1="182" x2="346" y2="182" stroke="#28282d" strokeWidth="8" strokeLinecap="round" />
+        <line x1="14" y1="182" x2="134" y2="182" stroke="var(--color-ink-700)" strokeWidth="8" strokeLinecap="round" />
+        <line x1="154" y1="182" x2="346" y2="182" stroke="var(--color-ink-700)" strokeWidth="8" strokeLinecap="round" />
         <ellipse cx="144" cy="208" rx="30" ry="6" fill="url(#ql-puddle)" />
         {isInView &&
+          !reduceMotion &&
           funnelLeakDrops.map((drop) => {
             const path = drop.leak ? dropPaths.leak : dropPaths.through;
             return (

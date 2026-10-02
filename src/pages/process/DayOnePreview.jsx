@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
 import { IconCheck, IconFileText, IconRocket, IconSearch, IconTarget } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
@@ -9,15 +9,10 @@ export const DayOnePreview = () => {
   const t = useT();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], isMobile ? [0.7, 0.9] : [1.05, 1]);
+  // One range for every screen; phones get a smaller card from CSS (max-md:scale on the card), so nothing is measured
+  // after hydration and the card no longer jumps from 1.05 to 0.7 under the hero.
+  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1]);
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
   return (
     <div
@@ -45,7 +40,7 @@ const DayOneScrollCard = ({ rotate, scale, children }) => (
       boxShadow:
         "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
     }}
-    className="mx-auto -mt-12 h-[30rem] w-full max-w-5xl rounded-[30px] border-4 border-[#212125] bg-[#121215] p-2 shadow-2xl ring-1 ring-white/5 md:h-[40rem] md:p-6"
+    className="mx-auto -mt-12 h-[30rem] w-full max-w-5xl rounded-card border-4 border-ink-800 bg-ink-950 p-2 shadow-2xl ring-1 ring-white/5 max-md:scale-[0.86] md:h-[40rem] md:p-6"
   >
     <div className="h-full w-full overflow-hidden rounded-2xl bg-ink-900 md:rounded-2xl">{children}</div>
   </motion.div>
@@ -95,10 +90,10 @@ const firstMonthPlanRows = [
 function FirstMonthPlanMockup() {
   const t = useT();
   return (
-    <div className="flex h-full w-full flex-col bg-[#111114] p-4 font-sans md:p-8">
+    <div className="flex h-full w-full flex-col bg-ink-950 p-4 font-sans md:p-8">
       <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
         <div className="flex items-center gap-3">
-          <span className="grid size-8 place-items-center rounded-full bg-[#1a1a1e] ring-1 ring-white/10">
+          <span className="grid size-8 place-items-center rounded-full bg-ink-900 ring-1 ring-white/10">
             <span className="size-2 rounded-full bg-accent-400" />
           </span>
           <div>
@@ -152,7 +147,7 @@ function FirstMonthPlanMockup() {
             </div>
             <div className="relative col-span-4 hidden h-full min-h-14 grid-cols-4 gap-2 md:grid">
               {[0, 1, 2, 3].map((column) => (
-                <div key={column} className="rounded-lg border border-dashed border-white/[0.05]" />
+                <div key={column} className="rounded-lg border border-dashed border-white/[0.06]" />
               ))}
               <motion.div
                 initial={{ opacity: 0, scaleX: 0.3 }}
@@ -165,8 +160,8 @@ function FirstMonthPlanMockup() {
                   row.status === "now"
                     ? "border-white/35 bg-white/[0.07]"
                     : row.status === "done"
-                      ? "border-white/12 bg-white/[0.03]"
-                      : "border-white/[0.08] bg-transparent",
+                      ? "border-white/10 bg-white/[0.03]"
+                      : "border-white/10 bg-transparent",
                 )}
               >
                 {row.d.map((task) => (

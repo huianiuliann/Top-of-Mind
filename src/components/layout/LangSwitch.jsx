@@ -24,7 +24,7 @@ export function LangSwitch({ page, className }) {
     >
       {OPTIONS.map(({ code, name }) =>
         code === lang ? (
-          <span key={code} aria-current="true" className="rounded-md bg-white/10 px-2.5 py-1 text-white">
+          <span key={code} aria-current="true" className="rounded-md bg-white/10 px-2.5 py-1.5 text-white">
             {code.toUpperCase()}
           </span>
         ) : (
@@ -35,7 +35,7 @@ export function LangSwitch({ page, className }) {
             hrefLang={code}
             aria-label={name}
             title={name}
-            className="rounded-md px-2.5 py-1 text-neutral-400 transition-colors hover:text-white"
+            className="rounded-md px-2.5 py-1.5 text-neutral-400 transition-colors hover:text-white"
           >
             {code.toUpperCase()}
           </a>

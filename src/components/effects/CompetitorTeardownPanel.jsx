@@ -37,7 +37,7 @@ export function CompetitorTeardownPanel() {
         {competitorTeardowns.map((competitor, competitorIndex) => (
           <div key={competitor.name.en} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
             <div className="flex items-center gap-3">
-              <div className="size-10 shrink-0 rounded-lg bg-[linear-gradient(135deg,#2c2c31,#19191d)]" />
+              <div className="size-10 shrink-0 rounded-lg bg-[linear-gradient(135deg,var(--color-ink-600),var(--color-ink-900))]" />
               <div className="flex-1 space-y-1.5">
                 <p className="font-display text-[13px] font-bold text-neutral-300">{t(competitor.name)}</p>
                 <div className="h-1.5 w-4/5 rounded bg-white/10" />
@@ -63,13 +63,10 @@ export function CompetitorTeardownPanel() {
             </div>
           </div>
         ))}
-        <motion.div
-          className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-transparent via-white/[0.05] to-transparent"
-          animate={{ y: ["-60%", "640%"] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", repeatType: "reverse" }}
-        >
+        {/* CSS keyframes (animate-scan) run on the compositor; the JS `y` loop this replaced ticked every frame, even off-screen */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-12 animate-scan bg-gradient-to-b from-transparent via-white/[0.05] to-transparent">
           <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-        </motion.div>
+        </div>
       </div>
     </Panel>
   );

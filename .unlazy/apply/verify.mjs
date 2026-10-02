@@ -68,7 +68,8 @@ const checks = {
     if (broken === home || normalize(broken) === normalize(home)) fail("control: a swapped url(#id) reference went unnoticed");
     let intendedHits = 0;
     for (const p of PAGES) {
-      const want = normalize(fs.readFileSync(baseFile(p), "utf8"));
+      // The intended rewrites apply to the baseline too, so a baseline snapshotted after them (2026-10-02) still compares equal
+      const want = normalize(INTENDED.reduce((html, [re, to]) => html.replace(re, to), fs.readFileSync(baseFile(p), "utf8")));
       let got = rootOf(read(`dist/${p}.html`));
       for (const [re, to] of INTENDED) got = got.replace(re, (m) => (intendedHits++, to));
       got = normalize(got);
@@ -92,7 +93,8 @@ const checks = {
     for (const gone of ["Bricolage", "WorkSans", "@keyframes marquee", "mask-fade-x"]) if (css.includes(gone)) fail(`built CSS still has ${gone}`);
     for (const kept of ["Inter", "Space Grotesk", "InstrumentSerif", "RedHatMono", "@keyframes sweep", "grid-lines", "em-serif"])
       if (!css.includes(kept)) fail(`built CSS lost ${kept}`);
-    for (const f of ["inter-var", "spacegrotesk-var", "instrumentserif-400", "instrumentserif-400-italic", "redhatmono-400", "redhatmono-700"])
+    // instrumentserif-400 (upright) and redhatmono-700 were unused and removed by the 2026-10-02 performance plan
+    for (const f of ["inter-var", "spacegrotesk-var", "instrumentserif-400-italic", "redhatmono-400"])
       if (!fs.existsSync(path.join(DIST, "assets/fonts", f + ".woff2"))) fail(`dist lost font ${f}`);
   },
   dead() {

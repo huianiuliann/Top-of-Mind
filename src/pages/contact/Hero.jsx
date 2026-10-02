@@ -47,16 +47,16 @@ export function ContactHeroChat() {
   }, []);
   return (
     <div
-      className="w-[22rem] overflow-hidden rounded-[1.6rem] border border-white/[0.08] bg-ink-900 shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
+      className="w-[22rem] overflow-hidden rounded-card border border-white/10 bg-ink-900 shadow-[0_40px_80px_rgba(3,33,19,0.18)]"
       aria-hidden="true"
     >
       <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-3">
-        <span className="grid size-9 place-items-center rounded-full bg-[#1f3b2c] text-emerald-300">
+        <span className="grid size-9 place-items-center rounded-full bg-forest text-page">
           <IconBrandWhatsapp className="size-5" />
         </span>
         <div className="flex-1">
           <p className="font-display text-sm font-bold text-white">Top of Mind</p>
-          <p className="text-[11px] text-emerald-300/80">{isTyping ? t("typing…", "scrie…") : "online"}</p>
+          <p className="text-[11px] text-neutral-500">{isTyping ? t("typing…", "scrie…") : "online"}</p>
         </div>
         <span className="rounded-md border border-dashed border-white/15 px-2 py-0.5 font-mono text-[10px] text-neutral-500">
           {t("example", "exemplu")}

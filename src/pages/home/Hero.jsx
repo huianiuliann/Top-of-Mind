@@ -1,7 +1,6 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import {
   IconArrowRight,
-  IconChartLine,
   IconCheck,
   IconClockHour4,
   IconFileText,
@@ -12,7 +11,8 @@ import {
 import { cn } from "../../lib/cn";
 import { PrimaryButton, SecondaryButton } from "../../components/ui/Button";
 import { Container } from "../../components/ui/Container";
-import { CALENDLY_URL } from "../../data/site";
+import { DesktopOnly } from "../../components/effects/DesktopOnly";
+import { useCalendly } from "../../data/site";
 import { useLink, useT } from "../../i18n";
 function PointerHighlight({ children, containerClassName, delay = 0 }) {
   return (
@@ -21,7 +21,7 @@ function PointerHighlight({ children, containerClassName, delay = 0 }) {
       <motion.span
         aria-hidden="true"
         // top/bottom hug the serif's x-height ink (no ascenders in "a euro"/"un euro") so padding is even on all sides
-        className="pointer-events-none absolute -inset-x-[0.1em] top-[0.13em] -bottom-[0.02em] z-0 block rounded-xl border border-accent-400 bg-accent-500/[0.08]"
+        className="pointer-events-none absolute -inset-x-[0.1em] top-[0.13em] -bottom-[0.02em] z-0 block rounded-xl border border-accent-400 bg-white/[0.06]"
         // -2px clip margin keeps the 1px border from being shaved off at the edges
         initial={{ clipPath: "inset(-2px 100% 100% -2px round 12px)", opacity: 0 }}
         animate={{ clipPath: "inset(-2px -2px -2px -2px round 12px)", opacity: 1 }}
@@ -70,7 +70,7 @@ function HeroParallaxCard({ mx, my, depth, className, delay, children }) {
           opacity: { delay, duration: 0.8 },
           y: { delay: delay + 0.8, duration: 6, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="rounded-2xl border border-white/[0.08] bg-ink-900 p-3 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+        className="rounded-2xl border border-white/10 bg-ink-900 p-3 shadow-[0_20px_50px_rgba(3,33,19,0.18)]"
       >
         {children}
       </motion.div>
@@ -146,7 +146,9 @@ function HeroFloatingCards({ mx, my }) {
             <p className="font-mono text-[11px] text-neutral-500">
               {t("The number we report", "Cifra pe care o raportăm")}
             </p>
-            <IconChartLine className="size-3.5 text-neutral-500" stroke={1.6} />
+            <span className="rounded border border-white/15 px-1.5 font-mono text-[9px] text-neutral-400">
+              {t("Example", "Exemplu")}
+            </span>
           </div>
           <p className="mt-0.5 text-[13px] text-neutral-200">
             {t("Qualified requests", "Cereri calificate")}
@@ -155,7 +157,7 @@ function HeroFloatingCards({ mx, my }) {
             <path
               d="M0 30 L25 27 L50 28 L75 20 L100 22 L125 12 L160 6"
               fill="none"
-              stroke="#818cf8"
+              stroke="var(--color-accent-400)"
               strokeWidth="1.5"
             />
           </svg>
@@ -164,9 +166,10 @@ function HeroFloatingCards({ mx, my }) {
     </div>
   );
 }
-// Headline, copy and CTA render visible from the first frame (prerendered HTML, LCP); only the decor animates.
+// Headline, copy and CTA are in the prerendered HTML (LCP) and fade in with CSS (.rise-in) from the first paint; JS only drives the decor.
 export function HomeHero() {
   const t = useT();
+  const calendly = useCalendly();
   const link = useLink();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -179,13 +182,15 @@ export function HomeHero() {
         mouseY.set(event.clientY - rect.top - rect.height / 2);
       }}
     >
-      <HeroFloatingCards mx={mouseX} my={mouseY} />
+      <DesktopOnly>
+        <HeroFloatingCards mx={mouseX} my={mouseY} />
+      </DesktopOnly>
       <div className="grid-lines absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black_10%,transparent_75%)]" />
-      <div className="absolute inset-x-0 top-0 -z-10 h-[46rem] bg-[radial-gradient(55%_45%_at_50%_0%,rgba(244,244,246,0.06),transparent_72%)]" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-[46rem] bg-[radial-gradient(55%_45%_at_50%_0%,color-mix(in_oklab,var(--color-cream)_90%,transparent),transparent_72%)]" />
       <Container className="relative flex flex-col items-center text-center">
         <a
           href={link("how-you-sell.html")}
-          className="group inline-flex items-center gap-2.5 rounded-xl border border-white/10 px-4 py-2 font-mono text-[12px] text-neutral-400 transition-colors hover:border-white/25 hover:text-neutral-200 sm:text-[13px]"
+          className="rise-in group inline-flex items-center gap-2.5 rounded-xl border border-white/10 px-4 py-2 font-mono text-[12px] text-neutral-400 transition-colors hover:border-white/25 hover:text-neutral-200 sm:text-[13px]"
         >
           <span>
             {t("Research-first marketing studio", "Marketing care începe cu cercetarea")}
@@ -196,28 +201,28 @@ export function HomeHero() {
             stroke={1.6}
           />
         </a>
-        <h1 className="mt-7 max-w-[19ch] font-display text-[2.85rem] leading-[0.96] font-bold tracking-[-0.03em] text-balance text-white sm:text-6xl md:text-7xl lg:text-[5.2rem] min-[112.5rem]:max-w-[21ch] min-[112.5rem]:text-[6rem]">
+        <h1 className="rise-in mt-7 max-w-[19ch] [--rise-delay:60ms] font-display text-[2.85rem] leading-[0.96] font-bold tracking-[-0.03em] text-balance text-white sm:text-6xl md:text-7xl lg:text-[5.2rem] min-[112.5rem]:max-w-[21ch] min-[112.5rem]:text-[6rem]">
           {t("We research your market before we touch", "Îți cercetăm piața înainte să ne atingem de")}{" "}
           <PointerHighlight delay={0.4} containerClassName="mx-[0.12em]">
             <span className="em-serif relative z-10 px-[0.06em]">{t("a euro", "un euro")}</span>
           </PointerHighlight>{" "}
           {t("of your budget.", "din bugetul tău.")}
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-neutral-400 md:text-xl">
+        <p className="rise-in mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-neutral-400 [--rise-delay:120ms] md:text-xl">
           {t(
-            "Meta and Google Ads, websites and content — built around how your customer actually buys: by quote, by cart or by calendar. Two founders, no juniors, no templates.",
-            "Meta Ads și Google Ads, site-uri și conținut — totul construit după felul în care cumpără, de fapt, clienții tăi: prin ofertă, prin coș sau prin calendar. Doi fondatori, fără juniori, fără șabloane.",
+            "More qualified enquiries, orders or bookings — from a plan built on what your buyers actually think. No boosted posts on luck, no 12-month contracts, no reports you can't read.",
+            "Mai multe cereri de ofertă, comenzi sau programări — dintr-un plan construit pe ce gândesc, de fapt, clienții tăi. Fără boost-uri la noroc, fără contracte pe 12 luni, fără rapoarte pe care nu le înțelegi.",
           )}
         </p>
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-          <PrimaryButton href={CALENDLY_URL} external size="lg">
+        <div className="rise-in mt-8 flex flex-col items-center gap-3 [--rise-delay:180ms] sm:flex-row">
+          <PrimaryButton href={calendly("hero")} external size="lg">
             {t("Book a free 30-min call", "Apel gratuit de 30 de minute")}
           </PrimaryButton>
           <SecondaryButton href={link("how-you-sell.html")} size="lg">
             {t("How you sell", "Cum vinzi")}
           </SecondaryButton>
         </div>
-        <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 font-mono text-[12.5px] text-neutral-500">
+        <ul className="rise-in mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 font-mono text-[13px] text-neutral-500 [--rise-delay:240ms]">
           <li className="flex items-center gap-2">
             <IconClockHour4 className="size-4 text-neutral-500" stroke={1.6} />
             {t("30 minutes, free", "30 de minute, gratuit")}

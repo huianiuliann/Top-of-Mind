@@ -5,21 +5,22 @@ import { cn } from "../../lib/cn";
 import { PrimaryButton, SecondaryButton } from "../ui/Button";
 import { Logo } from "../ui/Logo";
 import { useLink, useT } from "../../i18n";
-import { CALENDLY_URL, useNavItems } from "../../data/site";
+import { useCalendly, useNavItems } from "../../data/site";
 import { LangSwitch } from "./LangSwitch";
 const NavbarDesktopBody = ({ children, visible }) => (
   <motion.div
+    initial={false}
     animate={{
       boxShadow: visible
-        ? "0 0 0 1px rgba(244,244,246,0.08), 0 12px 40px rgba(0,0,0,0.45)"
-        : "0 0 0 1px rgba(244,244,246,0), 0 0 0 rgba(0,0,0,0)",
+        ? "0 0 0 1px rgba(3,33,19,0.08), 0 12px 40px rgba(3,33,19,0.14)"
+        : "0 0 0 1px rgba(3,33,19,0), 0 0 0 rgba(3,33,19,0)",
       width: visible ? "62%" : "100%",
       y: visible ? 12 : 0,
     }}
     transition={{ type: "spring", stiffness: 200, damping: 50 }}
     style={{ minWidth: "900px" }}
     className={cn(
-      "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-[20px] bg-transparent px-4 py-2.5 lg:flex",
+      "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-card bg-transparent px-4 py-2.5 lg:flex",
       visible && "bg-ink-900/80 backdrop-blur-md",
     )}
   >
@@ -59,22 +60,18 @@ const NavItems = ({ items, current }) => {
     </motion.nav>
   );
 };
+// Phones: the bar keeps its size while scrolling. A width/padding spring re-laid it out on every frame and a backdrop
+// blur re-rendered it on every scroll frame, both janky on cheap phones; a solid bar now fades in and only `y` moves.
 const MobileNav = ({ children, visible }) => (
   <motion.div
-    animate={{
-      boxShadow: visible
-        ? "0 0 0 1px rgba(244,244,246,0.08), 0 12px 40px rgba(0,0,0,0.45)"
-        : "0 0 0 1px rgba(244,244,246,0), 0 0 0 rgba(0,0,0,0)",
-      width: visible ? "92%" : "100%",
-      paddingRight: visible ? "12px" : "4px",
-      paddingLeft: visible ? "12px" : "4px",
-      borderRadius: visible ? "5px" : "1rem",
-      y: visible ? 8 : 0,
-    }}
-    transition={{ type: "spring", stiffness: 200, damping: 20 }}
+    initial={false}
+    animate={{ y: visible ? 8 : 0 }}
+    transition={{ duration: 0.25, ease: "easeOut" }}
     className={cn(
-      "relative z-50 mx-auto flex w-full max-w-[calc(100vw-1.5rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
-      visible && "bg-ink-900/85 backdrop-blur-md",
+      "relative z-50 mx-auto flex w-full max-w-[calc(100vw-1.5rem)] flex-col items-center justify-between rounded-[5px] px-3 py-2 transition-[background-color,box-shadow] duration-300 lg:hidden",
+      visible
+        ? "bg-ink-900/95 shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-cream)_100%,transparent),0_12px_40px_rgba(3,33,19,0.14)]"
+        : "bg-transparent",
     )}
   >
     {children}
@@ -88,7 +85,7 @@ const MobileNavMenu = ({ children, isOpen }) => (
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.25 }}
-        className="absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-1 rounded-2xl border border-white/10 bg-ink-900 px-4 py-5 shadow-[0_24px_60px_rgba(0,0,0,0.6)]"
+        className="absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-1 rounded-2xl border border-white/10 bg-ink-900 px-4 py-5 shadow-[0_24px_60px_rgba(3,33,19,0.18)]"
       >
         {children}
       </motion.div>
@@ -117,6 +114,7 @@ export function Navbar({ current }) {
   const t = useT();
   const link = useLink();
   const navItems = useNavItems();
+  const calendly = useCalendly();
   return (
     <div className="fixed inset-x-0 top-3 z-[70] w-full">
       <NavbarDesktopBody visible={isScrolled}>
@@ -124,7 +122,7 @@ export function Navbar({ current }) {
         <NavItems items={navItems} current={current} />
         <div className="relative z-20 flex items-center gap-3">
           <LangSwitch page={current} />
-          <SecondaryButton href={CALENDLY_URL} external size="sm" icon="none">
+          <SecondaryButton href={calendly("nav")} external size="sm" icon="none">
             {t("Book a call", "Apel gratuit")}
           </SecondaryButton>
         </div>
@@ -159,12 +157,29 @@ export function Navbar({ current }) {
             </a>
           ))}
           <div className="mt-3 w-full">
-            <PrimaryButton href={CALENDLY_URL} external className="w-full" magnetic={false}>
-              {t("Book a free 30-min call", "Programează un apel gratuit de 30 de minute")}
+            <PrimaryButton href={calendly("menu")} external className="w-full" magnetic={false}>
+              {t("Book a free 30-min call", "Apel gratuit de 30 de minute")}
             </PrimaryButton>
           </div>
         </MobileNavMenu>
       </MobileNav>
+      {/* Phones: the header has no room for a booking button (logo + EN|RO + menu fill 360 px), so once the hero CTA
+          starts to scroll away it waits at the bottom, in thumb reach. */}
+      <AnimatePresence>
+        {isScrolled && !isMenuOpen && (
+          <motion.div
+            initial={{ y: 96 }}
+            animate={{ y: 0 }}
+            exit={{ y: 96 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-x-3 bottom-3 lg:hidden"
+          >
+            <PrimaryButton href={calendly("sticky")} external magnetic={false} className="w-full">
+              {t("Book a free 30-min call", "Apel gratuit de 30 de minute")}
+            </PrimaryButton>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

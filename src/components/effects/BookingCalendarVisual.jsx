@@ -46,8 +46,8 @@ export function BookingCalendarVisual({ className }) {
               layout={false}
               className={cn(
                 "relative aspect-square rounded-md border transition-colors duration-500",
-                cellType === "direct" && "border-white/10 bg-[#e3e3e8]",
-                cellType === "platform" && "border-white/5 bg-[#28282d]",
+                cellType === "direct" && "border-white/10 bg-neutral-200",
+                cellType === "platform" && "border-white/[0.06] bg-ink-700",
                 cellType === "empty" && "border-dashed border-white/10 bg-transparent",
               )}
               animate={
@@ -64,14 +64,14 @@ export function BookingCalendarVisual({ className }) {
           );
         })}
       </div>
-      <div className="pointer-events-none absolute top-5 bottom-0 left-[calc((100%-9px)/7+1.5px)] w-[calc((100%-9px)/7)] rounded-lg ring-1 ring-accent-400/60" />
+      <div className="pointer-events-none absolute top-5 bottom-0 left-[calc((100%-9px)/7+1.5px)] w-[calc((100%-9px)/7)] rounded-lg ring-1 ring-accent-400" />
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[10px] text-neutral-400">
         <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-sm bg-[#e3e3e8]" />
+          <span className="size-2.5 rounded-sm bg-neutral-200" />
           {t("Direct booking", "Rezervare directă")}
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-sm bg-[#28282d]" />
+          <span className="size-2.5 rounded-sm bg-ink-700" />
           {t("Via a platform", "Prin platformă")}
         </span>
         <span className="flex items-center gap-1.5">

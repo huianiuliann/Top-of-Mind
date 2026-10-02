@@ -1,6 +1,6 @@
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
-import { useFounders } from "../../data/site";
+import { portraitSrcSet, small, useFounders } from "../../data/site";
 import { useT, useLink } from "../../i18n";
 import { ArrowTextLink } from "./shared";
 // Tilts toward the cursor; the items inside lift through their group-hover/card:[transform:translateZ()] classes.
@@ -20,7 +20,7 @@ function TiltCard({ children }) {
         className="relative flex h-full w-full items-stretch justify-center transition-all duration-200 ease-linear"
         style={{ transformStyle: "preserve-3d" }}
       >
-        <div className="group/card relative h-full w-full rounded-[1.8rem] border border-white/[0.08] bg-ink-900 p-6 transition-colors [transform-style:preserve-3d] hover:border-white/20 sm:p-7 [&>*]:[transform-style:preserve-3d]">
+        <div className="group/card relative h-full w-full rounded-card border border-white/10 bg-ink-900 p-6 transition-colors [transform-style:preserve-3d] hover:border-white/20 sm:p-7 [&>*]:[transform-style:preserve-3d]">
           {children}
         </div>
       </div>
@@ -33,7 +33,7 @@ export function HomeTeam() {
   const t = useT();
   const link = useLink();
   return (
-    <section className="theme-light relative border-t border-white/[0.06] py-20 md:py-28">
+    <section className="relative border-t border-white/[0.06] py-16 md:py-24">
       <Container>
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
@@ -60,19 +60,30 @@ export function HomeTeam() {
                 <div className={`${lift} shrink-0 group-hover/card:[transform:translateZ(90px)]`}>
                   <div className="relative size-28 overflow-hidden rounded-2xl ring-1 ring-white/10 sm:size-36">
                     <img
-                      src={founder.duo}
+                      src={small(founder.duo)}
+                      srcSet={portraitSrcSet(founder.duo)}
+                      sizes="(min-width: 640px) 144px, 112px"
+                      width={336}
+                      height={336}
                       alt={founder.name}
                       style={{ objectPosition: founder.crop.card }}
                       className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover/card:opacity-0"
                       loading="lazy"
+                      decoding="async"
                     />
+                    {/* Colour photo only shows on hover: display:none on touch screens, so a lazy image is never fetched there */}
                     <img
-                      src={founder.src}
+                      src={small(founder.src)}
+                      srcSet={portraitSrcSet(founder.src)}
+                      sizes="(min-width: 640px) 144px, 112px"
+                      width={336}
+                      height={336}
                       alt=""
                       aria-hidden="true"
                       style={{ objectPosition: founder.crop.card }}
-                      className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                      className="absolute inset-0 hidden h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover/card:opacity-100 [@media(hover:hover)]:block"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>

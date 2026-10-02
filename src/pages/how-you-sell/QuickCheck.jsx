@@ -5,6 +5,7 @@ import { cn } from "../../lib/cn";
 import { L, useT } from "../../i18n";
 import { CALENDAR, CART, QUOTE } from "../../data/buyingModes";
 import { easeOutExpo } from "../../components/effects/motion";
+import { SerifEm } from "../../components/ui/SectionHeading";
 // `name` is shown lowercased after "You sell by"; its RO side is the form that follows "Vinzi prin".
 const quickCheckModes = [
   {
@@ -39,15 +40,13 @@ export function HowYouSellQuickCheck() {
   const t = useT();
   const [selected, setSelected] = useState(null);
   return (
-    <div className="relative overflow-hidden rounded-[1.8rem] border border-white/[0.08] bg-ink-900 p-6 md:p-10">
+    <div className="relative overflow-hidden rounded-card border border-white/10 bg-ink-900 p-6 md:p-10">
       <p className="font-mono text-[13px] text-neutral-400">
         {t("Ten-second check", "Test de zece secunde")}
       </p>
       <h3 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] text-white md:text-4xl">
-        {t(
-          "When a new customer finds you, what happens next?",
-          "Când te găsește un client nou, ce face mai departe?",
-        )}
+        {t("When a new customer finds you, ", "Când te găsește un client nou, ")}
+        <SerifEm>{t("what happens next?", "ce face mai departe?")}</SerifEm>
       </h3>
       <div className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3">
         {quickCheckModes.map((mode, index) => (
@@ -59,14 +58,14 @@ export function HowYouSellQuickCheck() {
             className={cn(
               "group relative flex items-center gap-3 rounded-2xl border p-4 text-left transition-all duration-300",
               selected === index
-                ? "border-accent-400/70 bg-accent-500/[0.1]"
-                : "border-white/[0.08] bg-white/[0.02] hover:border-accent-400/40 hover:bg-white/[0.04]",
+                ? "border-accent-400 bg-white/[0.06]"
+                : "border-white/10 bg-white/[0.02] hover:border-accent-400 hover:bg-white/[0.04]",
             )}
           >
             <span
               className={cn(
                 "grid size-10 shrink-0 place-items-center rounded-xl transition-colors",
-                selected === index ? "bg-accent-500 text-[#ffffff]" : "bg-white/[0.05] text-neutral-400",
+                selected === index ? "bg-accent-500 text-on-accent" : "bg-white/[0.05] text-neutral-400",
               )}
             >
               <mode.icon className="size-5" stroke={1.6} />
@@ -76,7 +75,8 @@ export function HowYouSellQuickCheck() {
         ))}
       </div>
       <div className="relative mt-6 min-h-[7.5rem]">
-        <AnimatePresence mode="wait">
+        {/* initial={false}: the hint is visible in the prerendered HTML; only later switches animate */}
+        <AnimatePresence mode="wait" initial={false}>
           {selected === null ? (
             <motion.p
               key="none"
@@ -97,7 +97,7 @@ export function HowYouSellQuickCheck() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: easeOutExpo }}
-              className="flex flex-col justify-between gap-4 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:flex-row md:items-center"
+              className="flex flex-col justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:flex-row md:items-center"
             >
               <div>
                 <p className="font-display text-2xl font-bold tracking-[-0.01em] text-white">

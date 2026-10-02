@@ -136,6 +136,43 @@ Măsurători din browser la 1280px:
 - Verdele WhatsApp de pe Contact rămâne (recunoaștere de brand), sau trece pe accentul mov?
 - Titlurile repetate (Team, Contact) se rescriu acum, sau după studiul de caz?
 
+## Stare rezolvare (2026-10-02)
+
+Am aplicat modificările în sesiunea „design-fix” (ledger `.unlazy/design-fix/GATES.md`). Fragmentele de cod din tabelele de mai sus descriu codul **dinainte** de modificări, deci multe nu mai există: e semn că problema a fost rezolvată.
+
+Decizii implicite, luate fără răspuns la întrebările deschise (se pot schimba):
+- **Home:** rămâne centrat.
+- **Card-uri:** 20px, ca navbar-ul.
+- **Verdele WhatsApp:** rămâne.
+- **Titlurile repetate:** nu le-am atins, pentru că țin de copy.
+
+| Constatare | Stare | Ce s-a făcut / de ce nu |
+|---|---|---|
+| `T1`, `P2` | Rezolvat | `PageHero` randează eticheta, H1, subtitlul și CTA-urile vizibile din primul cadru. `dist/` nu mai are `opacity:0` pe niciun H1 (12 pagini EN+RO). |
+| `T2` | Rezolvat | Toate H1-urile au 83,2px la 1280. Home rămâne centrat (decizie implicită). |
+| `T3`, `Y1` (padding) | Rezolvat | Toate secțiunile au `py-16 md:py-24` (96px pe desktop). |
+| `T4`, `H3`, `M2` | Rezolvat | Token-uri `rounded-card` (20px) și `rounded-card-inner` (12px) în `@theme`. Card-uri, panouri, banda CTA și navbar-ul sunt pe scală. Măsurat: doar 20px și 12px la card-uri. |
+| `T5` | Rezolvat | `border border-transparent` pe butonul principal: perechile au 61px / 61px. |
+| `T6`, `C1` | Rezolvat | Token `accent-450` pentru hover. „Open Calendly” are aceeași mărime, bordură și umbră ca butonul principal `lg`. |
+| `T7`, `Y2` | Parțial | Valorile izolate (12,5 / 10,5px, 1,5 / 1,9 / 2 / 2,4 / 2,6rem) sunt mutate pe scală. Etichetele mono de 10, 11, 12 și 13px au rămas: sunt peste 100 de apariții, iar unificarea lor schimbă aspectul mockup-urilor. Rămâne o decizie separată. |
+| `T8` | Rezolvat | Etichetele de 12,5px au trecut pe 13px. |
+| `T9` | Rezolvat | Titlurile CTA au 36px pe mobil și 60px pe desktop, peste tot. |
+| `T10` | Rezolvat | Bordurile au trei niveluri (0,06 / 0,10 / 0,15–0,20), plus nuanțele de hover. |
+| `T11`, `P1` (umbră) | Nefăcut | Umbrele nu se văd ca inconsecvență și sunt doar datorie de întreținere. Cadrul „Your first month” a primit doar radius-ul de card. |
+| `T12` | Rezolvat | Liniile gri din „How we work” folosesc variabile `neutral-*`. Gradientul din `Panel` rămâne, fiind un mockup închis intenționat. |
+| `T13` | Rezolvat | `tracking-[-0.02em]`. |
+| `T14` | Rezolvat | Eticheta RO e „Apel gratuit de 30 de minute”. În plus, și eticheta EN din banda CTA se rupea pe mobil (83px): acum folosește „Book a free 30-min call”, iar butonul `lg` și banda au padding lateral mai mic pe mobil. Toate butoanele au 61px la 375 pe 12 pagini. |
+| `T15` | Rezolvat | Linkurile-săgeată au 30px înălțime, iar butoanele EN/RO au `py-1.5`. |
+| `T16`, `M3`, `C3` | Decizie owner | Titlurile repetate țin de copy. Nu le-am atins. |
+| `H1` | Rezolvat | Secțiunea Team de pe Home e închisă la culoare, deci alternanța e restabilită. |
+| `H2` | Decizie implicită | Hero-ul de pe Home rămâne centrat. |
+| `S1` | Decizie owner | Introducerea dublă de pe Services e structurală: secțiunea animată la scroll ar trebui să devină hero sau să fie scurtată, ceea ce schimbă animația. |
+| `S2` | Păstrat | Titlurile disciplinelor rămân subtitluri cu iconiță (treaptă de 48px). |
+| `S3` | Decizie owner | Carusel pe mobil pentru disciplinele de pe Services: e o funcționalitate nouă. |
+| `Y1` (titlu) | Rezolvat | „Ten-second check” are accent serif pe „what happens next?” / „ce face mai departe?”. |
+| `M1` | Rezolvat | Titlul „Two specialists” e aliniat la stânga, ca pe Home. |
+| `C2` | Decizie implicită | Verdele WhatsApp rămâne. |
+
 ## Coordonare
 
 Sesiunea „code-cut” a terminat refactorul pe `src/` (Prettier, ștergerea fișierelor moarte, eliminarea fonturilor Bricolage/WorkSans, `src/data/buyingModes.js` și `src/data/disciplines.js` noi). Detalii în `.claude/plans/audit-cod-2026-10-01.md`. Raportul a fost reverificat după refactor: toate fragmentele de clasă există încă, iar inventarul a fost recalculat. `src/` e liber pentru modificările de mai sus. Gate-ul G1 (`.unlazy/design-audit/check-report.mjs`) verifică din nou că fiecare fragment există în fișierul indicat.

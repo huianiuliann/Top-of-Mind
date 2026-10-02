@@ -1,24 +1,39 @@
-import { motion } from "framer-motion";
-import { easeOutExpo } from "./motion";
-const revealVariants = {
-  "fade-up": { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } },
-  "fade-left": { initial: { opacity: 0, x: -24 }, animate: { opacity: 1, x: 0 } },
-  "zoom-in": { initial: { opacity: 0, scale: 0.92 }, animate: { opacity: 1, scale: 1 } },
-  "blur-in": { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } },
+import { useEffect, useRef, useState } from "react";
+const revealFrom = {
+  "fade-up": "translateY(24px)",
+  "fade-left": "translateX(-24px)",
+  "zoom-in": "scale(0.92)",
+  "blur-in": "translateY(16px)",
 };
-export function Reveal({ children, className, variant = "fade-up", delay = 0, as = "div" }) {
-  const { initial, animate } = revealVariants[variant];
-  const MotionTag = motion[as];
+// The prerendered HTML shows the block as is, so nothing waits for JavaScript. After hydration a block that is still
+// below the fold is hidden and fades in once 10% of it scrolls into view; the motion itself is CSS ([data-reveal] in index.css).
+export function Reveal({ children, className, variant = "fade-up", delay = 0, as: Tag = "div" }) {
+  const ref = useRef(null);
+  const [state, setState] = useState("shown");
+  useEffect(() => {
+    const el = ref.current;
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setState("wait");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setState("in");
+        observer.disconnect();
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <MotionTag
-      initial={initial}
-      whileInView={animate}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.6, delay, ease: easeOutExpo }}
+    <Tag
+      ref={ref}
+      data-reveal={state}
       className={className}
-      style={{ transformPerspective: 1000 }}
+      style={{ "--reveal-from": revealFrom[variant], "--reveal-delay": `${delay}s` }}
     >
       {children}
-    </MotionTag>
+    </Tag>
   );
 }

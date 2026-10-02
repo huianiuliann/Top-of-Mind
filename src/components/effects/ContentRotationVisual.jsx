@@ -38,12 +38,12 @@ export function ContentRotationVisual({ className }) {
               transition={{ duration: 0.3 }}
               className={cn(
                 "relative aspect-square overflow-hidden rounded-lg border transition-colors duration-300",
-                isActive ? "border-white/40" : "border-white/[0.05]",
+                isActive ? "border-white/40" : "border-white/[0.06]",
                 index % 3 === 0
-                  ? "bg-[linear-gradient(135deg,#2c2c31,#17171b)]"
+                  ? "bg-[linear-gradient(135deg,var(--color-ink-600),var(--color-ink-900))]"
                   : index % 3 === 1
-                    ? "bg-[linear-gradient(135deg,#343439,#17171b)]"
-                    : "bg-[linear-gradient(135deg,#1d1d21,#141417)]",
+                    ? "bg-[linear-gradient(135deg,var(--color-ink-600),var(--color-ink-900))]"
+                    : "bg-[linear-gradient(135deg,var(--color-ink-900),var(--color-ink-950))]",
               )}
             >
               <tileFormat.icon

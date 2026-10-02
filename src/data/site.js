@@ -1,5 +1,16 @@
+import { createContext, useContext } from "react";
 import { L, useT } from "../i18n";
 export const CALENDLY_URL = "https://calendly.com/huianiuliann/30min";
+// SiteLayout's `current` page id, read by useCalendly. Page components render SiteLayout themselves, so above it
+// the id is empty and their button names carry the page instead ("contact-card").
+export const PageContext = createContext("");
+// Calendly keeps utm_* on the booking, so its reports show the page and button each call came from.
+// No language: the RO parity check (.unlazy/ro-react) wants external links identical in EN and RO.
+export function useCalendly() {
+  const page = useContext(PageContext);
+  return (button) =>
+    `${CALENDLY_URL}?utm_source=topofmind&utm_medium=site&utm_content=${[page, button].filter(Boolean).join("-")}`;
+}
 export const CONTACT_EMAIL = "iulian@topofmind.me";
 export const WHATSAPP_URL = "https://wa.me/40756883206";
 export const PHONE_DISPLAY = "0756 883 206";
@@ -15,8 +26,8 @@ export const founders = [
     name: "Iulian Huian",
     role: L("Co-founder & CEO", "Co-fondator & CEO"),
     focus: L("Strategy & paid media", "Strategie și publicitate plătită"),
-    src: "/assets/img/iulian.jpg",
-    duo: "/assets/img/iulian-duo.jpg",
+    src: "/assets/img/iulian.webp",
+    duo: "/assets/img/iulian-duo.webp",
     crop: { card: "50% 58%", portrait: "50% 60%", circleOrigin: "50% 57%" },
     line: L(
       "Runs every account's Meta and Google Ads, and sets the research process behind each campaign. If you book the call, you'll most likely talk to him first.",
@@ -48,6 +59,9 @@ export const founders = [
     ],
   },
 ];
+// Portraits are 640 px; every one also has a 336 px copy (.unlazy/perf/images.py) for cards and avatars up to ~144 CSS px.
+export const small = (img) => img.replace(/\.webp$/, "-336.webp");
+export const portraitSrcSet = (img) => `${small(img)} 336w, ${img} 640w`;
 // Round avatars zoom the duotone portrait 1.5x around the founder's face.
 export const avatarStyle = (founder) => ({
   transform: "scale(1.5)",

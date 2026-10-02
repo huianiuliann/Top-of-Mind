@@ -43,6 +43,15 @@
         "product"
       ],
       "findingSummary": "New-file challenge for the bilingual work (cto, product), 2026-10-01: 0 MUST FIX, 2 SHOULD FIX (6 duplicate ro-*.jsx entries needed because Vite 8 emits 13 module scripts for shared entries; en/deps oracle gates are point-in-time and decay), 5 GOOD (i18n core 35 lines no library; LangSwitch; vercel.json single rule; ro/*.html shells fit the MPA design; no speculative cookie/persistence). Key: nothing speculative, accept the tiny duplicates."
+    },
+    {
+      "date": "2026-10-02",
+      "perspectives": [
+        "cto",
+        "product",
+        "customer"
+      ],
+      "findingSummary": "Mobile performance review (cto, product, customer), 2026-10-02: 3 MUST FIX (content prerendered at opacity:0 until hydration, 213 KB of fonts preloaded on every page, REact not deployed so visitors still get the old site with a 3.26 s LCP render delay), 6 SHOULD FIX (desktop-only decor and endless loops running on phones, no immutable cache + vendor hash churn, layout animations: mobile navbar spring + blur, width/height bars, FinalCta lamp; apex->www 307 vs apex canonical; typewriter wrapping at 375px), 5 GOOD (hydrateRoot + EN/RO prerender, ArcGlobe lazy WebGL, icons tree-shaken, reduced motion respected, no third-party scripts). Fixed the same day on REact (P1+P2): Lighthouse mobile local / 85->92, /ro 85->92, services 83->95, team 87->95; LCP about -1 s, CLS 0, -43% bytes. Still open: deploy REact, make apex the primary domain in Vercel."
     }
   ]
 }

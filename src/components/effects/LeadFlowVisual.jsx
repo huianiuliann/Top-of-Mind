@@ -41,10 +41,10 @@ export function LeadFlowVisual({ className }) {
               <div
                 ref={node.ref}
                 className={cn(
-                  "grid size-11 place-items-center rounded-2xl border shadow-[0_0_24px_-8px_rgba(0,0,0,0.8)] transition-all duration-500",
+                  "grid size-11 place-items-center rounded-2xl border shadow-[0_0_24px_-8px_rgba(3,33,19,0.24)] transition-all duration-500",
                   node.accent
                     ? step === 2
-                      ? "border-accent-400/70 bg-ink-800 text-accent-300"
+                      ? "border-accent-400 bg-ink-800 text-accent-300"
                       : "border-white/15 bg-ink-800 text-neutral-300"
                     : "border-white/10 bg-ink-800 text-neutral-400",
                 )}
@@ -74,7 +74,7 @@ export function LeadFlowVisual({ className }) {
           />
         ))}
       </div>
-      <div className="mt-4 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
+      <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.025] p-3">
         <div className="flex items-center justify-between gap-2">
           <span className="flex items-center gap-1.5 font-mono text-[10px] text-neutral-500">
             <span className="size-1.5 rounded-full bg-white/50" />

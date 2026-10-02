@@ -29,10 +29,10 @@ export function ServicesHeroOrbit() {
       {heroOrbitRings.map((ring, index) => (
         <div
           key={index}
-          className="absolute rounded-full border border-white/[0.07]"
+          className="absolute rounded-full border border-white/10"
           style={{ inset: ring.inset }}
         >
-          <div className="absolute inset-0 rounded-full border border-dashed border-white/[0.05]" />
+          <div className="absolute inset-0 rounded-full border border-dashed border-white/[0.06]" />
         </div>
       ))}
       {DISCIPLINES.map((item, index) => {
@@ -62,7 +62,7 @@ export function ServicesHeroOrbit() {
                     animationDirection: ring.reverse ? "normal" : "reverse",
                   }}
                 >
-                  <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-ink-900 py-1.5 pr-3 pl-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+                  <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-ink-900 py-1.5 pr-3 pl-1.5 shadow-[0_10px_30px_rgba(3,33,19,0.18)]">
                     <span className="grid size-7 place-items-center rounded-full bg-white/[0.06] text-neutral-300">
                       <item.icon className="size-4" stroke={1.6} />
                     </span>
@@ -76,7 +76,7 @@ export function ServicesHeroOrbit() {
           </div>
         );
       })}
-      <div className="absolute inset-[36%] grid place-items-center rounded-full border border-white/20 bg-[radial-gradient(circle_at_35%_30%,#1c1c20,#121215_70%)]">
+      <div className="absolute inset-[36%] grid place-items-center rounded-full border border-white/20 bg-[radial-gradient(circle_at_35%_30%,var(--color-ink-900),var(--color-ink-950)_70%)]">
         <div className="text-center">
           <span className="mx-auto mb-2 block size-1.5 rounded-full bg-accent-400" />
           <p className="em-serif text-2xl leading-none text-white">{t("One system", "Un singur sistem")}</p>

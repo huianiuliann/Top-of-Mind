@@ -18,6 +18,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: Object.fromEntries(pages.flatMap((p) => [[p, `${p}.html`], [`ro/${p}`, `ro/${p}.html`]])),
+      // Libraries get their own chunk, so editing a component no longer changes the hash of ~110 KB of library code
+      // that returning visitors already cache (vercel.json serves hashed assets as immutable).
+      output: {
+        codeSplitting: {
+          groups: [{ name: "vendor", test: /node_modules[\\/](react|react-dom|scheduler|framer-motion|motion-dom|motion-utils|tailwind-merge)[\\/]/ }],
+        },
+      },
     },
   },
 });

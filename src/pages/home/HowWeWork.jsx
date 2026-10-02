@@ -4,6 +4,7 @@ import { IconArrowsHorizontal, IconCoins, IconFileText, IconLockOpen, IconUsers 
 import { easeOutExpo } from "../../components/effects/motion";
 import { MonthlyReportPanel } from "../../components/effects/MonthlyReportPanel";
 import { Reveal } from "../../components/effects/Reveal";
+import { useInViewCycle } from "../../components/effects/useInViewCycle";
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
 import { L, useT } from "../../i18n";
@@ -69,7 +70,7 @@ const CompareSlider = ({ first, second, firstLabel, secondLabel }) => {
   return (
     <div
       ref={containerRef}
-      className="relative h-[34rem] w-full touch-pan-y overflow-hidden rounded-[1.4rem] select-none sm:h-[30rem]"
+      className="relative h-[34rem] w-full touch-pan-y overflow-hidden rounded-card-inner select-none sm:h-[30rem]"
       style={{ cursor: "col-resize" }}
       onMouseMove={(event) => moveToClientX(event.clientX)}
       onMouseEnter={() => {
@@ -122,7 +123,7 @@ const CompareSlider = ({ first, second, firstLabel, secondLabel }) => {
         style={{ transform: "translate3d(0%,0,0)" }}
       >
         <div className="absolute top-0 left-1/2 h-full w-px bg-gradient-to-b from-transparent from-[5%] via-accent-400 to-transparent to-[95%]" />
-        <div className="absolute top-1/2 left-1/2 -ml-4 flex size-8 -translate-y-1/2 items-center justify-center rounded-full border border-accent-400/70 bg-ink-950">
+        <div className="absolute top-1/2 left-1/2 -ml-4 flex size-8 -translate-y-1/2 items-center justify-center rounded-full border border-accent-400 bg-ink-950">
           <IconArrowsHorizontal className="size-4 text-accent-300" stroke={1.6} />
         </div>
       </div>
@@ -130,15 +131,11 @@ const CompareSlider = ({ first, second, firstLabel, secondLabel }) => {
   );
 };
 function RotatingText({ children }) {
-  const [activeIndex, setActiveIndex] = useState(0);
   const items = React.Children.toArray(children);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const intervalId = setInterval(() => setActiveIndex((current) => (current + 1) % items.length), 2400);
-    return () => clearInterval(intervalId);
-  }, [items.length]);
+  // Rotates only while on screen (and not with reduced motion), like the other cycling visuals.
+  const { ref, step: activeIndex } = useInViewCycle(items.length, 2400);
   return (
-    <span className="relative inline-block whitespace-nowrap text-neutral-200">
+    <span ref={ref} className="relative inline-block whitespace-nowrap text-neutral-200">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={activeIndex}
@@ -157,8 +154,8 @@ function RotatingText({ children }) {
 function TypicalAgencyReportMockup() {
   const t = useT();
   return (
-    <div className="h-full w-full bg-[#141414] p-5 font-sans text-neutral-400 sm:p-7">
-      <div className="flex items-center justify-between border-b border-white/5 pb-3">
+    <div className="h-full w-full bg-ink-950 p-5 font-sans text-neutral-400 sm:p-7">
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
         <div>
           <p className="font-display text-[13px] font-bold text-neutral-300">
             {t("Monthly Performance Report", "Raport lunar de performanță")}
@@ -185,7 +182,7 @@ function TypicalAgencyReportMockup() {
           L("Video ThruPlays", "ThruPlay-uri video"),
           L("Cost / result", "Cost / rezultat"),
         ].map((metric) => (
-          <div key={metric.en} className="rounded-md border border-white/5 bg-white/[0.02] p-2">
+          <div key={metric.en} className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
             <p className="truncate text-[10px] text-neutral-500">{t(metric)}</p>
             <p className="mt-1 font-display text-[15px] font-bold text-neutral-300 blur-[3.5px]">
               {t("88.8k", "88,8k")}
@@ -204,7 +201,7 @@ function TypicalAgencyReportMockup() {
             key={index}
             d={pathData}
             fill="none"
-            stroke={["#666", "#555", "#777", "#4a4a4a"][index]}
+            stroke={["var(--color-neutral-600)", "var(--color-neutral-700)", "var(--color-neutral-500)", "var(--color-neutral-700)"][index]}
             strokeWidth="1.5"
           />
         ))}
@@ -241,7 +238,7 @@ function TypicalAgencyReportMockup() {
 export function HomeHowWeWork() {
   const t = useT();
   return (
-    <section className="theme-light relative py-20 md:py-28">
+    <section className="theme-light relative py-16 md:py-24">
       <Container>
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
@@ -303,9 +300,9 @@ export function HomeHowWeWork() {
                 as="li"
                 delay={0.24}
                 variant="fade-left"
-                className="flex gap-4 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-4"
+                className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4"
               >
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-accent-400/45 text-accent-300">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-accent-400 text-accent-300">
                   <IconCoins className="size-5" stroke={1.6} />
                 </span>
                 <div>
@@ -327,7 +324,7 @@ export function HomeHowWeWork() {
             </ul>
           </div>
           <Reveal variant="zoom-in">
-            <div className="theme-dark relative rounded-[1.8rem] border border-white/[0.08] bg-ink-900 p-2 shadow-[0_30px_60px_-24px_rgba(19,19,22,0.45)]">
+            <div className="theme-dark relative rounded-card border border-white/10 bg-ink-900 p-2 shadow-[0_30px_60px_-24px_rgba(3,33,19,0.16)]">
               <CompareSlider
                 first={<TypicalAgencyReportMockup />}
                 second={<MonthlyReportPanel />}
@@ -335,7 +332,7 @@ export function HomeHowWeWork() {
                 secondLabel={t("The report you get from us", "Raportul primit de la noi")}
               />
             </div>
-            <p className="mt-4 text-center font-mono text-[12.5px] text-neutral-500">
+            <p className="mt-4 text-center font-mono text-[13px] text-neutral-500">
               {t(
                 "Move across the report — left is what most agencies send, right is ours. Example content.",
                 "Plimbă glisorul peste raport — în stânga e ce trimit cele mai multe agenții, în dreapta e al nostru. Conținut de exemplu.",

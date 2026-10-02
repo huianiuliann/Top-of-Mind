@@ -69,7 +69,7 @@ export function HomeHowYouSell() {
   const t = useT();
   const link = useLink();
   return (
-    <section id="how-you-sell" className="relative py-20 md:py-28">
+    <section id="how-you-sell" className="relative py-16 md:py-24">
       <Container>
         <SectionHeading
           eyebrow={t("How you sell", "Cum vinzi")}
@@ -88,7 +88,7 @@ export function HomeHowYouSell() {
           {homeBuyingModes.map((way, index) => (
             <Reveal key={way.id} delay={index * 0.12} className="h-full">
               <FramedCard>
-                <div className="relative flex h-[16.5rem] items-center border-b border-white/[0.05] px-6 pt-4">
+                <div className="relative flex h-[16.5rem] items-center border-b border-white/[0.06] px-6 pt-4">
                   <way.Visual />
                 </div>
                 <div className="flex flex-1 flex-col p-6">
@@ -100,13 +100,13 @@ export function HomeHowYouSell() {
                       {t(way.name)}
                     </h3>
                   </div>
-                  <p className="em-serif mt-4 text-[1.5rem] leading-snug text-neutral-100">{t(way.lead)}</p>
+                  <p className="em-serif mt-4 text-2xl leading-snug text-neutral-100">{t(way.lead)}</p>
                   <p className="mt-2 text-[15px] leading-relaxed text-neutral-400">{t(way.body)}</p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {way.niches.map((niche) => (
                       <span
                         key={niche.en}
-                        className="rounded-lg border border-white/[0.08] px-2.5 py-1 text-xs text-neutral-300"
+                        className="rounded-lg border border-white/10 px-2.5 py-1 text-xs text-neutral-300"
                       >
                         {t(niche)}
                       </span>
@@ -120,7 +120,7 @@ export function HomeHowYouSell() {
                     <span className="font-mono text-[12px] text-neutral-500">
                       {t("We report", "Raportăm")}
                     </span>
-                    <span className="text-right font-mono text-[12.5px] text-accent-300">
+                    <span className="text-right font-mono text-[13px] text-accent-300">
                       {t(way.report)}
                     </span>
                   </div>

@@ -22,7 +22,7 @@ export const MethodTracingBeam = ({ children }) => {
   return (
     <div ref={containerRef} className="relative mx-auto h-full w-full max-w-5xl px-2 md:px-6">
       <div className="absolute top-3 -left-4 hidden md:-left-16 md:block">
-        <div className="ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border border-accent-400/50">
+        <div className="ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border border-accent-400">
           <div className="h-2 w-2 rounded-full bg-accent-400" />
         </div>
         <svg
@@ -32,7 +32,7 @@ export const MethodTracingBeam = ({ children }) => {
           className="ml-4 block"
           aria-hidden="true"
         >
-          <path d={beamPath} fill="none" stroke="#9091A0" strokeOpacity="0.16" />
+          <path d={beamPath} fill="none" stroke="var(--color-neutral-500)" strokeOpacity="0.16" />
           <path
             d={beamPath}
             fill="none"
@@ -49,10 +49,10 @@ export const MethodTracingBeam = ({ children }) => {
               y1={y1}
               y2={y2}
             >
-              <stop stopColor="#c7cdfe" stopOpacity="0" />
-              <stop stopColor="#c7cdfe" />
-              <stop offset="0.325" stopColor="#818cf8" />
-              <stop offset="1" stopColor="#5b54f5" stopOpacity="0" />
+              <stop stopColor="var(--color-accent-200)" stopOpacity="0" />
+              <stop stopColor="var(--color-accent-200)" />
+              <stop offset="0.325" stopColor="var(--color-accent-400)" />
+              <stop offset="1" stopColor="var(--color-accent-500)" stopOpacity="0" />
             </motion.linearGradient>
           </defs>
         </svg>

@@ -2,7 +2,7 @@ import { L, useT } from "../../i18n";
 export function MonthlyReportPanel() {
   const t = useT();
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[linear-gradient(160deg,#1b1b1f,#111114_60%)] p-5 font-sans sm:p-7">
+    <div className="relative h-full w-full overflow-hidden bg-[linear-gradient(160deg,var(--color-ink-900),var(--color-ink-950)_60%)] p-5 font-sans sm:p-7">
       <div className="flex items-center justify-between border-b border-white/10 pb-3">
         <div>
           <p className="font-display text-[15px] font-bold tracking-[-0.01em] text-white">
@@ -48,7 +48,7 @@ export function MonthlyReportPanel() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col rounded-xl border border-accent-400/35 p-3.5">
+        <div className="flex flex-col rounded-xl border border-accent-400 p-3.5">
           <p className="font-mono text-[11px] text-accent-300">
             {t("The number we agreed on", "Indicatorul stabilit împreună")}
           </p>
@@ -58,8 +58,8 @@ export function MonthlyReportPanel() {
           <svg viewBox="0 0 200 70" className="mt-auto h-20 w-full" aria-hidden="true">
             <defs>
               <linearGradient id="tr-area" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#818cf8" stopOpacity="0.22" />
-                <stop offset="100%" stopColor="#818cf8" stopOpacity="0" />
+                <stop offset="0%" stopColor="var(--color-accent-400)" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="var(--color-accent-400)" stopOpacity="0" />
               </linearGradient>
             </defs>
             <path
@@ -69,10 +69,10 @@ export function MonthlyReportPanel() {
             <path
               d="M0 58 L30 54 L60 56 L90 44 L120 46 L150 30 L180 26 L200 18"
               fill="none"
-              stroke="#818cf8"
+              stroke="var(--color-accent-400)"
               strokeWidth="1.5"
             />
-            <circle cx="200" cy="18" r="3" fill="#c7cdfe" />
+            <circle cx="200" cy="18" r="3" fill="var(--color-accent-200)" />
           </svg>
           <p className="text-[10px] text-neutral-500">
             {t(

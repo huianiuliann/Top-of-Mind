@@ -1,14 +1,15 @@
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { useScroll, useMotionValueEvent, motion } from "framer-motion";
 import { IconChartBar, IconCheck, IconCoins, IconDropletFilled, IconHammer } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { Reveal } from "../../components/effects/Reveal";
 import { FramedCard } from "../../components/ui/FramedCard";
-import { CALENDLY_URL } from "../../data/site";
+import { useCalendly } from "../../data/site";
 import { useT } from "../../i18n";
 import { buyingModes } from "./shared";
 export function HowYouSellModeRail({ active }) {
   const t = useT();
+  const calendly = useCalendly();
   return (
     <nav aria-label={t("Buying modes", "Feluri de a cumpăra")} className="sticky top-32 hidden lg:block">
       <p className="mb-4 font-mono text-[12px] text-neutral-500">
@@ -36,10 +37,10 @@ export function HowYouSellModeRail({ active }) {
           </li>
         ))}
       </ul>
-      <div className="mt-8 rounded-2xl border border-white/[0.07] p-4">
+      <div className="mt-8 rounded-2xl border border-white/10 p-4">
         <p className="text-sm text-neutral-400">{t("Not sure which one you are?", "Nu ești sigur?")}</p>
         <a
-          href={CALENDLY_URL}
+          href={calendly("rail")}
           target="_blank"
           rel="noopener"
           className="mt-2 inline-block font-mono text-[13px] text-neutral-200 hover:text-white"
@@ -53,7 +54,9 @@ export function HowYouSellModeRail({ active }) {
     </nav>
   );
 }
-export function HowYouSellModeDetail({ mode, index, onActive }) {
+// memo: the page re-renders the side rail at every section boundary (setActiveMode); the three big mode sections,
+// whose props never change, are skipped instead of re-rendering with it.
+export const HowYouSellModeDetail = memo(function HowYouSellModeDetail({ mode, index, onActive }) {
   const t = useT();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start 0.5", "end 0.5"] });
@@ -130,11 +133,11 @@ export function HowYouSellModeDetail({ mode, index, onActive }) {
               <span>{t("Day 1", "Ziua 1")}</span>
               <div className="relative h-1 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
                 <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.6, ease: "easeInOut", delay: 0.3 }}
-                  className="h-full rounded-full bg-white/55"
+                  className="h-full w-full origin-left rounded-full bg-white/55"
                 />
               </div>
               <span>{t("Day 60", "Ziua 60")}</span>
@@ -155,14 +158,14 @@ export function HowYouSellModeDetail({ mode, index, onActive }) {
           </FramedCard>
         </Reveal>
         <Reveal delay={0.19} className="h-full">
-          <div className="relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-accent-400/35 bg-ink-900 p-6">
-            <span className="grid size-10 place-items-center rounded-xl border border-accent-400/45 text-accent-300">
+          <div className="relative flex h-full flex-col overflow-hidden rounded-card border border-accent-400 bg-ink-900 p-6">
+            <span className="grid size-10 place-items-center rounded-xl border border-accent-400 text-accent-300">
               <IconChartBar className="size-5" stroke={1.6} />
             </span>
             <h3 className="mt-4 font-display text-xl font-bold text-white">
               {t("What we report", "Ce raportăm")}
             </h3>
-            <p className="em-serif mt-3 text-[2rem] leading-tight text-white">{t(mode.report)}</p>
+            <p className="em-serif mt-3 text-4xl leading-tight text-white">{t(mode.report)}</p>
             <p className="mt-3 text-[15px] leading-relaxed text-neutral-300">{t(mode.reportNote)}</p>
             <p className="mt-auto flex items-center gap-2 border-t border-white/10 pt-4 text-sm text-neutral-300">
               <IconCoins className="size-4 text-neutral-500" stroke={1.6} />
@@ -173,4 +176,4 @@ export function HowYouSellModeDetail({ mode, index, onActive }) {
       </div>
     </div>
   );
-}
+});

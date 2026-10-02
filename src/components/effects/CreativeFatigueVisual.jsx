@@ -12,25 +12,25 @@ const adCreatives = [
 ];
 function CreativeArt({ art }) {
   return art === "sleep" ? (
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#37373d,#17171b_70%)]">
-      <div className="absolute inset-x-3 bottom-16 h-8 rounded-lg bg-gradient-to-b from-[#eaeaee] to-[#9c9ca4]" />
-      <div className="absolute inset-x-5 bottom-[6.2rem] h-4 rounded-md bg-gradient-to-b from-[#f6f6f8] to-[#c5c5cc]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,var(--color-ink-600),var(--color-ink-900)_70%)]">
+      <div className="absolute inset-x-3 bottom-16 h-8 rounded-lg bg-gradient-to-b from-neutral-200 to-neutral-400" />
+      <div className="absolute inset-x-5 bottom-[6.2rem] h-4 rounded-md bg-gradient-to-b from-neutral-200 to-neutral-300" />
       <div className="absolute top-5 right-4 size-5 rounded-full bg-white/60" />
     </div>
   ) : art === "box" ? (
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,#333338,#17171b_70%)]">
-      <div className="absolute bottom-16 left-1/2 h-14 w-16 -translate-x-1/2 rounded-md bg-gradient-to-b from-[#d4d4da] to-[#7b7b83]" />
-      <div className="absolute bottom-[7.4rem] left-1/2 h-3 w-[4.5rem] -translate-x-1/2 rounded-sm bg-[#ebebef]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,var(--color-ink-600),var(--color-ink-900)_70%)]">
+      <div className="absolute bottom-16 left-1/2 h-14 w-16 -translate-x-1/2 rounded-md bg-gradient-to-b from-neutral-300 to-neutral-500" />
+      <div className="absolute bottom-[7.4rem] left-1/2 h-3 w-[4.5rem] -translate-x-1/2 rounded-sm bg-neutral-200" />
     </div>
   ) : art === "stroller" ? (
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_30%,#35353b,#131316_70%)]">
-      <div className="absolute bottom-[6.5rem] left-5 h-12 w-16 rounded-t-full bg-gradient-to-b from-[#e8e8ec] to-[#94949c]" />
-      <div className="absolute bottom-[4.4rem] left-6 size-5 rounded-full border-2 border-[#cdcdd3]" />
-      <div className="absolute bottom-[4.4rem] left-[4.3rem] size-5 rounded-full border-2 border-[#cdcdd3]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_30%,var(--color-ink-600),var(--color-ink-950)_70%)]">
+      <div className="absolute bottom-[6.5rem] left-5 h-12 w-16 rounded-t-full bg-gradient-to-b from-neutral-200 to-neutral-400" />
+      <div className="absolute bottom-[4.4rem] left-6 size-5 rounded-full border-2 border-neutral-300" />
+      <div className="absolute bottom-[4.4rem] left-[4.3rem] size-5 rounded-full border-2 border-neutral-300" />
     </div>
   ) : (
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_25%,#38383e,#17171b_70%)]">
-      <div className="absolute bottom-[4.6rem] left-1/2 h-12 w-20 -translate-x-1/2 rounded-[40%] bg-gradient-to-b from-[#f4f4f6] to-[#b0b0b8]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_25%,var(--color-ink-600),var(--color-ink-900)_70%)]">
+      <div className="absolute bottom-[4.6rem] left-1/2 h-12 w-20 -translate-x-1/2 rounded-[40%] bg-gradient-to-b from-neutral-200 to-neutral-400" />
     </div>
   );
 }
@@ -53,7 +53,7 @@ export function CreativeFatigueVisual({ className }) {
       className={cn("relative flex w-full items-center gap-4 select-none", className)}
       aria-hidden="true"
     >
-      <div className="relative h-[196px] w-[112px] shrink-0 rounded-[22px] border border-white/10 bg-[#111114] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+      <div className="relative h-[196px] w-[112px] shrink-0 rounded-[22px] border border-white/10 bg-ink-950 p-1.5 shadow-[0_20px_40px_rgba(3,33,19,0.15)]">
         <div className="absolute top-2 left-1/2 z-20 h-1.5 w-8 -translate-x-1/2 rounded-full bg-black" />
         <div className="relative h-full w-full overflow-hidden rounded-[17px] bg-black">
           <AnimatePresence initial={false} mode="popLayout">
@@ -97,13 +97,13 @@ export function CreativeFatigueVisual({ className }) {
               <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.06]">
                 <motion.div
                   className={cn(
-                    "h-full rounded-full",
+                    "h-full w-full origin-left rounded-full",
                     state.tone === "muted" ? "bg-white/15" : "bg-white/55",
                   )}
-                  animate={{ width: `${state.energy}%` }}
+                  animate={{ scaleX: state.energy / 100 }}
                   initial={false}
                   transition={{ duration: 1.2, ease: "easeInOut" }}
-                  style={{ width: `${state.energy}%` }}
+                  style={{ scaleX: state.energy / 100 }}
                 />
               </div>
             </div>

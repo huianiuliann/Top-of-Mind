@@ -35,7 +35,7 @@ export function PositioningPanel() {
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.75, duration: 0.8, ease: easeOutExpo }}
-        className="relative mt-2 overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(160deg,#1d1d21,#141417)] p-5"
+        className="relative mt-2 overflow-hidden rounded-card-inner border border-white/15 bg-[linear-gradient(160deg,var(--color-ink-900),var(--color-ink-950))] p-5"
       >
         <p className="font-mono text-[11px] text-neutral-500">{t("Your position", "Poziționarea ta")}</p>
         <p className="mt-2 font-display text-2xl leading-tight font-bold tracking-[-0.01em] text-white">

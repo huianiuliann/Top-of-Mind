@@ -9,9 +9,17 @@ export const FounderCarousel = () => {
   const t = useT();
   const people = useFounders();
   const [activeIndex, setActiveIndex] = useState(0);
+  // The first founder renders settled (prerendered HTML, the page's LCP image); entrance motion starts with the first click.
+  const [touched, setTouched] = useState(false);
   const active = people[activeIndex];
-  const showNext = () => setActiveIndex((index) => (index + 1) % people.length);
-  const showPrev = () => setActiveIndex((index) => (index - 1 + people.length) % people.length);
+  const showNext = () => {
+    setTouched(true);
+    setActiveIndex((index) => (index + 1) % people.length);
+  };
+  const showPrev = () => {
+    setTouched(true);
+    setActiveIndex((index) => (index - 1 + people.length) % people.length);
+  };
   return (
     <div className="mx-auto max-w-sm px-4 py-10 antialiased md:max-w-5xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-14 md:grid-cols-[1fr_1.15fr] md:gap-20">
@@ -22,12 +30,7 @@ export const FounderCarousel = () => {
               return (
                 <motion.div
                   key={p.duo}
-                  initial={{
-                    opacity: 0,
-                    scale: 0.9,
-                    z: -100,
-                    rotate: founderCardTilts[index % founderCardTilts.length],
-                  }}
+                  initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0.55,
                     scale: isActive ? 1 : 0.94,
@@ -45,7 +48,7 @@ export const FounderCarousel = () => {
                   transition={{ duration: 0.45, ease: "easeInOut" }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <div className="relative h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-ink-800">
+                  <div className="relative h-full w-full overflow-hidden rounded-card border border-white/10 bg-ink-800">
                     <img
                       src={p.duo}
                       alt={p.name}
@@ -56,7 +59,7 @@ export const FounderCarousel = () => {
                       className="h-full w-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 p-5">
+                    <div className="theme-dark absolute inset-x-0 bottom-0 p-5">
                       <p className="font-display text-xl font-bold tracking-[-0.01em] text-white">{p.name}</p>
                       <p className="font-mono text-[13px] text-neutral-300">{designation(p)}</p>
                     </div>
@@ -69,11 +72,11 @@ export const FounderCarousel = () => {
         <div className="flex flex-col justify-between py-2">
           <motion.div
             key={activeIndex}
-            initial={{ y: 20, opacity: 0 }}
+            initial={touched ? { y: 20, opacity: 0 } : false}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
-            <h3 className="font-display text-3xl font-bold tracking-tight text-white md:text-4xl">
+            <h3 className="font-display text-3xl font-bold tracking-[-0.02em] text-white md:text-4xl">
               {active.name}
             </h3>
             <p className="mt-1 font-mono text-[13px] text-neutral-500">{designation(active)}</p>
@@ -81,7 +84,7 @@ export const FounderCarousel = () => {
               {active.line.split(" ").map((word, wordIndex) => (
                 <motion.span
                   key={activeIndex + "-" + wordIndex}
-                  initial={{ opacity: 0, y: 5 }}
+                  initial={touched ? { opacity: 0, y: 5 } : false}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.22, ease: "easeInOut", delay: 0.018 * wordIndex }}
                   className="inline-block"
