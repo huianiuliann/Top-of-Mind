@@ -11,7 +11,9 @@ export function HowYouSellModeRail({ active }) {
   const t = useT();
   return (
     <nav aria-label={t("Buying modes", "Feluri de a cumpăra")} className="sticky top-32 hidden lg:block">
-      <p className="mb-4 font-mono text-[12px] text-neutral-500">{t("Three ways people buy", "Trei feluri de a cumpăra")}</p>
+      <p className="mb-4 font-mono text-[12px] text-neutral-500">
+        {t("Three ways people buy", "Trei feluri de a cumpăra")}
+      </p>
       <ul className="space-y-1">
         {buyingModes.map((mode, index) => (
           <li key={mode.id}>
@@ -42,51 +44,50 @@ export function HowYouSellModeRail({ active }) {
           rel="noopener"
           className="mt-2 inline-block font-mono text-[13px] text-neutral-200 hover:text-white"
         >
-          {t("That's the first ten minutes of the call →", "Asta lămurim în primele zece minute ale apelului →")}
+          {t(
+            "That's the first ten minutes of the call →",
+            "Asta lămurim în primele zece minute ale apelului →",
+          )}
         </a>
       </div>
     </nav>
   );
 }
-export function HowYouSellModeDetail({ m: Mode, i: index, onActive }) {
+export function HowYouSellModeDetail({ mode, index, onActive }) {
   const t = useT();
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.5", "end 0.5"],
-  });
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start 0.5", "end 0.5"] });
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     progress > 0 && progress < 1 && onActive(index);
   });
-  const ModeVisual = Mode.Visual;
   return (
     <div ref={sectionRef}>
       <Reveal variant="blur-in">
         <div className="flex items-center gap-3">
           <span className="grid size-11 place-items-center rounded-xl border border-white/15 text-neutral-300">
-            <Mode.icon className="size-5" stroke={1.6} />
+            <mode.icon className="size-5" stroke={1.6} />
           </span>
           <p className="font-mono text-[13px] text-neutral-400">
             {t("Mode ", "Varianta ")}
-            {Number(Mode.n)}
-            {" \xB7 "}
-            {t(Mode.name)}
+            {index + 1}
+            {" · "}
+            {t(mode.name)}
           </p>
         </div>
         <h2 className="mt-5 max-w-3xl font-display text-4xl leading-[1.04] font-bold tracking-[-0.02em] text-balance text-white md:text-6xl">
-          {t(Mode.headline)}
+          {t(mode.headline)}
         </h2>
       </Reveal>
       <div className="mt-10 grid grid-cols-1 gap-5 xl:grid-cols-[1.1fr_1fr]">
         <Reveal>
           <FramedCard innerClassName="p-6 md:p-8">
             <p className="font-mono text-[12px] text-neutral-500">{t("What it looks like", "Cum arată")}</p>
-            <p className="mt-3 text-lg leading-relaxed text-neutral-300">{t(Mode.looks)}</p>
+            <p className="mt-3 text-lg leading-relaxed text-neutral-300">{t(mode.looks)}</p>
             <div className="mt-6 flex flex-wrap gap-2">
-              {Mode.niches.map((niche) => (
+              {mode.niches.map((niche) => (
                 <span
                   key={niche.en}
-                  className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-sm text-neutral-200"
+                  className="rounded-lg border border-white/10 bg-white/[0.02] px-3 py-1.5 text-sm text-neutral-200"
                 >
                   {t(niche)}
                 </span>
@@ -100,7 +101,7 @@ export function HowYouSellModeDetail({ m: Mode, i: index, onActive }) {
             innerClassName="flex min-h-[18rem] items-center justify-center p-6 md:p-8"
           >
             <div className="w-full max-w-sm">
-              <ModeVisual />
+              <mode.Visual />
             </div>
           </FramedCard>
         </Reveal>
@@ -114,7 +115,7 @@ export function HowYouSellModeDetail({ m: Mode, i: index, onActive }) {
             <h3 className="mt-4 font-display text-xl font-bold text-white">
               {t("Where the money actually leaks", "Unde se pierd banii, de fapt")}
             </h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">{t(Mode.leak)}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">{t(mode.leak)}</p>
           </FramedCard>
         </Reveal>
         <Reveal delay={0.12} className="h-full">
@@ -129,28 +130,21 @@ export function HowYouSellModeDetail({ m: Mode, i: index, onActive }) {
               <span>{t("Day 1", "Ziua 1")}</span>
               <div className="relative h-1 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
                 <motion.div
-                  initial={{
-                    width: 0,
-                  }}
-                  whileInView={{
-                    width: "100%",
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
-                  transition={{
-                    duration: 1.6,
-                    ease: "easeInOut",
-                    delay: 0.3,
-                  }}
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.6, ease: "easeInOut", delay: 0.3 }}
                   className="h-full rounded-full bg-white/55"
                 />
               </div>
               <span>{t("Day 60", "Ziua 60")}</span>
             </div>
             <ul className="mt-4 space-y-2.5">
-              {Mode.build.map((item) => (
-                <li key={item.en} className="flex items-start gap-2.5 text-[15px] leading-snug text-neutral-300">
+              {mode.build.map((item) => (
+                <li
+                  key={item.en}
+                  className="flex items-start gap-2.5 text-[15px] leading-snug text-neutral-300"
+                >
                   <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-white/[0.08] text-neutral-200">
                     <IconCheck className="size-3" stroke={2.5} />
                   </span>
@@ -165,12 +159,14 @@ export function HowYouSellModeDetail({ m: Mode, i: index, onActive }) {
             <span className="grid size-10 place-items-center rounded-xl border border-accent-400/45 text-accent-300">
               <IconChartBar className="size-5" stroke={1.6} />
             </span>
-            <h3 className="mt-4 font-display text-xl font-bold text-white">{t("What we report", "Ce raportăm")}</h3>
-            <p className="em-serif mt-3 text-[2rem] leading-tight text-white">{t(Mode.report)}</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-neutral-300">{t(Mode.reportNote)}</p>
+            <h3 className="mt-4 font-display text-xl font-bold text-white">
+              {t("What we report", "Ce raportăm")}
+            </h3>
+            <p className="em-serif mt-3 text-[2rem] leading-tight text-white">{t(mode.report)}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-neutral-300">{t(mode.reportNote)}</p>
             <p className="mt-auto flex items-center gap-2 border-t border-white/10 pt-4 text-sm text-neutral-300">
               <IconCoins className="size-4 text-neutral-500" stroke={1.6} />
-              {t(Mode.fee)}
+              {t(mode.fee)}
             </p>
           </div>
         </Reveal>

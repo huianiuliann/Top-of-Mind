@@ -3,6 +3,7 @@ import { IconPlayerPlayFilled } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { useInViewCycle } from "./useInViewCycle";
 import { useT } from "../../i18n";
+import { easeOutExpo } from "./motion";
 const splitTestShares = [
   [34, 33, 33],
   [26, 48, 26],
@@ -11,7 +12,7 @@ const splitTestShares = [
 ];
 export function SplitTestVisual({ className }) {
   const t = useT();
-  const { ref: containerRef, step: step } = useInViewCycle(splitTestShares.length, 1600);
+  const { ref: containerRef, step } = useInViewCycle(splitTestShares.length, 1600);
   const shares = splitTestShares[step];
   const variants = [
     {
@@ -24,11 +25,7 @@ export function SplitTestVisual({ className }) {
       label: t("Founder on camera", "Fondator pe video"),
       bg: "bg-[linear-gradient(135deg,#45454c,#1b1b1f)]",
     },
-    {
-      k: "C",
-      label: t("Price-led", "Pe preț"),
-      bg: "bg-[linear-gradient(135deg,#222226,#17171b)]",
-    },
+    { k: "C", label: t("Price-led", "Pe preț"), bg: "bg-[linear-gradient(135deg,#222226,#17171b)]" },
   ];
   return (
     <div ref={containerRef} className={cn("w-full select-none", className)} aria-hidden="true">
@@ -63,17 +60,10 @@ export function SplitTestVisual({ className }) {
         {shares.map((share, index) => (
           <motion.div
             key={index}
-            animate={{
-              width: `${share}%`,
-            }}
+            animate={{ width: `${share}%` }}
             initial={false}
-            style={{
-              width: `${share}%`,
-            }}
-            transition={{
-              duration: 1,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+            style={{ width: `${share}%` }}
+            transition={{ duration: 1, ease: easeOutExpo }}
             className={cn(
               "h-full border-r border-black/60",
               index === 1 ? "bg-accent-500" : index === 0 ? "bg-[#36363c]" : "bg-[#28282d]",

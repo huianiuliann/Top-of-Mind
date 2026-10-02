@@ -1,15 +1,16 @@
-import React, { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
 import { IconCheck, IconFileText, IconRocket, IconSearch, IconTarget } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { L, useT } from "../../i18n";
-export const DayOneScrollContainer = ({ titleComponent, children }) => {
+import { easeOutExpo } from "../../components/effects/motion";
+// The first-month plan on a card that tilts flat as the section scrolls into view.
+export const DayOnePreview = () => {
+  const t = useT();
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-  });
-  const [isMobile, setIsMobile] = React.useState(false);
-  React.useEffect(() => {
+  const { scrollYProgress } = useScroll({ target: containerRef });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
     const checkIsMobile = () => setIsMobile(window.innerWidth <= 768);
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
@@ -23,22 +24,14 @@ export const DayOneScrollContainer = ({ titleComponent, children }) => {
       className="relative flex h-[60rem] items-center justify-center p-2 md:h-[80rem] md:p-20"
       ref={containerRef}
     >
-      <div
-        className="relative w-full py-10 md:py-40"
-        style={{
-          perspective: "1000px",
-        }}
-      >
-        <motion.div
-          style={{
-            translateY: translate,
-          }}
-          className="mx-auto max-w-5xl text-center"
-        >
-          {titleComponent}
+      <div className="relative w-full py-10 md:py-40" style={{ perspective: "1000px" }}>
+        <motion.div style={{ translateY: translate }} className="mx-auto max-w-5xl text-center">
+          <p className="mb-4 font-mono text-[13px] text-neutral-400 md:mb-8">
+            {t("What you see on day one", "Ce vezi în prima zi")}
+          </p>
         </motion.div>
-        <DayOneScrollCard rotate={rotate} translate={translate} scale={scale}>
-          {children}
+        <DayOneScrollCard rotate={rotate} scale={scale}>
+          <FirstMonthPlanMockup />
         </DayOneScrollCard>
       </div>
     </div>
@@ -48,7 +41,7 @@ const DayOneScrollCard = ({ rotate, scale, children }) => (
   <motion.div
     style={{
       rotateX: rotate,
-      scale: scale,
+      scale,
       boxShadow:
         "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
     }}
@@ -59,7 +52,6 @@ const DayOneScrollCard = ({ rotate, scale, children }) => (
 );
 const firstMonthPlanRows = [
   {
-    w: L("Week 1", "Săptămâna 1"),
     t: L("Research & audit", "Cercetare și audit"),
     d: [
       L("Buyer questions", "Întrebările clienților"),
@@ -67,12 +59,9 @@ const firstMonthPlanRows = [
       L("Tracking check", "Verificarea tracking-ului"),
     ],
     icon: IconSearch,
-    start: 0,
-    span: 1,
     status: "done",
   },
   {
-    w: L("Week 2", "Săptămâna 2"),
     t: L("Position & plan", "Poziționare și plan"),
     d: [
       L("Positioning draft", "Schiță de poziționare"),
@@ -80,12 +69,9 @@ const firstMonthPlanRows = [
       L("The number we'll report", "Ce indicator raportăm"),
     ],
     icon: IconTarget,
-    start: 1,
-    span: 1,
     status: "done",
   },
   {
-    w: L("Week 3", "Săptămâna 3"),
     t: L("First campaigns live", "Primele campanii live"),
     d: [
       L("Small, controlled launch", "Lansare mică, controlată"),
@@ -93,24 +79,23 @@ const firstMonthPlanRows = [
       L("Follow-up flow", "Flux de follow-up"),
     ],
     icon: IconRocket,
-    start: 2,
-    span: 1,
     status: "now",
   },
   {
-    w: L("Week 4", "Săptămâna 4"),
     t: L("First real report", "Primul raport real"),
-    d: [L("What happened", "Ce s-a întâmplat"), L("Why", "De ce"), L("What changes next", "Ce schimbăm apoi")],
+    d: [
+      L("What happened", "Ce s-a întâmplat"),
+      L("Why", "De ce"),
+      L("What changes next", "Ce schimbăm apoi"),
+    ],
     icon: IconFileText,
-    start: 3,
-    span: 1,
     status: "next",
   },
 ];
-export function FirstMonthPlanMockup({ className }) {
+function FirstMonthPlanMockup() {
   const t = useT();
   return (
-    <div className={cn("flex h-full w-full flex-col bg-[#111114] p-4 font-sans md:p-8", className)}>
+    <div className="flex h-full w-full flex-col bg-[#111114] p-4 font-sans md:p-8">
       <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
         <div className="flex items-center gap-3">
           <span className="grid size-8 place-items-center rounded-full bg-[#1a1a1e] ring-1 ring-white/10">
@@ -125,21 +110,24 @@ export function FirstMonthPlanMockup({ className }) {
             </p>
           </div>
         </div>
-        <span className="hidden rounded-full border border-white/15 px-3 py-1 font-mono text-xs text-neutral-300 sm:inline">
+        <span className="hidden rounded-lg border border-white/15 px-3 py-1 font-mono text-xs text-neutral-300 sm:inline">
           {t("Week 3 of 4", "Săptămâna 3 din 4")}
         </span>
       </div>
       <div className="mt-4 hidden grid-cols-[170px_repeat(4,1fr)] gap-2 font-mono text-[11px] text-neutral-500 md:grid">
         <span />
-        {firstMonthPlanRows.map((row) => (
-          <span key={row.w.en} className="text-center">
-            {t(row.w)}
+        {firstMonthPlanRows.map((row, index) => (
+          <span key={index} className="text-center">
+            {`${t("Week", "Săptămâna")} ${index + 1}`}
           </span>
         ))}
       </div>
       <div className="mt-3 flex flex-1 flex-col justify-between gap-3">
         {firstMonthPlanRows.map((row, rowIndex) => (
-          <div key={row.t.en} className="grid grid-cols-1 items-center gap-2 md:grid-cols-[170px_repeat(4,1fr)]">
+          <div
+            key={row.t.en}
+            className="grid grid-cols-1 items-center gap-2 md:grid-cols-[170px_repeat(4,1fr)]"
+          >
             <div className="flex items-center gap-2.5">
               <span
                 className={cn(
@@ -167,27 +155,11 @@ export function FirstMonthPlanMockup({ className }) {
                 <div key={column} className="rounded-lg border border-dashed border-white/[0.05]" />
               ))}
               <motion.div
-                initial={{
-                  opacity: 0,
-                  scaleX: 0.3,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  scaleX: 1,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                transition={{
-                  delay: 0.2 + rowIndex * 0.15,
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                style={{
-                  gridColumn: `${row.start + 1} / span ${row.span}`,
-                  gridRow: 1,
-                  transformOrigin: "left",
-                }}
+                initial={{ opacity: 0, scaleX: 0.3 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + rowIndex * 0.15, duration: 0.7, ease: easeOutExpo }}
+                style={{ gridColumn: `${rowIndex + 1} / span 1`, gridRow: 1, transformOrigin: "left" }}
                 className={cn(
                   "absolute inset-y-0 flex flex-col justify-center gap-1 rounded-lg border px-3 py-2",
                   row.status === "now"
@@ -221,7 +193,7 @@ export function FirstMonthPlanMockup({ className }) {
               {row.d.map((task) => (
                 <span
                   key={task.en}
-                  className="rounded-full bg-white/[0.05] px-2 py-0.5 text-[10px] text-neutral-400"
+                  className="rounded-md bg-white/[0.05] px-2 py-0.5 text-[10px] text-neutral-400"
                 >
                   {t(task)}
                 </span>

@@ -3,7 +3,7 @@ export function Chip({ children, tone = "neutral", className }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10.5px] whitespace-nowrap",
+        "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-[10.5px] whitespace-nowrap",
         {
           neutral: "bg-white/[0.06] text-neutral-300",
           strong: "bg-white/[0.13] text-white",

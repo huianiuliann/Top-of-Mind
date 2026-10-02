@@ -13,7 +13,7 @@ export function MonthlyReportPanel() {
             {t("Written by the two of us, not a dashboard", "Scris de noi doi, nu de un dashboard")}
           </p>
         </div>
-        <span className="rounded-full border border-white/15 px-2.5 py-0.5 font-mono text-[10px] text-neutral-400">
+        <span className="rounded-md border border-white/15 px-2.5 py-0.5 font-mono text-[10px] text-neutral-400">
           {t("Example", "Exemplu")}
         </span>
       </div>

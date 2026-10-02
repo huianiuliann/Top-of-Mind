@@ -6,7 +6,7 @@ import { PageHero } from "../../components/sections/PageHero";
 import { Container } from "../../components/ui/Container";
 import { FramedCard } from "../../components/ui/FramedCard";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
-import { useFounders } from "../../data/site";
+import { avatarStyle, useFounders } from "../../data/site";
 import { L, useT } from "../../i18n";
 import { FounderCarousel } from "./Founders";
 import { TeamHeroFounderOrbit } from "./Hero";
@@ -36,16 +36,7 @@ export default function TeamPage() {
         <Container>
           <Reveal>
             <FramedCard>
-              <FounderCarousel
-                people={founders.map((founder) => ({
-                  name: founder.name,
-                  designation: `${founder.role} \u2014 ${founder.focus}`,
-                  bio: founder.line,
-                  src: founder.duo,
-                  pos: founder.crop.portrait,
-                  tags: [...founder.tags],
-                }))}
-              />
+              <FounderCarousel />
             </FramedCard>
           </Reveal>
         </Container>
@@ -79,10 +70,7 @@ export default function TeamPage() {
                   <img
                     src={founder.duo}
                     alt={founder.name}
-                    style={{
-                      transform: "scale(1.5)",
-                      transformOrigin: founder.crop.circleOrigin,
-                    }}
+                    style={avatarStyle(founder)}
                     className="size-full object-cover"
                   />
                 </span>

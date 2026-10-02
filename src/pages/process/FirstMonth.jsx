@@ -1,23 +1,23 @@
 import { useRef, useState, useEffect } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
 import { FramedCard } from "../../components/ui/FramedCard";
+// Height of the element behind ref, kept current; the scroll-drawn lines on this page are as tall as their content.
+export function useElementHeight(ref) {
+  const [height, setHeight] = useState(0);
+  useEffect(() => {
+    const updateHeight = () => setHeight(ref.current.getBoundingClientRect().height);
+    updateHeight();
+    const resizeObserver = new ResizeObserver(updateHeight);
+    resizeObserver.observe(ref.current);
+    return () => resizeObserver.disconnect();
+  }, [ref]);
+  return height;
+}
 export const FirstMonthTimeline = ({ data }) => {
   const contentRef = useRef(null);
   const containerRef = useRef(null);
-  const [height, setHeight] = useState(0);
-  useEffect(() => {
-    if (!contentRef.current) return;
-    const updateHeight = () =>
-      contentRef.current && setHeight(contentRef.current.getBoundingClientRect().height);
-    updateHeight();
-    const resizeObserver = new ResizeObserver(updateHeight);
-    resizeObserver.observe(contentRef.current);
-    return () => resizeObserver.disconnect();
-  }, []);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 10%", "end 50%"],
-  });
+  const height = useElementHeight(contentRef);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start 10%", "end 50%"] });
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   return (
@@ -48,16 +48,11 @@ export const FirstMonthTimeline = ({ data }) => {
           </div>
         ))}
         <div
-          style={{
-            height: height + "px",
-          }}
+          style={{ height: height + "px" }}
           className="absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.12)_10%,rgba(255,255,255,0.12)_90%,transparent_100%)] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8"
         >
           <motion.div
-            style={{
-              height: heightTransform,
-              opacity: opacityTransform,
-            }}
+            style={{ height: heightTransform, opacity: opacityTransform }}
             className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-accent-400 from-[0%] via-accent-500/40 via-[10%] to-transparent"
           />
         </div>

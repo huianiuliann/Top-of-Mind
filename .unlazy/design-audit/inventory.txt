@@ -1,0 +1,239 @@
+files 81
+
+## radius (21 distinct)
+  66  rounded-full  
+  39  rounded-xl  
+  32  rounded-lg  
+  27  rounded-2xl  
+  17  rounded-md  
+   7  rounded  
+   4  rounded-sm  
+   4  rounded-[1.6rem]  
+   4  rounded-[1.8rem]  
+   3  rounded-3xl  src/pages/contact/Faq.jsx:54, src/pages/services/DisciplineMix.jsx:48, src/pages/team/Founders.jsx:52
+   2  rounded-[1.4rem]  src/pages/home/HowWeWork.jsx:371, src/pages/home/ResearchBoard.jsx:40
+   2  rounded-[4px]  src/pages/home/MacbookScroll.jsx:371, src/pages/home/MacbookScroll.jsx:391
+   1  rounded-[40%]  src/components/effects/CreativeFatigueVisual.jsx:44
+   1  rounded-[22px]  src/components/effects/CreativeFatigueVisual.jsx:83
+   1  rounded-[17px]  src/components/effects/CreativeFatigueVisual.jsx:85
+   1  rounded-[20px]  src/components/layout/Navbar.jsx:47
+   1  rounded-[10px]  src/components/layout/Navbar.jsx:82
+   1  rounded-[2rem]  src/components/sections/CtaBand.jsx:13
+   1  rounded-[1.2rem]  src/components/ui/FramedCard.jsx:12
+   1  rounded-[3.5px]  src/pages/home/MacbookScroll.jsx:393
+   1  rounded-[30px]  src/pages/process/DayOnePreview.jsx:55
+
+## textSize (33 distinct)
+  42  text-[13px]  
+  26  text-[15px]  
+  24  text-[10px]  
+  22  text-[11px]  
+  17  text-[12px]  
+  17  text-lg  
+  13  text-2xl  
+  13  text-sm  
+  11  text-xl  
+   9  text-5xl  
+   8  text-7xl  
+   8  text-4xl  
+   7  text-xs  
+   5  text-6xl  
+   5  text-3xl  
+   3  text-base  src/pages/contact/Faq.jsx:111, src/pages/process/DayOnePreview.jsx:120, src/pages/services/AlignedChannels.jsx:109
+   3  text-[12.5px]  src/pages/home/Hero.jsx:257, src/pages/home/HowWeWork.jsx:374, src/pages/home/HowYouSell.jsx:140
+   2  text-[8px]  src/components/effects/CreativeFatigueVisual.jsx:106, src/components/effects/CreativeFatigueVisual.jsx:112
+   2  text-[10.5px]  src/components/effects/SplitTestVisual.jsx:58, src/components/ui/Chip.jsx:6
+   2  text-[14px]  src/components/ui/Button.jsx:50, src/pages/contact/ContactPage.jsx:72
+   2  text-[17px]  src/components/ui/Logo.jsx:12, src/pages/home/ResearchBoard.jsx:13
+   2  text-[1.9rem]  src/pages/home/AgencyProblem.jsx:192, src/pages/home/ServicesMarquee.jsx:57
+   1  text-[16px]  src/components/effects/MonthlyReportPanel.jsx:10
+   1  text-[2.8rem]  src/components/sections/PageHero.jsx:41
+   1  text-[5.4rem]  src/components/sections/PageHero.jsx:41
+   1  text-[2.4rem]  src/components/ui/SectionHeading.jsx:53
+   1  text-[2.6rem]  src/pages/home/AgencyProblem.jsx:182
+   1  text-[2.85rem]  src/pages/home/Hero.jsx:236
+   1  text-[5.2rem]  src/pages/home/Hero.jsx:236
+   1  text-[6rem]  src/pages/home/Hero.jsx:236
+   1  text-[1.5rem]  src/pages/home/HowYouSell.jsx:122
+   1  text-[5px]  src/pages/home/MacbookScroll.jsx:400
+   1  text-[2rem]  src/pages/how-you-sell/Modes.jsx:169
+
+## fontFamily (4 distinct)
+  83  font-mono  
+  57  font-display  
+  14  em-serif  
+   6  font-sans  
+
+## fontWeight (3 distinct)
+  57  font-bold  
+   3  font-semibold  src/components/ui/Button.jsx:69, src/components/ui/Button.jsx:96, src/pages/contact/ContactPage.jsx:72
+   1  font-normal  src/pages/services/DisciplineMix.jsx:52
+
+## tracking (5 distinct)
+  18  tracking-[-0.01em]  
+  17  tracking-[-0.02em]  
+   2  tracking-[-0.03em]  src/components/sections/PageHero.jsx:41, src/pages/home/Hero.jsx:236
+   1  tracking-[0.01em]  src/components/ui/SectionHeading.jsx:5
+   1  tracking-tight  src/pages/team/Founders.jsx:91
+
+## hexColor (57 distinct)
+  13  #818cf8  
+   5  #28282d  
+   4  #121215  
+   4  #c7cdfe  
+   4  #36363c  
+   4  #ffffff  
+   3  #2c2c31  src/components/effects/CompetitorTeardownPanel.jsx:58, src/components/effects/ContentRotationVisual.jsx:58, src/components/effects/SplitTestVisual.jsx:20
+   3  #19191d  src/components/effects/CompetitorTeardownPanel.jsx:58, src/components/effects/SplitTestVisual.jsx:20, src/pages/home/ResearchBoard.jsx:29
+   3  #17171b  src/components/effects/ContentRotationVisual.jsx:58, src/components/effects/ContentRotationVisual.jsx:60, src/components/effects/SplitTestVisual.jsx:30
+   3  #202024  src/pages/home/MacbookScroll.jsx:85, src/pages/home/MacbookScroll.jsx:101, src/pages/home/MacbookScroll.jsx:139
+   3  #0b0b0e  src/pages/home/MacbookScroll.jsx:87, src/pages/home/MacbookScroll.jsx:101, src/pages/home/MacbookScroll.jsx:157
+   3  #010101  src/pages/home/MacbookScroll.jsx:118, src/pages/home/MacbookScroll.jsx:124, src/pages/home/MacbookScroll.jsx:137
+   2  #e3e3e8  src/components/effects/BookingCalendarVisual.jsx:54, src/components/effects/BookingCalendarVisual.jsx:81
+   2  #1d1d21  src/components/effects/ContentRotationVisual.jsx:61, src/components/effects/PositioningPanel.jsx:63
+   2  #141417  src/components/effects/ContentRotationVisual.jsx:61, src/components/effects/PositioningPanel.jsx:63
+   2  #e8e8ec  src/components/effects/CreativeFatigueVisual.jsx:38, src/components/effects/FunnelLeakVisual.jsx:156
+   2  #cdcdd3  src/components/effects/CreativeFatigueVisual.jsx:39, src/components/effects/CreativeFatigueVisual.jsx:40
+   2  #111114  src/components/effects/CreativeFatigueVisual.jsx:83, src/pages/process/DayOnePreview.jsx:113
+   2  #1b1b1f  src/components/effects/MonthlyReportPanel.jsx:5, src/components/effects/SplitTestVisual.jsx:25
+   2  #5b54f5  src/components/effects/TextHoverEffect.jsx:48, src/pages/process/Method.jsx:70
+   2  #6660f6  src/components/ui/Button.jsx:71, src/pages/contact/ContactPage.jsx:72
+   2  #0D0D0F  src/pages/home/MacbookScroll.jsx:395, src/pages/home/MacbookScroll.jsx:395
+   1  #343439  src/components/effects/ContentRotationVisual.jsx:60
+   1  #37373d  src/components/effects/CreativeFatigueVisual.jsx:26
+   1  #eaeaee  src/components/effects/CreativeFatigueVisual.jsx:27
+   1  #9c9ca4  src/components/effects/CreativeFatigueVisual.jsx:27
+   1  #f6f6f8  src/components/effects/CreativeFatigueVisual.jsx:28
+   1  #c5c5cc  src/components/effects/CreativeFatigueVisual.jsx:28
+   1  #333338  src/components/effects/CreativeFatigueVisual.jsx:32
+   1  #d4d4da  src/components/effects/CreativeFatigueVisual.jsx:33
+   1  #7b7b83  src/components/effects/CreativeFatigueVisual.jsx:33
+   1  #ebebef  src/components/effects/CreativeFatigueVisual.jsx:34
+   1  #35353b  src/components/effects/CreativeFatigueVisual.jsx:37
+   1  #94949c  src/components/effects/CreativeFatigueVisual.jsx:38
+   1  #38383e  src/components/effects/CreativeFatigueVisual.jsx:43
+   1  #f4f4f6  src/components/effects/CreativeFatigueVisual.jsx:44
+   1  #b0b0b8  src/components/effects/CreativeFatigueVisual.jsx:44
+   1  #eeeef2  src/components/effects/FunnelLeakVisual.jsx:35
+   1  #76767e  src/components/effects/FunnelLeakVisual.jsx:36
+   1  #2e2e34  src/components/effects/FunnelLeakVisual.jsx:39
+   1  #181816  src/components/effects/FunnelLeakVisual.jsx:40
+   1  #a5b4fc  src/components/effects/FunnelLeakVisual.jsx:117
+   1  #45454c  src/components/effects/SplitTestVisual.jsx:25
+   1  #222226  src/components/effects/SplitTestVisual.jsx:30
+   1  #1f3b2c  src/pages/contact/Hero.jsx:57
+   1  #141414  src/pages/home/HowWeWork.jsx:196
+   1  #666  src/pages/home/HowWeWork.jsx:243
+   1  #555  src/pages/home/HowWeWork.jsx:243
+   1  #777  src/pages/home/HowWeWork.jsx:243
+   1  #4a4a4a  src/pages/home/HowWeWork.jsx:243
+   1  #171717  src/pages/home/MacbookScroll.jsx:122
+   1  #0A090D  src/pages/home/MacbookScroll.jsx:393
+   1  #08080A  src/pages/home/MacbookScroll.jsx:413
+   1  #212125  src/pages/process/DayOnePreview.jsx:55
+   1  #1a1a1e  src/pages/process/DayOnePreview.jsx:116
+   1  #9091A0  src/pages/process/Method.jsx:48
+   1  #1c1c20  src/pages/services/Hero.jsx:132
+
+## accent (27 distinct)
+  13  text-accent-300  
+  12  bg-accent-400  
+   8  bg-accent-500  
+   5  border-accent-400/70  
+   3  border-accent-400/35  src/components/effects/MonthlyReportPanel.jsx:51, src/pages/contact/ContactPage.jsx:48, src/pages/how-you-sell/Modes.jsx:164
+   3  border-accent-400/45  src/pages/contact/ContactPage.jsx:51, src/pages/home/HowWeWork.jsx:344, src/pages/how-you-sell/Modes.jsx:165
+   3  from-accent-400  src/pages/home/AgencyProblem.jsx:168, src/pages/home/shared.jsx:15, src/pages/process/FirstMonth.jsx:61
+   2  bg-accent-500/[0.08]  src/components/ui/Button.jsx:96, src/pages/home/Hero.jsx:25
+   2  border-accent-400/40  src/components/ui/FramedCard.jsx:6, src/pages/how-you-sell/QuickCheck.jsx:64
+   2  text-accent-400  src/components/ui/SectionHeading.jsx:5, src/pages/home/Hero.jsx:70
+   2  border-accent-400/60  src/pages/contact/ContactPage.jsx:48, src/pages/process/FirstMonth.jsx:30
+   2  to-accent-400  src/pages/home/AgencyProblem.jsx:168, src/pages/home/shared.jsx:15
+   2  border-accent-400  src/pages/home/Hero.jsx:25, src/pages/home/Process.jsx:47
+   2  border-accent-400/50  src/pages/process/Method.jsx:35, src/pages/services/AlignedChannels.jsx:117
+   1  ring-accent-400/60  src/components/effects/BookingCalendarVisual.jsx:78
+   1  ring-accent-400/45  src/components/ui/Chip.jsx:12
+   1  bg-accent-500/15  src/pages/contact/Faq.jsx:83
+   1  text-emerald-300  src/pages/contact/Hero.jsx:57
+   1  text-emerald-300/80  src/pages/contact/Hero.jsx:62
+   1  bg-accent-300  src/pages/home/FinalCta.jsx:101
+   1  via-accent-400  src/pages/home/HowWeWork.jsx:145
+   1  from-accent-300  src/pages/home/Process.jsx:32
+   1  to-accent-500  src/pages/home/Process.jsx:32
+   1  text-accent-400/60  src/pages/home/ServicesMarquee.jsx:60
+   1  bg-accent-500/[0.1]  src/pages/how-you-sell/QuickCheck.jsx:63
+   1  bg-accent-500/20  src/pages/process/FirstMonth.jsx:30
+   1  via-accent-500/40  src/pages/process/FirstMonth.jsx:61
+
+## sectionPadY (6 distinct)
+   7  py-16  
+   7  py-28">  
+   6  py-20  
+   5  py-24">  
+   1  py-7">  src/pages/home/ServicesMarquee.jsx:52
+   1  py-20">  src/pages/how-you-sell/HowYouSellPage.jsx:53
+
+## border (16 distinct)
+  39  border-white/10  
+  19  border-white/[0.06]  
+  13  border-white/15  
+  13  border-white/[0.07]  
+  10  border-white/[0.08]  
+   7  border-white/[0.05]  
+   4  border-white/20  
+   3  border-white/5  src/components/effects/BookingCalendarVisual.jsx:55, src/pages/home/HowWeWork.jsx:197, src/pages/home/HowWeWork.jsx:224
+   3  border-white/30  src/components/effects/SplitTestVisual.jsx:42, src/pages/team/Founders.jsx:137, src/pages/team/Founders.jsx:145
+   3  border-white/12  src/components/effects/WebsiteBuildVisual.jsx:56, src/pages/how-you-sell/QuickCheck.jsx:119, src/pages/process/DayOnePreview.jsx:196
+   3  border-white/25  src/pages/home/Hero.jsx:228, src/pages/how-you-sell/HowYouSellPage.jsx:45, src/pages/services/ServicesPage.jsx:96
+   1  border-white/40  src/components/effects/ContentRotationVisual.jsx:56
+   1  border-black/60  src/components/effects/SplitTestVisual.jsx:78
+   1  border-white/[0.1]  src/pages/home/HowWeWork.jsx:342
+   1  border-white/35  src/pages/process/DayOnePreview.jsx:194
+   1  border-white/[0.04]  src/pages/services/DisciplineMix.jsx:65
+
+## shadow (15 distinct)
+   2  shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]  src/components/ui/FramedCard.jsx:12, src/components/ui/Panel.jsx:6
+   1  shadow-[0_20px_40px_rgba(0,0,0,0.5)]  src/components/effects/CreativeFatigueVisual.jsx:83
+   1  shadow-[0_0_24px_-8px_rgba(0,0,0,0.8)]  src/components/effects/LeadFlowVisual.jsx:70
+   1  shadow-[0_18px_40px_rgba(0,0,0,0.6)]  src/components/effects/WebsiteBuildVisual.jsx:56
+   1  shadow-[0_24px_60px_rgba(0,0,0,0.6)]  src/components/layout/Navbar.jsx:141
+   1  shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_24px_-12px_rgba(91,84,245,0.9)]  src/components/ui/Button.jsx:70
+   1  shadow-[inset_0_0_0_1px_rgba(129,140,248,0.1),inset_0_0_40px_rgba(129,140,248,0.16),0_0_56px_-6px_rgba(91,84,245,0.42)]  src/pages/contact/ArcGlobe.jsx:456
+   1  shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)]  src/pages/contact/ArcGlobe.jsx:464
+   1  shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]  src/pages/contact/ContactPage.jsx:72
+   1  shadow-[0_40px_80px_rgba(0,0,0,0.6)]  src/pages/contact/Hero.jsx:53
+   1  shadow-[0_20px_50px_rgba(0,0,0,0.6)]  src/pages/home/Hero.jsx:123
+   1  shadow-[0_30px_60px_-24px_rgba(19,19,22,0.45)]  src/pages/home/HowWeWork.jsx:363
+   1  shadow-[0_30px_60px_rgba(0,0,0,0.6)]  src/pages/home/ResearchBoard.jsx:40
+   1  shadow-2xl  src/pages/process/DayOnePreview.jsx:55
+   1  shadow-[0_10px_30px_rgba(0,0,0,0.6)]  src/pages/services/Hero.jsx:120
+
+## sections (27)
+dark  py-16 py-24                  src/components/sections/CtaBand.jsx:11
+dark                               src/components/sections/PageHero.jsx:7
+dark  pb-16 pb-24                  src/pages/contact/ContactPage.jsx:40
+light py-16 py-24                  src/pages/contact/ContactPage.jsx:129
+light pb-16 pb-24                  src/pages/contact/ContactPage.jsx:180
+dark  py-16 py-24                  src/pages/contact/ContactPage.jsx:202
+light                              src/pages/home/AgencyProblem.jsx:178
+dark                               src/pages/home/FinalCta.jsx:114
+dark  pt-32                        src/pages/home/Hero.jsx:214
+light py-20 py-28                  src/pages/home/HowWeWork.jsx:280
+dark  py-20 py-28                  src/pages/home/HowYouSell.jsx:88
+light py-20 py-28                  src/pages/home/Process.jsx:115
+dark                               src/pages/home/ResearchBoard.jsx:22
+dark  py-20 py-28                  src/pages/home/Services.jsx:45
+dark  py-7                         src/pages/home/ServicesMarquee.jsx:52
+light py-20 py-28                  src/pages/home/Team.jsx:92
+light py-16 py-20                  src/pages/how-you-sell/HowYouSellPage.jsx:53
+dark                               src/pages/how-you-sell/HowYouSellPage.jsx:61
+dark                               src/pages/process/ProcessPage.jsx:40
+dark  py-16 py-24                  src/pages/process/ProcessPage.jsx:51
+light py-16 py-24                  src/pages/process/ProcessPage.jsx:104
+dark  pt-28 pt-40                  src/pages/services/AlignedChannels.jsx:86
+dark                               src/pages/services/Discipline.jsx:9
+light py-20 py-28                  src/pages/services/DisciplineMix.jsx:32
+dark  pb-10                        src/pages/team/TeamPage.jsx:35
+light py-16 py-28                  src/pages/team/TeamPage.jsx:53
+light pb-16 pb-28                  src/pages/team/TeamPage.jsx:98
+
+inventory-ok

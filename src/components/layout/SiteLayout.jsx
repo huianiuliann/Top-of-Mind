@@ -8,7 +8,7 @@ export function SiteLayout({ children, current }) {
     <MotionConfig reducedMotion="user">
       <a
         href="#main"
-        className="sr-only z-[300] rounded-full bg-white px-4 py-2 font-mono text-sm text-ink-950 focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+        className="sr-only z-[300] rounded-xl bg-white px-4 py-2 font-mono text-sm text-ink-950 focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
       >
         {t("Skip to content", "Sari la conținut")}
       </a>

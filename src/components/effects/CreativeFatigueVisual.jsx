@@ -3,23 +3,12 @@ import { cn } from "../../lib/cn";
 import { useInViewCycle } from "./useInViewCycle";
 import { Chip } from "../ui/Chip";
 import { L, useT } from "../../i18n";
+import { easeOutExpo } from "./motion";
 const adCreatives = [
-  {
-    hook: L("Hook \xB7 sore back", "Idee \xB7 dureri de spate"),
-    art: "sleep",
-  },
-  {
-    hook: L("Hook \xB7 unboxing", "Idee \xB7 unboxing"),
-    art: "box",
-  },
-  {
-    hook: L("Hook \xB7 new parents", "Idee \xB7 proaspeți părinți"),
-    art: "stroller",
-  },
-  {
-    hook: L("Hook \xB7 side sleeper", "Idee \xB7 somn pe o parte"),
-    art: "pillow",
-  },
+  { hook: L("Hook · sore back", "Idee · dureri de spate"), art: "sleep" },
+  { hook: L("Hook · unboxing", "Idee · unboxing"), art: "box" },
+  { hook: L("Hook · new parents", "Idee · proaspeți părinți"), art: "stroller" },
+  { hook: L("Hook · side sleeper", "Idee · somn pe o parte"), art: "pillow" },
 ];
 function CreativeArt({ art }) {
   return art === "sleep" ? (
@@ -47,32 +36,16 @@ function CreativeArt({ art }) {
 }
 export function CreativeFatigueVisual({ className }) {
   const t = useT();
-  const { ref: containerRef, step: step } = useInViewCycle(adCreatives.length, 2600);
+  const { ref: containerRef, step } = useInViewCycle(adCreatives.length, 2600);
   const getCreativeState = (creativeIndex) => {
     const offset = (creativeIndex - step + adCreatives.length) % adCreatives.length;
     return offset === 0
-      ? {
-          label: t("live", "activă"),
-          energy: 78,
-          tone: "strong",
-        }
+      ? { label: t("live", "activă"), energy: 78, tone: "strong" }
       : offset === adCreatives.length - 1
-        ? {
-            label: t("burning out", "obosită"),
-            energy: 18,
-            tone: "muted",
-          }
+        ? { label: t("burning out", "obosită"), energy: 18, tone: "muted" }
         : offset === 1
-          ? {
-              label: t("next up", "urmează"),
-              energy: 100,
-              tone: "outline",
-            }
-          : {
-              label: t("in the queue", "în așteptare"),
-              energy: 100,
-              tone: "neutral",
-            };
+          ? { label: t("next up", "urmează"), energy: 100, tone: "outline" }
+          : { label: t("in the queue", "în așteptare"), energy: 100, tone: "neutral" };
   };
   return (
     <div
@@ -86,20 +59,10 @@ export function CreativeFatigueVisual({ className }) {
           <AnimatePresence initial={false} mode="popLayout">
             <motion.div
               key={step}
-              initial={{
-                y: "100%",
-              }}
-              animate={{
-                y: 0,
-              }}
-              exit={{
-                y: "-35%",
-                opacity: 0.4,
-              }}
-              transition={{
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-35%", opacity: 0.4 }}
+              transition={{ duration: 0.6, ease: easeOutExpo }}
               className="absolute inset-0"
             >
               <CreativeArt art={adCreatives[step].art} />
@@ -109,7 +72,7 @@ export function CreativeFatigueVisual({ className }) {
               <div className="absolute inset-x-2.5 bottom-3 space-y-1">
                 <div className="h-1.5 w-4/5 rounded bg-white/70" />
                 <div className="h-1.5 w-3/5 rounded bg-white/35" />
-                <div className="mt-2 inline-flex rounded-full bg-white px-2 py-0.5 font-display text-[8px] font-bold text-black">
+                <div className="mt-2 inline-flex rounded-md bg-white px-2 py-0.5 font-display text-[8px] font-bold text-black">
                   {t("Shop now", "Cumpără acum")}
                 </div>
               </div>
@@ -137,17 +100,10 @@ export function CreativeFatigueVisual({ className }) {
                     "h-full rounded-full",
                     state.tone === "muted" ? "bg-white/15" : "bg-white/55",
                   )}
-                  animate={{
-                    width: `${state.energy}%`,
-                  }}
+                  animate={{ width: `${state.energy}%` }}
                   initial={false}
-                  transition={{
-                    duration: 1.2,
-                    ease: "easeInOut",
-                  }}
-                  style={{
-                    width: `${state.energy}%`,
-                  }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  style={{ width: `${state.energy}%` }}
                 />
               </div>
             </div>

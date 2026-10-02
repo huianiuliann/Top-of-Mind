@@ -10,7 +10,7 @@ const websitePrinciples = [
 ];
 export function WebsiteBuildVisual({ className }) {
   const t = useT();
-  const { ref: containerRef, step: step } = useInViewCycle(6, 900);
+  const { ref: containerRef, step } = useInViewCycle(6, 900);
   return (
     <div ref={containerRef} className={cn("relative w-full select-none", className)} aria-hidden="true">
       <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-[#121215]">
@@ -23,30 +23,19 @@ export function WebsiteBuildVisual({ className }) {
           </span>
         </div>
         <div className="space-y-2 p-3">
-          <motion.div
-            animate={{
-              opacity: step >= 1 ? 1 : 0.15,
-            }}
-            className="space-y-1.5"
-          >
+          <motion.div animate={{ opacity: step >= 1 ? 1 : 0.15 }} className="space-y-1.5">
             <div className="h-2.5 w-3/4 rounded bg-white/70" />
             <div className="h-2.5 w-1/2 rounded bg-white/40" />
           </motion.div>
           <motion.div
-            animate={{
-              opacity: step >= 2 ? 1 : 0.1,
-              scale: step >= 2 ? 1 : 0.95,
-            }}
+            animate={{ opacity: step >= 2 ? 1 : 0.1, scale: step >= 2 ? 1 : 0.95 }}
             className="h-5 w-24 rounded-full bg-white/80"
           />
           <div className="grid grid-cols-3 gap-1.5 pt-1">
             {[0, 1, 2].map((card) => (
               <motion.div
                 key={card}
-                animate={{
-                  opacity: step >= 3 + (card > 0 ? 1 : 0) ? 1 : 0.1,
-                  y: step >= 3 ? 0 : 6,
-                }}
+                animate={{ opacity: step >= 3 + (card > 0 ? 1 : 0) ? 1 : 0.1, y: step >= 3 ? 0 : 6 }}
                 className="h-10 rounded-md border border-white/[0.06] bg-white/[0.03]"
               />
             ))}

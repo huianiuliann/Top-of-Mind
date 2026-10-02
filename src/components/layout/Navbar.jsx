@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from "framer-motion";
 import { IconArrowRight, IconMenu2, IconX } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
@@ -7,26 +7,7 @@ import { Logo } from "../ui/Logo";
 import { useLink, useT } from "../../i18n";
 import { CALENDLY_URL, useNavItems } from "../../data/site";
 import { LangSwitch } from "./LangSwitch";
-const ResizableNav = ({ children, className }) => {
-  const navRef = useRef(null);
-  const { scrollY } = useScroll();
-  const [isScrolled, setIsScrolled] = useState(false);
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 80);
-  });
-  return (
-    <motion.div ref={navRef} className={cn("fixed inset-x-0 top-3 z-[70] w-full", className)}>
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child, {
-              visible: isScrolled,
-            })
-          : child,
-      )}
-    </motion.div>
-  );
-};
-const NavbarDesktopBody = ({ children, className, visible }) => (
+const NavbarDesktopBody = ({ children, visible }) => (
   <motion.div
     animate={{
       boxShadow: visible
@@ -35,24 +16,17 @@ const NavbarDesktopBody = ({ children, className, visible }) => (
       width: visible ? "62%" : "100%",
       y: visible ? 12 : 0,
     }}
-    transition={{
-      type: "spring",
-      stiffness: 200,
-      damping: 50,
-    }}
-    style={{
-      minWidth: "900px",
-    }}
+    transition={{ type: "spring", stiffness: 200, damping: 50 }}
+    style={{ minWidth: "900px" }}
     className={cn(
       "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-[20px] bg-transparent px-4 py-2.5 lg:flex",
       visible && "bg-ink-900/80 backdrop-blur-md",
-      className,
     )}
   >
     {children}
   </motion.div>
 );
-const NavItems = ({ items, className, onItemClick, current }) => {
+const NavItems = ({ items, current }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const t = useT();
   const link = useLink();
@@ -60,16 +34,12 @@ const NavItems = ({ items, className, onItemClick, current }) => {
     <motion.nav
       aria-label={t("Main", "Principal")}
       onMouseLeave={() => setHoveredIndex(null)}
-      className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 font-mono text-[13px] lg:flex",
-        className,
-      )}
+      className="absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 font-mono text-[13px] lg:flex"
     >
       {items.map((item, index) => (
         <a
           key={`link-${index}`}
           onMouseEnter={() => setHoveredIndex(index)}
-          onClick={onItemClick}
           className={cn(
             "relative px-4 py-2 text-neutral-400 transition-colors duration-200 hover:text-white",
             current === item.id && "text-white",
@@ -89,7 +59,7 @@ const NavItems = ({ items, className, onItemClick, current }) => {
     </motion.nav>
   );
 };
-const MobileNav = ({ children, className, visible }) => (
+const MobileNav = ({ children, visible }) => (
   <motion.div
     animate={{
       boxShadow: visible
@@ -101,46 +71,24 @@ const MobileNav = ({ children, className, visible }) => (
       borderRadius: visible ? "5px" : "1rem",
       y: visible ? 8 : 0,
     }}
-    transition={{
-      type: "spring",
-      stiffness: 200,
-      damping: 20,
-    }}
+    transition={{ type: "spring", stiffness: 200, damping: 20 }}
     className={cn(
       "relative z-50 mx-auto flex w-full max-w-[calc(100vw-1.5rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
       visible && "bg-ink-900/85 backdrop-blur-md",
-      className,
     )}
   >
     {children}
   </motion.div>
 );
-const MobileNavHeader = ({ children, className }) => (
-  <div className={cn("flex w-full flex-row items-center justify-between", className)}>{children}</div>
-);
-const MobileNavMenu = ({ children, className, isOpen }) => (
+const MobileNavMenu = ({ children, isOpen }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
-        initial={{
-          opacity: 0,
-          y: -8,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        exit={{
-          opacity: 0,
-          y: -8,
-        }}
-        transition={{
-          duration: 0.25,
-        }}
-        className={cn(
-          "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-1 rounded-2xl border border-white/10 bg-ink-900 px-4 py-5 shadow-[0_24px_60px_rgba(0,0,0,0.6)]",
-          className,
-        )}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.25 }}
+        className="absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-1 rounded-2xl border border-white/10 bg-ink-900 px-4 py-5 shadow-[0_24px_60px_rgba(0,0,0,0.6)]"
       >
         {children}
       </motion.div>
@@ -163,12 +111,15 @@ const MobileNavToggle = ({ isOpen, onClick }) => {
 };
 export function Navbar({ current }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => setIsScrolled(latest > 80));
   const t = useT();
   const link = useLink();
   const navItems = useNavItems();
   return (
-    <ResizableNav>
-      <NavbarDesktopBody>
+    <div className="fixed inset-x-0 top-3 z-[70] w-full">
+      <NavbarDesktopBody visible={isScrolled}>
         <Logo />
         <NavItems items={navItems} current={current} />
         <div className="relative z-20 flex items-center gap-3">
@@ -178,15 +129,15 @@ export function Navbar({ current }) {
           </SecondaryButton>
         </div>
       </NavbarDesktopBody>
-      <MobileNav>
-        <MobileNavHeader>
+      <MobileNav visible={isScrolled}>
+        <div className="flex w-full flex-row items-center justify-between">
           <Logo />
           <div className="flex items-center gap-1">
             <LangSwitch page={current} />
             <MobileNavToggle isOpen={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)} />
           </div>
-        </MobileNavHeader>
-        <MobileNavMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}>
+        </div>
+        <MobileNavMenu isOpen={isMenuOpen}>
           <a
             href={link("index.html")}
             className="w-full rounded-xl px-3 py-3 font-display text-2xl font-bold tracking-[-0.02em] text-neutral-200 hover:bg-white/5"
@@ -214,6 +165,6 @@ export function Navbar({ current }) {
           </div>
         </MobileNavMenu>
       </MobileNav>
-    </ResizableNav>
+    </div>
   );
 }

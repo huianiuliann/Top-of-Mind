@@ -1,22 +1,14 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowsHorizontal, IconCoins, IconFileText, IconLockOpen, IconUsers } from "@tabler/icons-react";
-import { cn } from "../../lib/cn";
+import { easeOutExpo } from "../../components/effects/motion";
 import { MonthlyReportPanel } from "../../components/effects/MonthlyReportPanel";
 import { Reveal } from "../../components/effects/Reveal";
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
 import { L, useT } from "../../i18n";
-const CompareSlider = ({
-  first,
-  second,
-  className,
-  initialSliderPercentage = 50,
-  autoplay = false,
-  autoplayDuration = 5e3,
-  firstLabel,
-  secondLabel,
-}) => {
+const AUTOPLAY_MS = 4200;
+const CompareSlider = ({ first, second, firstLabel, secondLabel }) => {
   const containerRef = useRef(null);
   const clipRef = useRef(null);
   const clipInnerRef = useRef(null);
@@ -38,27 +30,26 @@ const CompareSlider = ({
   const animateFrame = useCallback(
     (timestamp) => {
       startTimeRef.current || (startTimeRef.current = timestamp);
-      const progress = ((timestamp - startTimeRef.current) % (autoplayDuration * 2)) / autoplayDuration;
+      const progress = ((timestamp - startTimeRef.current) % (AUTOPLAY_MS * 2)) / AUTOPLAY_MS;
       const pingPong = progress <= 1 ? progress : 2 - progress;
       setSliderPosition(50 + Math.sin((pingPong - 0.5) * Math.PI) * 38);
       rafIdRef.current = requestAnimationFrame(animateFrame);
     },
-    [autoplayDuration, setSliderPosition],
+    [setSliderPosition],
   );
   const startAutoplay = useCallback(() => {
-    !autoplay ||
-      isHoveringRef.current ||
+    isHoveringRef.current ||
       !isInViewRef.current ||
       rafIdRef.current ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       (rafIdRef.current = requestAnimationFrame(animateFrame));
-  }, [autoplay, animateFrame]);
+  }, [animateFrame]);
   const stopAutoplay = useCallback(() => {
     cancelAnimationFrame(rafIdRef.current);
     rafIdRef.current = 0;
   }, []);
   useEffect(() => {
-    setSliderPosition(initialSliderPercentage);
+    setSliderPosition(50);
     const element = containerRef.current;
     if (!element) return;
     const observer = new IntersectionObserver(([entry]) => {
@@ -70,7 +61,7 @@ const CompareSlider = ({
       observer.disconnect();
       stopAutoplay();
     };
-  }, [initialSliderPercentage, setSliderPosition, startAutoplay, stopAutoplay]);
+  }, [setSliderPosition, startAutoplay, stopAutoplay]);
   const moveToClientX = (clientX) => {
     const rect = containerRef.current?.getBoundingClientRect();
     rect && setSliderPosition(((clientX - rect.left) / rect.width) * 100);
@@ -78,10 +69,8 @@ const CompareSlider = ({
   return (
     <div
       ref={containerRef}
-      className={cn("relative h-[420px] w-full touch-pan-y overflow-hidden select-none", className)}
-      style={{
-        cursor: "col-resize",
-      }}
+      className="relative h-[34rem] w-full touch-pan-y overflow-hidden rounded-[1.4rem] select-none sm:h-[30rem]"
+      style={{ cursor: "col-resize" }}
       onMouseMove={(event) => moveToClientX(event.clientX)}
       onMouseEnter={() => {
         isHoveringRef.current = true;
@@ -105,42 +94,32 @@ const CompareSlider = ({
       <div
         ref={clipRef}
         className="absolute inset-0 z-20 overflow-hidden will-change-transform"
-        style={{
-          transform: `translate3d(${initialSliderPercentage - 100}%,0,0)`,
-        }}
+        style={{ transform: "translate3d(-50%,0,0)" }}
       >
         <div
           ref={clipInnerRef}
           className="absolute inset-0 will-change-transform"
-          style={{
-            transform: `translate3d(${100 - initialSliderPercentage}%,0,0)`,
-          }}
+          style={{ transform: "translate3d(50%,0,0)" }}
         >
           {first}
         </div>
       </div>
-      {firstLabel && (
-        <span
-          ref={firstLabelRef}
-          className="pointer-events-none absolute bottom-4 left-4 z-30 rounded-full border border-white/10 bg-ink-950/90 px-3 py-1 font-mono text-[12px] text-neutral-400 transition-opacity"
-        >
-          {firstLabel}
-        </span>
-      )}
-      {secondLabel && (
-        <span
-          ref={secondLabelRef}
-          className="pointer-events-none absolute right-4 bottom-4 z-30 rounded-full border border-white/15 bg-ink-950/90 px-3 py-1 font-mono text-[12px] text-neutral-200 transition-opacity"
-        >
-          {secondLabel}
-        </span>
-      )}
+      <span
+        ref={firstLabelRef}
+        className="pointer-events-none absolute bottom-4 left-4 z-30 rounded-lg border border-white/10 bg-ink-950/90 px-3 py-1 font-mono text-[12px] text-neutral-400 transition-opacity"
+      >
+        {firstLabel}
+      </span>
+      <span
+        ref={secondLabelRef}
+        className="pointer-events-none absolute right-4 bottom-4 z-30 rounded-lg border border-white/15 bg-ink-950/90 px-3 py-1 font-mono text-[12px] text-neutral-200 transition-opacity"
+      >
+        {secondLabel}
+      </span>
       <div
         ref={handleRef}
         className="pointer-events-none absolute inset-0 z-40 will-change-transform"
-        style={{
-          transform: `translate3d(${initialSliderPercentage - 50}%,0,0)`,
-        }}
+        style={{ transform: "translate3d(0%,0,0)" }}
       >
         <div className="absolute top-0 left-1/2 h-full w-px bg-gradient-to-b from-transparent from-[5%] via-accent-400 to-transparent to-[95%]" />
         <div className="absolute top-1/2 left-1/2 -ml-4 flex size-8 -translate-y-1/2 items-center justify-center rounded-full border border-accent-400/70 bg-ink-950">
@@ -150,38 +129,23 @@ const CompareSlider = ({
     </div>
   );
 };
-function RotatingText({ children, className, interval = 2.4 }) {
+function RotatingText({ children }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const items = React.Children.toArray(children);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const intervalId = setInterval(
-      () => setActiveIndex((current) => (current + 1) % items.length),
-      interval * 1e3,
-    );
+    const intervalId = setInterval(() => setActiveIndex((current) => (current + 1) % items.length), 2400);
     return () => clearInterval(intervalId);
-  }, [items.length, interval]);
+  }, [items.length]);
   return (
-    <span className={cn("relative inline-block whitespace-nowrap", className)}>
+    <span className="relative inline-block whitespace-nowrap text-neutral-200">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={activeIndex}
-          initial={{
-            y: 16,
-            opacity: 0,
-          }}
-          animate={{
-            y: 0,
-            opacity: 1,
-          }}
-          exit={{
-            y: -16,
-            opacity: 0,
-          }}
-          transition={{
-            duration: 0.45,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+          initial={{ y: 16, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -16, opacity: 0 }}
+          transition={{ duration: 0.45, ease: easeOutExpo }}
           className="inline-block"
         >
           {items[activeIndex]}
@@ -346,10 +310,13 @@ export function HomeHowWeWork() {
                 </span>
                 <div>
                   <p className="font-display font-bold tracking-[-0.01em] text-white">
-                    {t("Part of our fee moves with your results", "O parte din tarif depinde de rezultatele tale")}
+                    {t(
+                      "Part of our fee moves with your results",
+                      "O parte din tarif depinde de rezultatele tale",
+                    )}
                   </p>
                   <p className="mt-0.5 text-[15px] text-neutral-400">
-                    <RotatingText className="text-neutral-200">
+                    <RotatingText>
                       <span>{t("per qualified lead on quote work", "Oferta: per lead calificat")}</span>
                       <span>{t("tied to ad performance on cart", "Coșul: performanța reclamelor")}</span>
                       <span>{t("tied to direct bookings on calendar", "Calendarul: rezervări directe")}</span>
@@ -366,9 +333,6 @@ export function HomeHowWeWork() {
                 second={<MonthlyReportPanel />}
                 firstLabel={t("The report you're used to", "Raportul cu care te-ai obișnuit")}
                 secondLabel={t("The report you get from us", "Raportul primit de la noi")}
-                autoplay
-                autoplayDuration={4200}
-                className="h-[34rem] rounded-[1.4rem] sm:h-[30rem]"
               />
             </div>
             <p className="mt-4 text-center font-mono text-[12.5px] text-neutral-500">

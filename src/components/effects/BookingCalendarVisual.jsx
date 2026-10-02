@@ -2,32 +2,27 @@ import { motion } from "framer-motion";
 import { cn } from "../../lib/cn";
 import { useInViewCycle } from "./useInViewCycle";
 import { useT } from "../../i18n";
-const calendarDays = Array.from(
-  {
-    length: 28,
-  },
-  (_, index) => {
-    const weekday = index % 7;
-    return weekday === 1
-      ? "empty"
-      : weekday >= 5
-        ? index % 3 === 0
-          ? "direct"
-          : "platform"
-        : weekday === 4
-          ? index % 2
-            ? "platform"
-            : "empty"
-          : index % 5 === 0
-            ? "platform"
-            : "empty";
-  },
-);
+const calendarDays = Array.from({ length: 28 }, (_, index) => {
+  const weekday = index % 7;
+  return weekday === 1
+    ? "empty"
+    : weekday >= 5
+      ? index % 3 === 0
+        ? "direct"
+        : "platform"
+      : weekday === 4
+        ? index % 2
+          ? "platform"
+          : "empty"
+        : index % 5 === 0
+          ? "platform"
+          : "empty";
+});
 const calendarFillOrder = [8, 15, 1, 22, 13, 5, 20, 27, 10, 3, 17, 24];
 export function BookingCalendarVisual({ className }) {
   const t = useT();
   const weekdays = t(["M", "T", "W", "T", "F", "S", "S"], ["L", "M", "M", "J", "V", "S", "D"]);
-  const { ref: containerRef, step: step } = useInViewCycle(calendarFillOrder.length + 4, 900);
+  const { ref: containerRef, step } = useInViewCycle(calendarFillOrder.length + 4, 900);
   const filledDays = new Set(calendarFillOrder.slice(0, Math.min(step, calendarFillOrder.length)));
   return (
     <div ref={containerRef} className={cn("relative w-full select-none", className)} aria-hidden="true">
@@ -57,16 +52,10 @@ export function BookingCalendarVisual({ className }) {
               )}
               animate={
                 filledDays.has(index) && step <= calendarFillOrder.length
-                  ? {
-                      scale: [1, 1.12, 1],
-                    }
-                  : {
-                      scale: 1,
-                    }
+                  ? { scale: [1, 1.12, 1] }
+                  : { scale: 1 }
               }
-              transition={{
-                duration: 0.4,
-              }}
+              transition={{ duration: 0.4 }}
             >
               {cellType === "platform" && (
                 <span className="absolute top-1 right-1 size-1 rounded-full bg-neutral-500" />

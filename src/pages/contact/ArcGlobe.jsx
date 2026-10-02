@@ -59,7 +59,7 @@ const globeArcFragmentShader = `precision mediump float;
 uniform float uTime; uniform float uCycle; uniform float uStatic; uniform vec3 uC1; uniform vec3 uC2;
 varying float vT; varying float vVis; varying float vPhase;
 void main(){
-  float head = fract((uTime + vPhase) / uCycle) * 2.6;   // 0\u21921 draws, 1\u21921.8 leaves, then a gap
+  float head = fract((uTime + vPhase) / uCycle) * 2.6;   // 0→1 draws, 1→1.8 leaves, then a gap
   float g = clamp((vT - (head - 0.8)) / 0.8, 0.0, 1.0);
   float dash = step(head - 0.8, vT) * step(vT, head) * pow(g, 1.6);
   float a = max(dash, 0.07 * smoothstep(0.0, 0.08, vT) * (1.0 - smoothstep(0.92, 1.0, vT)));
@@ -76,9 +76,9 @@ function buildGlobeDots() {
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
   const evenDots = [];
   const oddDots = [];
-  for (let pointIndex = 0, landCount = 0; pointIndex < 4e4; pointIndex++) {
+  for (let pointIndex = 0, landCount = 0; pointIndex < 40000; pointIndex++) {
     if (!(maskBits[pointIndex >> 3] & (1 << (pointIndex & 7)))) continue;
-    const pointY = 1 - ((pointIndex + 0.5) * 2) / 4e4;
+    const pointY = 1 - ((pointIndex + 0.5) * 2) / 40000;
     const ringRadius = Math.sqrt(1 - pointY * pointY);
     const theta = pointIndex * goldenAngle;
     (landCount++ % 2 ? oddDots : evenDots).push(
@@ -100,26 +100,17 @@ function createGlProgram(gl, vertexSource, fragmentSource, attribNames) {
     [fragmentSource, gl.FRAGMENT_SHADER],
   ]) {
     const shader = gl.createShader(shaderType);
-    if (
-      (gl.shaderSource(shader, source),
-      gl.compileShader(shader),
-      !gl.getShaderParameter(shader, gl.COMPILE_STATUS))
-    )
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
       throw new Error(gl.getShaderInfoLog(shader) || "shader");
     gl.attachShader(program, shader);
   }
-  if (
-    (attribNames.forEach((attribName, attribIndex) =>
-      gl.bindAttribLocation(program, attribIndex, attribName),
-    ),
-    gl.linkProgram(program),
-    !gl.getProgramParameter(program, gl.LINK_STATUS))
-  )
+  attribNames.forEach((attribName, attribIndex) => gl.bindAttribLocation(program, attribIndex, attribName));
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS))
     throw new Error(gl.getProgramInfoLog(program) || "link");
-  return {
-    p: program,
-    u: (uniformName) => gl.getUniformLocation(program, uniformName),
-  };
+  return { p: program, u: (uniformName) => gl.getUniformLocation(program, uniformName) };
 }
 export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
   const containerRef = useRef(null);
@@ -140,15 +131,13 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
     let resize = () => {};
     let resizeObserver = null;
     const initGl = () => {
-      if (
-        ((context = canvas.getContext("webgl", {
-          alpha: true,
-          premultipliedAlpha: true,
-          antialias: true,
-          powerPreference: "low-power",
-        })),
-        !context)
-      ) {
+      context = canvas.getContext("webgl", {
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: true,
+        powerPreference: "low-power",
+      });
+      if (!context) {
         container.dataset.fallback = "1";
         return;
       }
@@ -191,12 +180,7 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
         );
         const altitude = 0.04 + angle * 0.2;
         const phase = (targetIndex * ARC_CYCLE_SECONDS) / targets.length;
-        arcs.push({
-          b: targetVec,
-          ang: angle,
-          alt: altitude,
-          phase: phase,
-        });
+        arcs.push({ b: targetVec, ang: angle, alt: altitude, phase });
         for (let segment = 0; segment < segmentCount; segment++) {
           const segStart = segment / segmentCount;
           const segEnd = (segment + 1) / segmentCount;
@@ -227,12 +211,12 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
       let dpr = 1;
       resize = () => {
         const width = container.clientWidth;
-        width &&
-          ((dpr = Math.min(window.devicePixelRatio || 1, 2)),
-          (cssSize = width),
-          (canvas.width = canvas.height = Math.round(width * dpr)),
-          gl.viewport(0, 0, canvas.width, canvas.height),
-          (reducedMotion || !isVisible) && renderFrame(performance.now()));
+        if (!width) return;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        cssSize = width;
+        canvas.width = canvas.height = Math.round(width * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        if (reducedMotion || !isVisible) renderFrame(performance.now());
       };
       const globeScale = 0.7;
       const baseYaw = -(centerLng ?? origin.lng) * DEG_TO_RAD;
@@ -251,12 +235,12 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
         canvas.style.cursor = "grabbing";
       });
       canvas.addEventListener("pointermove", (event) => {
-        isDragging &&
-          ((dragYaw += (event.clientX - lastPointerX) * 0.006),
-          (dragPitch = Math.max(-0.3, Math.min(0.3, dragPitch + (event.clientY - lastPointerY) * 0.004))),
-          (lastPointerX = event.clientX),
-          (lastPointerY = event.clientY),
-          reducedMotion && renderFrame(performance.now()));
+        if (!isDragging) return;
+        dragYaw += (event.clientX - lastPointerX) * 0.006;
+        dragPitch = Math.max(-0.3, Math.min(0.3, dragPitch + (event.clientY - lastPointerY) * 0.004));
+        lastPointerX = event.clientX;
+        lastPointerY = event.clientY;
+        if (reducedMotion) renderFrame(performance.now());
       });
       const endDrag = () => {
         isDragging = false;
@@ -269,10 +253,13 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
       let lastOpacity = "";
       renderFrame = (now) => {
         if (isContextLost || !cssSize) return;
-        const dt = lastFrameTime ? Math.min(0.05, (now - lastFrameTime) / 1e3) : 0;
+        const dt = lastFrameTime ? Math.min(0.05, (now - lastFrameTime) / 1000) : 0;
         lastFrameTime = now;
-        reducedMotion || (elapsed += dt);
-        !isDragging && !reducedMotion && ((dragYaw *= Math.exp(-dt / 6)), (dragPitch *= Math.exp(-dt / 3)));
+        if (!reducedMotion) elapsed += dt;
+        if (!isDragging && !reducedMotion) {
+          dragYaw *= Math.exp(-dt / 6);
+          dragPitch *= Math.exp(-dt / 3);
+        }
         const yaw = baseYaw + (reducedMotion ? 0 : 0.6 * Math.sin((elapsed * 2 * Math.PI) / 34)) + dragYaw;
         const pitch = 0.42 + dragPitch;
         const cosYaw = Math.cos(yaw);
@@ -377,10 +364,8 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
         for (let { b: targetVec, ang: angle, alt: altitude, phase } of arcs) {
           const head = (((elapsed + phase) / ARC_CYCLE_SECONDS) % 1) * 2.6;
           const pulse = head >= 1 ? Math.exp(-(head - 1) * 2.2) : 0;
-          if (
-            (pushMarker(targetVec, 3 + pulse * 3, arcHeadColor, reducedMotion ? 0.7 : 0.35 + 0.65 * pulse),
-            !reducedMotion && head < 1)
-          ) {
+          pushMarker(targetVec, 3 + pulse * 3, arcHeadColor, reducedMotion ? 0.7 : 0.35 + 0.65 * pulse);
+          if (!reducedMotion && head < 1) {
             const weightOrigin = Math.sin((1 - head) * angle) / Math.sin(angle);
             const weightTarget = Math.sin(head * angle) / Math.sin(angle);
             const lift = 1 + altitude * Math.sin(Math.PI * head);
@@ -408,8 +393,8 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
         const originScreen = rotate(originVec);
         const transform = `translate3d(${((cssSize / 2) * (1 + originScreen[0] * globeScale)).toFixed(1)}px, ${((cssSize / 2) * (1 - originScreen[1] * globeScale)).toFixed(1)}px, 0)`;
         const opacity = originScreen[2] > 0.25 ? "1" : "0";
-        transform !== lastTransform && (label.style.transform = lastTransform = transform);
-        opacity !== lastOpacity && (label.style.opacity = lastOpacity = opacity);
+        if (transform !== lastTransform) label.style.transform = lastTransform = transform;
+        if (opacity !== lastOpacity) label.style.opacity = lastOpacity = opacity;
       };
       resizeObserver = new ResizeObserver(resize);
       resizeObserver.observe(container);
@@ -417,24 +402,25 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
       container.dataset.ready = "1";
     };
     const tick = (time) => {
-      isDisposed || isContextLost || !isVisible || (renderFrame(time), (rafId = requestAnimationFrame(tick)));
+      if (isDisposed || isContextLost || !isVisible) return;
+      renderFrame(time);
+      rafId = requestAnimationFrame(tick);
     };
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
-        if (((isVisible = entry.isIntersecting), isVisible && !context && !container.dataset.fallback))
+        isVisible = entry.isIntersecting;
+        if (isVisible && !context && !container.dataset.fallback)
           try {
             initGl();
           } catch {
             container.dataset.fallback = "1";
           }
         cancelAnimationFrame(rafId);
-        isVisible && context && !reducedMotion
-          ? (rafId = requestAnimationFrame(tick))
-          : isVisible && context && renderFrame(performance.now());
+        if (!isVisible || !context) return;
+        if (reducedMotion) renderFrame(performance.now());
+        else rafId = requestAnimationFrame(tick);
       },
-      {
-        rootMargin: "240px 0px",
-      },
+      { rootMargin: "240px 0px" },
     );
     intersectionObserver.observe(container);
     return () => {
@@ -461,7 +447,7 @@ export function ArcGlobe({ origin, targets, centerLng, className, ariaLabel }) {
         aria-hidden
         className="pointer-events-none absolute top-0 left-0 opacity-0 transition-opacity duration-500 will-change-transform"
       >
-        <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full border border-white/10 bg-ink-900/95 px-3 py-1.5 font-mono text-[12px] whitespace-nowrap text-neutral-200 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)]">
+        <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg border border-white/10 bg-ink-900/95 px-3 py-1.5 font-mono text-[12px] whitespace-nowrap text-neutral-200 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)]">
           <span className="size-1.5 rounded-full bg-accent-400" />
           {origin.label}
         </span>

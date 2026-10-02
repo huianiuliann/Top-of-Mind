@@ -1,15 +1,12 @@
-import { IconCalendarEvent, IconFileInvoice, IconShoppingCart } from "@tabler/icons-react";
 import { BookingCalendarVisual } from "../../components/effects/BookingCalendarVisual";
 import { CreativeFatigueVisual } from "../../components/effects/CreativeFatigueVisual";
 import { FunnelLeakVisual } from "../../components/effects/FunnelLeakVisual";
 import { SerifEm } from "../../components/ui/SectionHeading";
 import { L } from "../../i18n";
+import { CALENDAR, CART, QUOTE } from "../../data/buyingModes";
 export const buyingModes = [
   {
-    id: "quote",
-    n: "01",
-    name: L("The quote", "Oferta"),
-    icon: IconFileInvoice,
+    ...QUOTE,
     Visual: FunnelLeakVisual,
     headline: L(
       <>
@@ -40,15 +37,23 @@ export const buyingModes = [
       "Nu în bugetul de reclame — ci între momentul în care cineva se arată interesat și momentul în care chiar ajunge să vorbească cu tine. Majoritatea site-urilor din domeniu îl lasă pe cumpărătorul tehnic să se descurce singur: să răsfoiască un catalog PDF, să ghicească prețurile, să completeze un formular generic la care îi răspunde cineva peste câteva zile. Până atunci, lead-ul care era gata să vorbească s-a răcit.",
     ),
     build: [
-      L("A site built to start a qualified conversation fast", "Un site care pornește repede o discuție cu omul potrivit"),
-      L("Scope questions instead of a blank contact box", "Un formular cu câteva întrebări despre proiect, nu unul gol de contact"),
-      L("Direct scheduling instead of “we'll get back to you”", "Programare directă în calendar, fără „revenim noi”"),
+      L(
+        "A site built to start a qualified conversation fast",
+        "Un site care pornește repede o discuție cu omul potrivit",
+      ),
+      L(
+        "Scope questions instead of a blank contact box",
+        "Un formular cu câteva întrebări despre proiect, nu unul gol de contact",
+      ),
+      L(
+        "Direct scheduling instead of “we'll get back to you”",
+        "Programare directă în calendar, fără „revenim noi”",
+      ),
       L(
         "Ads aimed at the triggers that move a technical buyer — not broad awareness",
         "Reclame care vorbesc despre ce îl doare pe un cumpărător tehnic — nu reclame de imagine",
       ),
     ],
-    report: L("Qualified quote requests", "Cereri de ofertă calificate"),
     reportNote: L(
       "Not raw form fills, not clicks. We agree upfront on what “qualified” means for your business before a single euro moves.",
       "Formularele completate aiurea și click-urile nu se pun. Ce înseamnă „calificat” pentru afacerea ta stabilim de la început, înainte să cheltuim primul euro.",
@@ -56,10 +61,7 @@ export const buyingModes = [
     fee: L("Part of our fee is per qualified lead.", "O parte din tarif e per lead calificat."),
   },
   {
-    id: "cart",
-    n: "02",
-    name: L("The cart", "Coșul"),
-    icon: IconShoppingCart,
+    ...CART,
     Visual: CreativeFatigueVisual,
     headline: L(
       <>
@@ -91,22 +93,30 @@ export const buyingModes = [
     ),
     build: [
       L("A steady pipeline of new creative variations", "Un flux constant de reclame noi"),
-      L("Tested fast, killed fast — winners get the budget", "Testate repede, oprite repede — bugetul merge la cele care vând"),
-      L("A pass on the store and checkout where carts leak", "O trecere prin magazin și prin checkout, acolo unde se abandonează coșurile"),
-      L("Tracking that separates profitable orders from busy ones", "Tracking care separă comenzile profitabile de cele care doar fac volum"),
+      L(
+        "Tested fast, killed fast — winners get the budget",
+        "Testate repede, oprite repede — bugetul merge la cele care vând",
+      ),
+      L(
+        "A pass on the store and checkout where carts leak",
+        "O trecere prin magazin și prin checkout, acolo unde se abandonează coșurile",
+      ),
+      L(
+        "Tracking that separates profitable orders from busy ones",
+        "Tracking care separă comenzile profitabile de cele care doar fac volum",
+      ),
     ],
-    report: L("Profitable orders", "Comenzi profitabile"),
     reportNote: L(
       "Cost per acquisition measured against a real margin number you give us — not clicks, not reach.",
       "Costul pe comandă, raportat la marja reală pe care ne-o spui tu — nu click-uri, nu reach.",
     ),
-    fee: L("Part of our fee is tied to ad performance.", "O parte din tarif depinde de performanța reclamelor."),
+    fee: L(
+      "Part of our fee is tied to ad performance.",
+      "O parte din tarif depinde de performanța reclamelor.",
+    ),
   },
   {
-    id: "calendar",
-    n: "03",
-    name: L("The calendar", "Calendarul"),
-    icon: IconCalendarEvent,
+    ...CALENDAR,
     Visual: BookingCalendarVisual,
     headline: L(
       <>
@@ -135,16 +145,30 @@ export const buyingModes = [
       "Lumea vrea să rezerve când ești deja plin și nu vine când ai locuri — iar între tine și client stă o platformă de rezervări care ia comision și păstrează datele de contact ale clientului pentru ea, nu pentru tine.",
     ),
     build: [
-      L("Demand aimed at your dead periods, not just “more traffic”", "Cerere adusă exact în perioadele tale goale, nu „mai mult trafic” la grămadă"),
-      L("A direct-booking path on your own site and calendar", "Rezervare directă pe site-ul tău, în calendarul tău"),
-      L("Reasons for past guests to book direct next time", "Motive ca cei care au mai fost să rezerve direct data viitoare"),
-      L("Tracking that shows direct vs platform bookings", "Tracking care separă rezervările directe de cele prin platforme"),
+      L(
+        "Demand aimed at your dead periods, not just “more traffic”",
+        "Cerere adusă exact în perioadele tale goale, nu „mai mult trafic” la grămadă",
+      ),
+      L(
+        "A direct-booking path on your own site and calendar",
+        "Rezervare directă pe site-ul tău, în calendarul tău",
+      ),
+      L(
+        "Reasons for past guests to book direct next time",
+        "Motive ca cei care au mai fost să rezerve direct data viitoare",
+      ),
+      L(
+        "Tracking that shows direct vs platform bookings",
+        "Tracking care separă rezervările directe de cele prin platforme",
+      ),
     ],
-    report: L("Direct bookings, dead days filled", "Rezervări directe și zile goale umplute"),
     reportNote: L(
       "The number that actually shows whether the platform dependency is shrinking.",
       "Cifra care arată, de fapt, dacă depinzi tot mai puțin de platforme.",
     ),
-    fee: L("Part of our fee is tied to direct bookings.", "O parte din tarif depinde de rezervările directe."),
+    fee: L(
+      "Part of our fee is tied to direct bookings.",
+      "O parte din tarif depinde de rezervările directe.",
+    ),
   },
 ];

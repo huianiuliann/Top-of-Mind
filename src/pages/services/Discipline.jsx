@@ -3,7 +3,18 @@ import { Reveal } from "../../components/effects/Reveal";
 import { Container } from "../../components/ui/Container";
 import { FramedCard } from "../../components/ui/FramedCard";
 import { useT } from "../../i18n";
-export function ServicesDiscipline({ id, icon: Icon, name, lede, features, visual, flip, kicker, light }) {
+export function ServicesDiscipline({
+  id,
+  icon: Icon,
+  name,
+  Visual,
+  visual = <Visual />,
+  lede,
+  features,
+  flip,
+  kicker,
+  light,
+}) {
   const t = useT();
   return (
     <section id={id} className={cn("relative scroll-mt-28 py-16 md:py-24", light && "theme-light")}>
@@ -22,7 +33,7 @@ export function ServicesDiscipline({ id, icon: Icon, name, lede, features, visua
                   <Icon className="size-5" stroke={1.6} />
                 </span>
                 <h2 className="font-display text-4xl font-bold tracking-[-0.02em] text-white md:text-5xl">
-                  {name}
+                  {t(name)}
                 </h2>
               </div>
               <p className="mt-6 text-lg leading-relaxed text-neutral-400">{lede}</p>

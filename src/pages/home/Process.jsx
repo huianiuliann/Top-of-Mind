@@ -7,28 +7,24 @@ import { PositioningPanel } from "../../components/effects/PositioningPanel";
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
 import { L, useT, useLink } from "../../i18n";
+import { easeOutExpo } from "../../components/effects/motion";
 import { ArrowTextLink } from "./shared";
-function StickyScrollSteps({ steps, className }) {
+function StickyScrollSteps({ steps }) {
   const t = useT();
   const containerRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.6", "end 0.6"],
-  });
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start 0.6", "end 0.6"] });
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextStep = Math.min(steps.length - 1, Math.max(0, Math.floor(latest * steps.length)));
-    nextStep !== activeStep && setActiveStep(nextStep);
+    setActiveStep(nextStep);
   });
   const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (
-    <div ref={containerRef} className={cn("relative grid gap-10 lg:grid-cols-2 lg:gap-16", className)}>
+    <div ref={containerRef} className="relative mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
       <div className="relative">
         <div className="absolute top-2 bottom-2 left-[15px] hidden w-px bg-white/10 lg:block">
           <motion.div
-            style={{
-              height: progressHeight,
-            }}
+            style={{ height: progressHeight }}
             className="w-px bg-gradient-to-b from-accent-300 to-accent-500"
           />
         </div>
@@ -50,20 +46,19 @@ function StickyScrollSteps({ steps, className }) {
             >
               {index + 1}
             </div>
-            {step.kicker && (
-              <p
-                className={cn(
-                  "font-mono text-[13px] transition-colors duration-500",
-                  activeStep === index ? "text-neutral-400" : "text-neutral-400 lg:text-neutral-700",
-                )}
-              >
-                {t(step.kicker)}
-              </p>
-            )}
+            <p
+              className={cn(
+                "font-mono text-[13px] text-neutral-400 transition-colors duration-500",
+                activeStep !== index && "lg:text-neutral-700",
+              )}
+            >
+              {`${t("Step", "Pasul")} ${index + 1}`}
+            </p>
             <h3
               className={cn(
                 "mt-2 font-display text-3xl font-bold tracking-[-0.02em] transition-colors duration-500 md:text-5xl",
-                activeStep === index ? "text-white" : "text-white lg:text-neutral-600",
+                "text-white",
+                activeStep !== index && "lg:text-neutral-600",
               )}
             >
               {t(step.title)}
@@ -71,12 +66,17 @@ function StickyScrollSteps({ steps, className }) {
             <div
               className={cn(
                 "mt-4 max-w-md text-lg leading-relaxed transition-colors duration-500",
-                activeStep === index ? "text-neutral-300" : "text-neutral-300 lg:text-neutral-600",
+                "text-neutral-300",
+                activeStep !== index && "lg:text-neutral-600",
               )}
             >
               {t(step.body)}
             </div>
-            <div className="mt-8 h-[25rem] lg:hidden">{step.visual}</div>
+            <div className="mt-8 h-[25rem] lg:hidden">
+              <div className="theme-dark h-full">
+                <step.Visual />
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -92,15 +92,12 @@ function StickyScrollSteps({ steps, className }) {
                 scale: activeStep === index ? 1 : 0.97,
                 y: activeStep === index ? 0 : 14,
               }}
-              transition={{
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              style={{
-                pointerEvents: activeStep === index ? "auto" : "none",
-              }}
+              transition={{ duration: 0.6, ease: easeOutExpo }}
+              style={{ pointerEvents: activeStep === index ? "auto" : "none" }}
             >
-              {step.visual}
+              <div className="theme-dark h-full">
+                <step.Visual />
+              </div>
             </motion.div>
           ))}
         </div>
@@ -128,46 +125,30 @@ export function HomeProcess() {
           )}
         />
         <StickyScrollSteps
-          className="mt-8"
           steps={[
             {
-              kicker: L("Step 1", "Pasul 1"),
               title: L("Research the market", "Cercetăm piața"),
               body: L(
-                "What your customers actually care about, where they spend attention, and what makes them trust a brand enough to pay \u2014 before a single ad gets written.",
-                "Ce contează cu adevărat pentru clienții tăi, unde își petrec atenția și ce îi face să aibă destulă încredere într-un brand ca să plătească \u2014 înainte să scriem prima reclamă.",
+                "What your customers actually care about, where they spend attention, and what makes them trust a brand enough to pay — before a single ad gets written.",
+                "Ce contează cu adevărat pentru clienții tăi, unde își petrec atenția și ce îi face să aibă destulă încredere într-un brand ca să plătească — înainte să scriem prima reclamă.",
               ),
-              visual: (
-                <div className="theme-dark h-full">
-                  <BuyerResearchPanel />
-                </div>
-              ),
+              Visual: BuyerResearchPanel,
             },
             {
-              kicker: L("Step 2", "Pasul 2"),
               title: L("Map the competition", "Analizăm concurența"),
               body: L(
                 "Whoever's already winning attention in your space, taken apart: what's working, what's copied from somewhere else, and what they're leaving on the table for you.",
                 "Îi luăm la bani mărunți pe cei care câștigă deja atenția în domeniul tău: ce le merge, ce au copiat de altundeva și ce lasă liber pentru tine.",
               ),
-              visual: (
-                <div className="theme-dark h-full">
-                  <CompetitorTeardownPanel />
-                </div>
-              ),
+              Visual: CompetitorTeardownPanel,
             },
             {
-              kicker: L("Step 3", "Pasul 3"),
               title: L("Build a sharper position", "Construim o poziționare mai clară"),
               body: L(
-                "What's proven, sharpened, plus what's missing \u2014 the ads, the site, the content \u2014 so that when your customer is ready to decide, yours is the name they remember.",
-                "Ce funcționează deja, spus mai clar, plus ce lipsește \u2014 reclamele, site-ul, conținutul \u2014 ca atunci când clientul tău e gata să decidă, numele tău să fie primul care îi vine în minte.",
+                "What's proven, sharpened, plus what's missing — the ads, the site, the content — so that when your customer is ready to decide, yours is the name they remember.",
+                "Ce funcționează deja, spus mai clar, plus ce lipsește — reclamele, site-ul, conținutul — ca atunci când clientul tău e gata să decidă, numele tău să fie primul care îi vine în minte.",
               ),
-              visual: (
-                <div className="theme-dark h-full">
-                  <PositioningPanel />
-                </div>
-              ),
+              Visual: PositioningPanel,
             },
           ]}
         />

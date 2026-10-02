@@ -61,11 +61,13 @@ export function Footer({ current }) {
               </li>
               <li>
                 <a className={linkClassName} href={WHATSAPP_URL} target="_blank" rel="noopener">
-                  {"WhatsApp \xB7 "}
+                  {"WhatsApp · "}
                   {PHONE_DISPLAY}
                 </a>
               </li>
-              <li className="text-[15px] text-neutral-500">{t("Cluj-Napoca, Romania", "Cluj-Napoca, România")}</li>
+              <li className="text-[15px] text-neutral-500">
+                {t("Cluj-Napoca, Romania", "Cluj-Napoca, România")}
+              </li>
             </ul>
           </div>
         </div>

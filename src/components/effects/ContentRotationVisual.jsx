@@ -4,22 +4,13 @@ import { cn } from "../../lib/cn";
 import { useInViewCycle } from "./useInViewCycle";
 import { L, useT } from "../../i18n";
 const contentFormats = [
-  {
-    icon: IconPhoto,
-    label: L("Proof post", "Dovadă"),
-  },
-  {
-    icon: IconMovie,
-    label: L("Process reel", "Proces"),
-  },
-  {
-    icon: IconUsers,
-    label: L("The people", "Oamenii"),
-  },
+  { icon: IconPhoto, label: L("Proof post", "Dovadă") },
+  { icon: IconMovie, label: L("Process reel", "Proces") },
+  { icon: IconUsers, label: L("The people", "Oamenii") },
 ];
 export function ContentRotationVisual({ className }) {
   const t = useT();
-  const { ref: containerRef, step: step } = useInViewCycle(8, 700);
+  const { ref: containerRef, step } = useInViewCycle(8, 700);
   return (
     <div ref={containerRef} className={cn("w-full select-none", className)} aria-hidden="true">
       <div className="mb-3 flex gap-1.5">
@@ -27,7 +18,7 @@ export function ContentRotationVisual({ className }) {
           <span
             key={format.label.en}
             className={cn(
-              "flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[10px] transition-colors duration-300",
+              "flex items-center gap-1 rounded-lg px-2 py-1 font-mono text-[10px] transition-colors duration-300",
               step % 3 === index ? "bg-white/[0.13] text-white" : "bg-white/[0.04] text-neutral-500",
             )}
           >
@@ -37,20 +28,14 @@ export function ContentRotationVisual({ className }) {
         ))}
       </div>
       <div className="grid grid-cols-4 gap-1.5">
-        {Array.from({
-          length: 8,
-        }).map((_, index) => {
+        {Array.from({ length: 8 }).map((_, index) => {
           const tileFormat = contentFormats[index % 3];
           const isActive = index === step;
           return (
             <motion.div
               key={index}
-              animate={{
-                scale: isActive ? 1.04 : 1,
-              }}
-              transition={{
-                duration: 0.3,
-              }}
+              animate={{ scale: isActive ? 1.04 : 1 }}
+              transition={{ duration: 0.3 }}
               className={cn(
                 "relative aspect-square overflow-hidden rounded-lg border transition-colors duration-300",
                 isActive ? "border-white/40" : "border-white/[0.05]",

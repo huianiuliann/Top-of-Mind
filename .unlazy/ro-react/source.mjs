@@ -74,8 +74,9 @@ while (queue.length) {
     }
   }
 }
-const files = all.filter((f) => /\.jsx$/.test(f) && reachable.has(f) && !/[\\/](i18n|entries)[\\/]/.test(f) && !/entry-server\.jsx$/.test(f));
-const dead = all.filter((f) => /\.jsx$/.test(f) && !reachable.has(f)).map((f) => path.relative(SRC, f).replace(/\\/g, "/"));
+// .js modules count too: shared data such as src/data/*.js holds copy as L() pairs (animation helpers and hooks hold none, so they scan clean)
+const files = all.filter((f) => reachable.has(f) && !/[\\/](i18n|entries)[\\/]/.test(f) && !/entry-server\.jsx$/.test(f));
+const dead = all.filter((f) => !reachable.has(f)).map((f) => path.relative(SRC, f).replace(/\\/g, "/"));
 
 const found = [];
 let scanned = 0;

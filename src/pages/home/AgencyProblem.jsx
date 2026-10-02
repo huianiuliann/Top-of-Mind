@@ -7,26 +7,16 @@ import { L, useT } from "../../i18n";
 function ScrollRevealWord({ children, progress, range, className }) {
   const opacity = useTransform(progress, range, [0.16, 1]);
   return (
-    <motion.span
-      style={{
-        opacity,
-      }}
-      className={cn("inline-block", className)}
-    >
+    <motion.span style={{ opacity }} className={cn("inline-block", className)}>
       {children}
     </motion.span>
   );
 }
-function ScrollRevealText({ text, accentFrom, className, offset = ["start 0.92", "center 0.62"] }) {
+function ScrollRevealText({ text, accentFrom, className }) {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: offset,
-  });
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start 0.92", "center 0.62"] });
   const words = text.split(" ");
-  const accentIndex = accentFrom
-    ? text.split(" ").findIndex((_word, index) => words.slice(index).join(" ").startsWith(accentFrom))
-    : -1;
+  const accentIndex = words.findIndex((_word, index) => words.slice(index).join(" ").startsWith(accentFrom));
   return (
     <p ref={containerRef} className={cn("flex flex-wrap gap-x-[0.28em] gap-y-1", className)}>
       {words.map((word, index) => {
@@ -47,30 +37,18 @@ function ScrollRevealText({ text, accentFrom, className, offset = ["start 0.92",
     </p>
   );
 }
-function StrikethroughPillList({ items, className }) {
+function StrikethroughPillList({ items }) {
   const t = useT();
   return (
-    <ul className={cn("flex flex-wrap gap-3", className)}>
+    <ul className="flex flex-wrap gap-3">
       {items.map((item, index) => (
         <motion.li
           key={item.en}
-          initial={{
-            opacity: 0,
-            y: 12,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.8,
-          }}
-          transition={{
-            delay: index * 0.1,
-            duration: 0.5,
-          }}
-          className="relative rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-[15px] text-neutral-500"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.8 }}
+          transition={{ delay: index * 0.1, duration: 0.5 }}
+          className="relative rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-[15px] text-neutral-500"
         >
           {t(item)}
           <motion.svg
@@ -86,21 +64,10 @@ function StrikethroughPillList({ items, className }) {
               fill="none"
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
-              initial={{
-                pathLength: 0,
-              }}
-              whileInView={{
-                pathLength: 1,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.8,
-              }}
-              transition={{
-                delay: 0.45 + index * 0.18,
-                duration: 0.55,
-                ease: "easeInOut",
-              }}
+              initial={{ pathLength: 0 }}
+              whileInView={{ pathLength: 1 }}
+              viewport={{ once: true, amount: 0.8 }}
+              transition={{ delay: 0.45 + index * 0.18, duration: 0.55, ease: "easeInOut" }}
             />
           </motion.svg>
         </motion.li>
@@ -108,13 +75,13 @@ function StrikethroughPillList({ items, className }) {
     </ul>
   );
 }
-const SpotlightHoverBackground = ({ children, className, containerClassName }) => {
+const SpotlightHoverBackground = ({ children }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const maskImage = useMotionTemplate`radial-gradient(240px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 100%)`;
   return (
     <div
-      className={cn("group relative flex w-full items-center justify-center", containerClassName)}
+      className="group relative flex w-full items-center justify-center py-24 md:py-36"
       onMouseMove={({ currentTarget, clientX, clientY }) => {
         const { left, top } = currentTarget.getBoundingClientRect();
         mouseX.set(clientX - left);
@@ -135,39 +102,21 @@ const SpotlightHoverBackground = ({ children, className, containerClassName }) =
           backgroundImage: "radial-gradient(var(--color-accent-400) 1.2px, transparent 1.5px)",
           backgroundSize: "16px 16px",
           WebkitMaskImage: maskImage,
-          maskImage: maskImage,
+          maskImage,
         }}
       />
-      <div className={cn("relative z-20", className)}>{children}</div>
+      <div className="relative z-20 w-full">{children}</div>
     </div>
   );
 };
-const UnderlineReveal = ({ children, className, delay = 0.5 }) => (
+const UnderlineReveal = ({ children }) => (
   <motion.span
-    initial={{
-      backgroundSize: "0% 2px",
-    }}
-    whileInView={{
-      backgroundSize: "100% 2px",
-    }}
-    viewport={{
-      once: true,
-      amount: 0.8,
-    }}
-    transition={{
-      duration: 1.2,
-      ease: "easeInOut",
-      delay: delay,
-    }}
-    style={{
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "left 92%",
-      display: "inline",
-    }}
-    className={cn(
-      "relative bg-gradient-to-r from-accent-400 to-accent-400 pb-1 text-white [box-decoration-break:clone]",
-      className,
-    )}
+    initial={{ backgroundSize: "0% 2px" }}
+    whileInView={{ backgroundSize: "100% 2px" }}
+    viewport={{ once: true, amount: 0.8 }}
+    transition={{ duration: 1.2, ease: "easeInOut", delay: 0.5 }}
+    style={{ backgroundRepeat: "no-repeat", backgroundPosition: "left 92%", display: "inline" }}
+    className="relative bg-gradient-to-r from-accent-400 to-accent-400 pb-1 text-white [box-decoration-break:clone]"
   >
     {children}
   </motion.span>
@@ -176,7 +125,7 @@ export function HomeAgencyProblem() {
   const t = useT();
   return (
     <section className="theme-light relative">
-      <SpotlightHoverBackground containerClassName="py-24 md:py-36" className="w-full">
+      <SpotlightHoverBackground>
         <Container>
           <Reveal variant="blur-in">
             <h2 className="font-display text-[2.6rem] leading-[1] font-bold tracking-[-0.02em] text-white md:text-7xl">
@@ -203,8 +152,13 @@ export function HomeAgencyProblem() {
             />
             <Reveal>
               <p className="text-xl leading-relaxed text-neutral-300 lg:text-right">
-                {t("We built Top of Mind to work the opposite way: ", "Am construit Top of Mind ca să facem exact invers: ")}
-                <UnderlineReveal>{t("research first, spend second.", "întâi cercetăm, abia apoi cheltuim.")}</UnderlineReveal>
+                {t(
+                  "We built Top of Mind to work the opposite way: ",
+                  "Am construit Top of Mind ca să facem exact invers: ",
+                )}
+                <UnderlineReveal>
+                  {t("research first, spend second.", "întâi cercetăm, abia apoi cheltuim.")}
+                </UnderlineReveal>
               </p>
             </Reveal>
           </div>

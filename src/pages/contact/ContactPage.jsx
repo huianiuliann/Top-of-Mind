@@ -51,13 +51,15 @@ export default function ContactPage() {
                   <span className="grid size-12 place-items-center rounded-2xl border border-accent-400/45 text-accent-300">
                     <IconCalendarEvent className="size-6" stroke={1.6} />
                   </span>
-                  <span className="flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1 font-mono text-[12px] text-neutral-300">
+                  <span className="flex items-center gap-1.5 rounded-lg border border-white/15 px-3 py-1 font-mono text-[12px] text-neutral-300">
                     <IconClockHour4 className="size-3.5" stroke={1.6} />
                     {t("30 minutes · free", "30 de minute · gratuit")}
                   </span>
                 </div>
                 <div className="mt-14">
-                  <p className="font-mono text-[13px] text-neutral-400">{t("Fastest way in", "Cea mai rapidă cale")}</p>
+                  <p className="font-mono text-[13px] text-neutral-400">
+                    {t("Fastest way in", "Cea mai rapidă cale")}
+                  </p>
                   <p className="mt-2 font-display text-4xl leading-[1.04] font-bold tracking-[-0.02em] text-white md:text-5xl">
                     {t("Book a call ", "Programează un apel ")}
                     <SerifEm>{t("on Calendly", "pe Calendly")}</SerifEm>
@@ -69,7 +71,7 @@ export default function ContactPage() {
                     )}
                   </p>
                 </div>
-                <span className="relative mt-8 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full bg-accent-500 px-6 py-3.5 font-sans font-semibold text-[14px] text-[#ffffff] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] transition-colors group-hover:bg-[#6660f6]">
+                <span className="relative mt-8 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-xl bg-accent-500 px-6 py-3.5 font-sans font-semibold text-[14px] text-[#ffffff] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] transition-colors group-hover:bg-[#6660f6]">
                   {t("Open Calendly ", "Deschide Calendly ")}
                   <IconArrowUpRight
                     className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -80,20 +82,8 @@ export default function ContactPage() {
             </Reveal>
             <div className="grid gap-4">
               {[
-                {
-                  href: WHATSAPP_URL,
-                  icon: IconBrandWhatsapp,
-                  k: "WhatsApp",
-                  v: PHONE_DISPLAY,
-                  ext: true,
-                },
-                {
-                  href: `mailto:${CONTACT_EMAIL}`,
-                  icon: IconMail,
-                  k: "Email",
-                  v: CONTACT_EMAIL,
-                  ext: false,
-                },
+                { href: WHATSAPP_URL, icon: IconBrandWhatsapp, k: "WhatsApp", v: PHONE_DISPLAY, ext: true },
+                { href: `mailto:${CONTACT_EMAIL}`, icon: IconMail, k: "Email", v: CONTACT_EMAIL, ext: false },
               ].map((channel, index) => (
                 <Reveal key={channel.k} delay={0.08 * (index + 1)} className="h-full">
                   <a
@@ -140,7 +130,7 @@ export default function ContactPage() {
           <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
             {[
               {
-                m: L("Minutes 0\u201310", "Minutele 0\u201310"),
+                m: L("Minutes 0–10", "Minutele 0–10"),
                 t: L("How do your customers buy?", "Cum cumpără clienții tăi?"),
                 d: L(
                   "By quote, by cart or by calendar. It decides everything after.",
@@ -148,7 +138,7 @@ export default function ContactPage() {
                 ),
               },
               {
-                m: L("Minutes 10\u201320", "Minutele 10\u201320"),
+                m: L("Minutes 10–20", "Minutele 10–20"),
                 t: L("Where is the money leaking today?", "Unde se pierd banii azi?"),
                 d: L(
                   "What's working, what's burning budget, what's not being measured.",
@@ -156,11 +146,11 @@ export default function ContactPage() {
                 ),
               },
               {
-                m: L("Minutes 20\u201330", "Minutele 20\u201330"),
+                m: L("Minutes 20–30", "Minutele 20–30"),
                 t: L("Are we the right fit?", "Suntem potriviți pentru tine?"),
                 d: L(
-                  "An honest answer \u2014 including when the answer is no.",
-                  "Un răspuns cinstit \u2014 chiar și când răspunsul e nu.",
+                  "An honest answer — including when the answer is no.",
+                  "Un răspuns cinstit — chiar și când răspunsul e nu.",
                 ),
               },
             ].map((step, index) => (
@@ -208,7 +198,9 @@ export default function ContactPage() {
               title={
                 <>
                   {t("Based in Cluj-Napoca. ", "Suntem în Cluj-Napoca. ")}
-                  <SerifEm>{t("Working in English, remotely.", "Lucrăm în română și în engleză, de la distanță.")}</SerifEm>
+                  <SerifEm>
+                    {t("Working in English, remotely.", "Lucrăm în română și în engleză, de la distanță.")}
+                  </SerifEm>
                 </>
               }
               subtitle={t(
@@ -220,49 +212,18 @@ export default function ContactPage() {
           <Reveal className="-mt-2 -mb-16 md:-mt-6 md:-mb-24">
             <ArcGlobe
               className="max-w-[640px]"
-              origin={{
-                lat: 46.77,
-                lng: 23.6,
-                label: "Cluj-Napoca",
-              }}
+              origin={{ lat: 46.77, lng: 23.6, label: "Cluj-Napoca" }}
               centerLng={6}
               targets={[
-                {
-                  lat: 51.5,
-                  lng: -0.12,
-                },
-                {
-                  lat: 40.71,
-                  lng: -74,
-                },
-                {
-                  lat: 59.33,
-                  lng: 18.07,
-                },
-                {
-                  lat: 25.2,
-                  lng: 55.27,
-                },
-                {
-                  lat: 40.42,
-                  lng: -3.7,
-                },
-                {
-                  lat: 37.98,
-                  lng: 23.73,
-                },
-                {
-                  lat: 43.65,
-                  lng: -79.38,
-                },
-                {
-                  lat: -33.92,
-                  lng: 18.42,
-                },
-                {
-                  lat: 19.08,
-                  lng: 72.88,
-                },
+                { lat: 51.5, lng: -0.12 },
+                { lat: 40.71, lng: -74 },
+                { lat: 59.33, lng: 18.07 },
+                { lat: 25.2, lng: 55.27 },
+                { lat: 40.42, lng: -3.7 },
+                { lat: 37.98, lng: 23.73 },
+                { lat: 43.65, lng: -79.38 },
+                { lat: -33.92, lng: 18.42 },
+                { lat: 19.08, lng: 72.88 },
               ]}
               ariaLabel={t(
                 "Illustration: a globe with lines reaching out from Cluj-Napoca, where we're based",

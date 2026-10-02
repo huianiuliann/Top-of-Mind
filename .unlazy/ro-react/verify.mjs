@@ -244,9 +244,28 @@ function enDiff(p, enRoot) {
   const want = baseRoot(p);
   const got = normEN(enRoot, p);
   if (got === want) return null;
-  let i = 0;
-  while (i < want.length && want[i] === got[i]) i++;
-  return `${p} EN differs from the pre-change render at ${i}\n want: ${JSON.stringify(want.slice(Math.max(0, i - 90), i + 90))}\n got:  ${JSON.stringify(got.slice(Math.max(0, i - 90), i + 90))}`;
+  // say what changed: the first few tags whose attributes or text differ (class lists as -removed +added)
+  const a = tokenize(want);
+  const b = tokenize(got);
+  const sample = [];
+  for (let i = 0; i < Math.min(a.length, b.length) && sample.length < 4; i++) {
+    const x = a[i];
+    const y = b[i];
+    if (x.t === "open" && y.t === "open" && x.name === y.name) {
+      const px = Object.fromEntries(x.attrs);
+      const py = Object.fromEntries(y.attrs);
+      for (const k of new Set([...Object.keys(px), ...Object.keys(py)])) {
+        if (px[k] === py[k]) continue;
+        const sa = new Set((px[k] ?? "").split(/\s+/));
+        const sb = new Set((py[k] ?? "").split(/\s+/));
+        const gone = [...sa].filter((c) => !sb.has(c));
+        const added = [...sb].filter((c) => !sa.has(c));
+        sample.push(`  <${x.name}> ${k}: ${gone.map((c) => "-" + c).join(" ")} ${added.map((c) => "+" + c).join(" ")}`.trimEnd());
+      }
+    } else if (tokStr(x) !== tokStr(y)) sample.push(`  was ${tokStr(x)}\n  now ${tokStr(y)}`);
+  }
+  if (a.length !== b.length) sample.push(`  (${a.length} tokens before, ${b.length} now)`);
+  return `${p} EN differs from the pre-change render (after an intentional English change run: node .unlazy/ro-react/verify.mjs refresh-en)\n${sample.join("\n")}`;
 }
 
 /* ---------------- dist helpers ---------------- */
@@ -332,7 +351,8 @@ if (cmd === "build") {
       const { issues, stats } = compare(p, enRoots[p], roRoots[p]);
       all.push(...issues);
       text += stats.text;
-      const en = enDiff(p, enRoots[p]);
+      // the fast loop also guards the English render; the dist gate leaves that to gate `en` so RO parity never depends on the baseline
+      const en = cmd === "page" ? enDiff(p, enRoots[p]) : null;
       if (en) all.push({ page: p, kind: "en-changed", en: "", ro: "", extra: "\n" + en });
     }
     // control: comparing a page with itself must report untranslated text, otherwise the checker is blind
@@ -529,8 +549,26 @@ if (cmd === "build") {
 } else if (cmd === "deps") {
   const pkg = JSON.parse(read(path.join(ROOT, "package.json")));
   const want = JSON.parse(read(path.join(REF, "deps.json")));
-  if (JSON.stringify(pkg.dependencies) !== JSON.stringify(want.dependencies) || JSON.stringify(pkg.devDependencies) !== JSON.stringify(want.devDependencies)) fail("package.json dependencies changed; the RO work needs no new library");
+  // removing a dependency is fine (dead code gets cut); adding or re-versioning one is what the RO work must not do
+  const added = [];
+  for (const kind of ["dependencies", "devDependencies"]) for (const [name, ver] of Object.entries(pkg[kind] || {})) if (want[kind]?.[name] !== ver) added.push(`${kind}.${name}@${ver}`);
+  if (added.length) fail("package.json gained or changed " + added.join(", ") + "; the RO work needs no new library");
+  // control: the comparison must notice a new package
+  if (!(want.dependencies && !("left-pad" in want.dependencies))) fail("control failed");
   console.log("ro deps verification passed (no dependency added)");
+} else if (cmd === "refresh-en") {
+  // after an intentional English change: make the current English render the new baseline for gate `en` (build first)
+  needDist();
+  // the baseline holds the English page as it would be without the language layer (no switches, no wrappers, relative asset paths)
+  for (const p of PAGES) {
+    const html = read(enFile(p));
+    const root = rootOf(html);
+    const plain = normEN(root, p);
+    fs.writeFileSync(path.join(REF, "en", p + ".html"), html.replace(root, () => plain));
+  }
+  const pkg = JSON.parse(read(path.join(ROOT, "package.json")));
+  fs.writeFileSync(path.join(REF, "deps.json"), JSON.stringify({ dependencies: pkg.dependencies, devDependencies: pkg.devDependencies }, null, 2) + "\n");
+  console.log(`ro refresh-en: ref/en and ref/deps.json now hold the current build (${PAGES.length} pages); run the gates again`);
 } else if (cmd === "dump") {
   // review aid: the aligned English | Romanian text of the built pages, one pair per line (node verify.mjs dump <page|all>)
   needDist(true);

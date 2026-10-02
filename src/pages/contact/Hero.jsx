@@ -13,14 +13,11 @@ const heroChatMessages = [
   {
     me: true,
     text: L(
-      "Sure \u2014 pick any 30-minute slot on Calendly and we'll look at your market before the call.",
-      "Sigur \u2014 alege orice interval de 30 de minute pe Calendly și ne uităm la piața ta înainte de apel.",
+      "Sure — pick any 30-minute slot on Calendly and we'll look at your market before the call.",
+      "Sigur — alege orice interval de 30 de minute pe Calendly și ne uităm la piața ta înainte de apel.",
     ),
   },
-  {
-    me: false,
-    text: L("Booked for Thursday \u{1F44D}", "Programat pentru joi \u{1F44D}"),
-  },
+  { me: false, text: L("Booked for Thursday 👍", "Programat pentru joi 👍") },
 ];
 export function ContactHeroChat() {
   const t = useT();
@@ -59,9 +56,9 @@ export function ContactHeroChat() {
         </span>
         <div className="flex-1">
           <p className="font-display text-sm font-bold text-white">Top of Mind</p>
-          <p className="text-[11px] text-emerald-300/80">{isTyping ? t("typing\u2026", "scrie\u2026") : "online"}</p>
+          <p className="text-[11px] text-emerald-300/80">{isTyping ? t("typing…", "scrie…") : "online"}</p>
         </div>
-        <span className="rounded-full border border-dashed border-white/15 px-2 py-0.5 font-mono text-[10px] text-neutral-500">
+        <span className="rounded-md border border-dashed border-white/15 px-2 py-0.5 font-mono text-[10px] text-neutral-500">
           {t("example", "exemplu")}
         </span>
       </div>
@@ -71,22 +68,10 @@ export function ContactHeroChat() {
             <motion.div
               key={index}
               layout
-              initial={{
-                opacity: 0,
-                y: 10,
-                scale: 0.96,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1,
-              }}
-              exit={{
-                opacity: 0,
-              }}
-              transition={{
-                duration: 0.35,
-              }}
+              initial={{ opacity: 0, y: 10, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
               className={
                 message.me
                   ? "ml-8 self-end rounded-2xl rounded-br-md bg-white/90 px-3.5 py-2 text-[13px] leading-snug text-ink-950"
@@ -100,15 +85,9 @@ export function ContactHeroChat() {
           {isTyping && (
             <motion.div
               key="typing"
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className={
                 (heroChatMessages[visibleCount]?.me ? "self-end bg-white/25" : "self-start bg-white/[0.07]") +
                 " flex gap-1 rounded-2xl px-3 py-2.5"
@@ -118,14 +97,8 @@ export function ContactHeroChat() {
                 <motion.span
                   key={dot}
                   className="size-1.5 rounded-full bg-neutral-300"
-                  animate={{
-                    opacity: [0.3, 1, 0.3],
-                  }}
-                  transition={{
-                    duration: 0.9,
-                    repeat: 1 / 0,
-                    delay: dot * 0.15,
-                  }}
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 0.9, repeat: Infinity, delay: dot * 0.15 }}
                 />
               ))}
             </motion.div>

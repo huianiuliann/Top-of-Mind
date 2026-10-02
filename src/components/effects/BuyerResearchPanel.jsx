@@ -1,32 +1,32 @@
-import { useState, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { IconPhoneCall, IconSearch, IconSparkles, IconStar } from "@tabler/icons-react";
 import { Chip } from "../ui/Chip";
 import { Panel } from "../ui/Panel";
 import { L, useLang, useT } from "../../i18n";
-function useTypewriterCycle(phrases, active) {
+function useTypewriterCycle(phrases, running) {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charCount, setCharCount] = useState(phrases[0].length);
   const [phase, setPhase] = useState("hold");
   useEffect(() => {
-    if (!active || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!running || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let timer;
-    phase === "hold"
-      ? (timer = setTimeout(() => setPhase("del"), 1700))
-      : phase === "del"
-        ? (timer =
-            charCount > 0
-              ? setTimeout(() => setCharCount(charCount - 1), 18)
-              : setTimeout(() => {
-                  setPhraseIndex((phraseIndex + 1) % phrases.length);
-                  setPhase("type");
-                }, 200))
-        : (timer =
-            charCount < phrases[phraseIndex].length
-              ? setTimeout(() => setCharCount(charCount + 1), 42)
-              : setTimeout(() => setPhase("hold"), 100));
+    if (phase === "hold") timer = setTimeout(() => setPhase("del"), 1700);
+    else if (phase === "del")
+      timer =
+        charCount > 0
+          ? setTimeout(() => setCharCount(charCount - 1), 18)
+          : setTimeout(() => {
+              setPhraseIndex((phraseIndex + 1) % phrases.length);
+              setPhase("type");
+            }, 200);
+    else
+      timer =
+        charCount < phrases[phraseIndex].length
+          ? setTimeout(() => setCharCount(charCount + 1), 42)
+          : setTimeout(() => setPhase("hold"), 100);
     return () => clearTimeout(timer);
-  }, [phase, charCount, phraseIndex, active, phrases]);
+  }, [phase, charCount, phraseIndex, running, phrases]);
   return phrases[phraseIndex].slice(0, charCount);
 }
 const buyerSearchQueries = [
@@ -52,15 +52,21 @@ const buyerSignals = [
     text: L("we just want to see it first", "vrem doar să-l vedem mai întâi"),
   },
 ];
-export function BuyerResearchPanel({ active = true }) {
+export function BuyerResearchPanel() {
   const t = useT();
+  // types only while visible: the panel is mounted twice on the home page (mobile list + desktop sticky column)
+  const searchRef = useRef(null);
+  const inView = useInView(searchRef);
   const lang = useLang();
   // one stable array per language: the typewriter effect depends on `phrases`, a new array each render would restart its timers
   const phrases = useMemo(() => buyerSearchQueries.map((query) => t(query)), [lang]);
-  const typedText = useTypewriterCycle(phrases, active);
+  const typedText = useTypewriterCycle(phrases, inView);
   return (
     <Panel className="flex h-full w-full flex-col gap-4 p-5 sm:p-6">
-      <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-4 py-3">
+      <div
+        ref={searchRef}
+        className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-4 py-3"
+      >
         <IconSearch className="size-4 text-neutral-500" stroke={1.6} />
         <span className="font-mono text-[13px] text-neutral-200">
           {typedText}
@@ -74,21 +80,10 @@ export function BuyerResearchPanel({ active = true }) {
         {buyerSignals.map((signal, index) => (
           <motion.div
             key={signal.src.en}
-            initial={{
-              opacity: 0,
-              x: -14,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              delay: 0.15 + index * 0.15,
-              duration: 0.6,
-            }}
+            initial={{ opacity: 0, x: -14 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 + index * 0.15, duration: 0.6 }}
             className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3"
           >
             <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-white/[0.05] text-neutral-300">
@@ -116,21 +111,10 @@ export function BuyerResearchPanel({ active = true }) {
         ))}
       </div>
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          delay: 0.7,
-          duration: 0.6,
-        }}
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.7, duration: 0.6 }}
         className="mt-auto flex items-start gap-3 rounded-xl border border-white/15 bg-white/[0.04] p-3.5"
       >
         <IconSparkles className="mt-0.5 size-4 shrink-0 text-neutral-300" stroke={1.6} />

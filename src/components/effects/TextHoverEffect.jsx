@@ -1,42 +1,25 @@
-import { useRef, useState, useId, useEffect } from "react";
+import { useState, useId } from "react";
 import { motion } from "framer-motion";
-export const TextHoverEffect = ({ text, duration, viewBox = "0 0 300 100", className }) => {
-  const svgRef = useRef(null);
+export const TextHoverEffect = ({ text, viewBox = "0 0 300 100" }) => {
   const uniqueId = useId().replace(/:/g, "");
-  const [cursor, setCursor] = useState({
-    x: null,
-    y: null,
-  });
   const [hovered, setHovered] = useState(false);
-  const [maskPosition, setMaskPosition] = useState({
-    cx: "50%",
-    cy: "50%",
-  });
-  useEffect(() => {
-    if (svgRef.current && cursor.x !== null && cursor.y !== null) {
-      const rect = svgRef.current.getBoundingClientRect();
-      setMaskPosition({
-        cx: `${((cursor.x - rect.left) / rect.width) * 100}%`,
-        cy: `${((cursor.y - rect.top) / rect.height) * 100}%`,
-      });
-    }
-  }, [cursor]);
+  const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
   return (
     <svg
-      ref={svgRef}
       width="100%"
       height="100%"
       viewBox={viewBox}
       xmlns="http://www.w3.org/2000/svg"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onMouseMove={(event) =>
-        setCursor({
-          x: event.clientX,
-          y: event.clientY,
-        })
-      }
-      className={"select-none " + (className || "")}
+      onMouseMove={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        setMaskPosition({
+          cx: `${((event.clientX - rect.left) / rect.width) * 100}%`,
+          cy: `${((event.clientY - rect.top) / rect.height) * 100}%`,
+        });
+      }}
+      className="select-none"
       aria-hidden="true"
     >
       <defs>
@@ -53,15 +36,9 @@ export const TextHoverEffect = ({ text, duration, viewBox = "0 0 300 100", class
           id={`rm-${uniqueId}`}
           gradientUnits="userSpaceOnUse"
           r="20%"
-          initial={{
-            cx: "50%",
-            cy: "50%",
-          }}
+          initial={{ cx: "50%", cy: "50%" }}
           animate={maskPosition}
-          transition={{
-            duration: duration ?? 0,
-            ease: "easeOut",
-          }}
+          transition={{ duration: 0, ease: "easeOut" }}
         >
           <stop offset="0%" stopColor="white" />
           <stop offset="100%" stopColor="black" />
@@ -77,9 +54,7 @@ export const TextHoverEffect = ({ text, duration, viewBox = "0 0 300 100", class
         dominantBaseline="middle"
         strokeWidth="0.3"
         className="fill-transparent stroke-white/10 font-display text-7xl font-bold"
-        style={{
-          opacity: hovered ? 0.7 : 0,
-        }}
+        style={{ opacity: hovered ? 0.7 : 0 }}
       >
         {text}
       </text>
@@ -90,21 +65,10 @@ export const TextHoverEffect = ({ text, duration, viewBox = "0 0 300 100", class
         dominantBaseline="middle"
         strokeWidth="0.3"
         className="fill-transparent stroke-white/15 font-display text-7xl font-bold"
-        initial={{
-          strokeDashoffset: 1e3,
-          strokeDasharray: 1e3,
-        }}
-        whileInView={{
-          strokeDashoffset: 0,
-          strokeDasharray: 1e3,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 4,
-          ease: "easeInOut",
-        }}
+        initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
+        whileInView={{ strokeDashoffset: 0, strokeDasharray: 1000 }}
+        viewport={{ once: true }}
+        transition={{ duration: 4, ease: "easeInOut" }}
       >
         {text}
       </motion.text>

@@ -13,18 +13,9 @@ import { useInViewCycle } from "./useInViewCycle";
 import { Chip } from "../ui/Chip";
 import { L, useT } from "../../i18n";
 const leadStages = [
-  {
-    chip: L("New request", "Cerere nouă"),
-    tone: "neutral",
-  },
-  {
-    chip: L("Qualified", "Calificată"),
-    tone: "outline",
-  },
-  {
-    chip: L("Call booked", "Apel programat"),
-    tone: "accent",
-  },
+  { chip: L("New request", "Cerere nouă"), tone: "neutral" },
+  { chip: L("Qualified", "Calificată"), tone: "outline" },
+  { chip: L("Call booked", "Apel programat"), tone: "accent" },
 ];
 export function LeadFlowVisual({ className }) {
   const t = useT();
@@ -33,29 +24,12 @@ export function LeadFlowVisual({ className }) {
   const pageRef = useRef(null);
   const followUpRef = useRef(null);
   const callRef = useRef(null);
-  const { ref: cycleRef, step: step } = useInViewCycle(leadStages.length, 1900);
+  const { ref: cycleRef, step } = useInViewCycle(leadStages.length, 1900);
   const nodes = [
-    {
-      ref: adRef,
-      icon: IconSpeakerphone,
-      label: L("The ad", "Reclama"),
-    },
-    {
-      ref: pageRef,
-      icon: IconBrowser,
-      label: L("The page", "Pagina"),
-    },
-    {
-      ref: followUpRef,
-      icon: IconMessageCircle,
-      label: L("Follow-up", "Follow-up-ul"),
-    },
-    {
-      ref: callRef,
-      icon: IconUserCheck,
-      label: L("Your call", "Apelul tău"),
-      accent: true,
-    },
+    { ref: adRef, icon: IconSpeakerphone, label: L("The ad", "Reclama") },
+    { ref: pageRef, icon: IconBrowser, label: L("The page", "Pagina") },
+    { ref: followUpRef, icon: IconMessageCircle, label: L("Follow-up", "Follow-up-ul") },
+    { ref: callRef, icon: IconUserCheck, label: L("Your call", "Apelul tău"), accent: true },
   ];
   const stage = leadStages[step];
   return (
@@ -85,38 +59,20 @@ export function LeadFlowVisual({ className }) {
             </div>
           ))}
         </div>
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={adRef}
-          toRef={pageRef}
-          startYOffset={-10}
-          endYOffset={-10}
-          curvature={-22}
-          duration={3}
-          pathOpacity={0.14}
-        />
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={pageRef}
-          toRef={followUpRef}
-          startYOffset={-10}
-          endYOffset={-10}
-          curvature={22}
-          duration={3}
-          delay={0.4}
-          pathOpacity={0.14}
-        />
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={followUpRef}
-          toRef={callRef}
-          startYOffset={-10}
-          endYOffset={-10}
-          curvature={-22}
-          duration={3}
-          delay={0.8}
-          pathOpacity={0.14}
-        />
+        {nodes.slice(1).map((node, index) => (
+          <AnimatedBeam
+            key={node.label.en}
+            containerRef={containerRef}
+            fromRef={nodes[index].ref}
+            toRef={node.ref}
+            startYOffset={-10}
+            endYOffset={-10}
+            curvature={index === 1 ? 22 : -22}
+            duration={3}
+            delay={index * 0.4}
+            pathOpacity={0.14}
+          />
+        ))}
       </div>
       <div className="mt-4 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
         <div className="flex items-center justify-between gap-2">
@@ -127,21 +83,10 @@ export function LeadFlowVisual({ className }) {
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span
               key={stage.chip.en}
-              initial={{
-                opacity: 0,
-                y: 6,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                y: -6,
-              }}
-              transition={{
-                duration: 0.3,
-              }}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.3 }}
             >
               <Chip tone={stage.tone} className="px-2 py-0.5 text-[10px]">
                 {step === 2 && <IconCheck className="size-3" stroke={3} />}

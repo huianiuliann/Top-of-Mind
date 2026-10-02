@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@tabler/icons-react": "^3.48.0",
-    "clsx": "^2.1.1",
     "framer-motion": "^13.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",

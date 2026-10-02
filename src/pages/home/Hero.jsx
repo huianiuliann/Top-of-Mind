@@ -14,63 +14,32 @@ import { PrimaryButton, SecondaryButton } from "../../components/ui/Button";
 import { Container } from "../../components/ui/Container";
 import { CALENDLY_URL } from "../../data/site";
 import { useLink, useT } from "../../i18n";
-function PointerHighlight({ children, rectangleClassName, pointerClassName, containerClassName, delay = 0 }) {
+function PointerHighlight({ children, containerClassName, delay = 0 }) {
   return (
     <span className={cn("relative inline-block w-fit", containerClassName)}>
       {children}
       <motion.span
         aria-hidden="true"
-        className={cn(
-          "pointer-events-none absolute -inset-x-[0.1em] -inset-y-[0.02em] z-0 block rounded-xl border border-accent-400 bg-accent-500/[0.08]",
-          rectangleClassName,
-        )}
-        initial={{
-          clipPath: "inset(0 100% 100% 0 round 12px)",
-          opacity: 0,
-        }}
-        animate={{
-          clipPath: "inset(0 0% 0% 0 round 12px)",
-          opacity: 1,
-        }}
-        transition={{
-          duration: 0.9,
-          ease: [0.65, 0, 0.35, 1],
-          delay: delay,
-          opacity: {
-            duration: 0.15,
-            delay: delay,
-          },
-        }}
+        // top/bottom hug the serif's x-height ink (no ascenders in "a euro"/"un euro") so padding is even on all sides
+        className="pointer-events-none absolute -inset-x-[0.1em] top-[0.13em] -bottom-[0.02em] z-0 block rounded-xl border border-accent-400 bg-accent-500/[0.08]"
+        // -2px clip margin keeps the 1px border from being shaved off at the edges
+        initial={{ clipPath: "inset(-2px 100% 100% -2px round 12px)", opacity: 0 }}
+        animate={{ clipPath: "inset(-2px -2px -2px -2px round 12px)", opacity: 1 }}
+        transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1], delay, opacity: { duration: 0.15, delay } }}
       />
       <motion.span
         aria-hidden="true"
         className="pointer-events-none absolute right-0 bottom-0 z-10 block"
-        initial={{
-          opacity: 0,
-          x: "-120%",
-          y: "-120%",
-        }}
-        animate={{
-          opacity: 1,
-          x: "70%",
-          y: "70%",
-        }}
-        transition={{
-          duration: 0.9,
-          ease: [0.65, 0, 0.35, 1],
-          delay: delay,
-          opacity: {
-            duration: 0.15,
-            delay: delay,
-          },
-        }}
+        initial={{ opacity: 0, x: "-120%", y: "-120%" }}
+        animate={{ opacity: 1, x: "70%", y: "70%" }}
+        transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1], delay, opacity: { duration: 0.15, delay } }}
       >
-        <CursorPointerIcon className={cn("h-5 w-5 -rotate-90 text-accent-400", pointerClassName)} />
+        <CursorPointerIcon className="h-5 w-5 -rotate-90 text-accent-400" />
       </motion.span>
     </span>
   );
 }
-const CursorPointerIcon = ({ ...props }) => (
+const CursorPointerIcon = (props) => (
   <svg
     stroke="currentColor"
     fill="currentColor"
@@ -91,32 +60,15 @@ function HeroParallaxCard({ mx, my, depth, className, delay, children }) {
   const offsetY = useTransform(my, (value) => value * depth);
   return (
     <motion.div
-      style={{
-        x: offsetX,
-        y: offsetY,
-      }}
+      style={{ x: offsetX, y: offsetY }}
       className={"pointer-events-none absolute hidden min-[1400px]:block " + className}
     >
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          y: [0, -8, 0],
-        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: [0, -8, 0] }}
         transition={{
-          opacity: {
-            delay: delay,
-            duration: 0.8,
-          },
-          y: {
-            delay: delay + 0.8,
-            duration: 6,
-            repeat: 1 / 0,
-            ease: "easeInOut",
-          },
+          opacity: { delay, duration: 0.8 },
+          y: { delay: delay + 0.8, duration: 6, repeat: Infinity, ease: "easeInOut" },
         }}
         className="rounded-2xl border border-white/[0.08] bg-ink-900 p-3 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
       >
@@ -145,16 +97,24 @@ function HeroFloatingCards({ mx, my }) {
           </span>
         </div>
       </HeroParallaxCard>
-      <HeroParallaxCard mx={mx} my={my} depth={-0.035} delay={0.8} className="top-[210px] right-[5%] rotate-2">
-        <p className="font-mono text-[11px] text-neutral-500">{t("Competitor ads", "Reclamele concurenței")}</p>
+      <HeroParallaxCard
+        mx={mx}
+        my={my}
+        depth={-0.035}
+        delay={0.8}
+        className="top-[210px] right-[5%] rotate-2"
+      >
+        <p className="font-mono text-[11px] text-neutral-500">
+          {t("Competitor ads", "Reclamele concurenței")}
+        </p>
         <div className="mt-1.5 flex gap-1.5">
-          <span className="rounded-full bg-white/[0.13] px-2 py-0.5 font-mono text-[10px] text-white">
+          <span className="rounded-md bg-white/[0.13] px-2 py-0.5 font-mono text-[10px] text-white">
             {t("working", "funcționează")}
           </span>
-          <span className="rounded-full bg-white/[0.05] px-2 py-0.5 font-mono text-[10px] text-neutral-400">
+          <span className="rounded-md bg-white/[0.05] px-2 py-0.5 font-mono text-[10px] text-neutral-400">
             {t("copied", "copiate")}
           </span>
-          <span className="rounded-full border border-white/20 px-2 py-0.5 font-mono text-[10px] text-neutral-300">
+          <span className="rounded-md border border-white/20 px-2 py-0.5 font-mono text-[10px] text-neutral-300">
             {t("missing", "lipsă")}
           </span>
         </div>
@@ -188,7 +148,9 @@ function HeroFloatingCards({ mx, my }) {
             </p>
             <IconChartLine className="size-3.5 text-neutral-500" stroke={1.6} />
           </div>
-          <p className="mt-0.5 text-[13px] text-neutral-200">{t("Qualified requests", "Cereri calificate")}</p>
+          <p className="mt-0.5 text-[13px] text-neutral-200">
+            {t("Qualified requests", "Cereri calificate")}
+          </p>
           <svg viewBox="0 0 160 36" className="mt-2 h-8 w-full">
             <path
               d="M0 30 L25 27 L50 28 L75 20 L100 22 L125 12 L160 6"
@@ -223,13 +185,16 @@ export function HomeHero() {
       <Container className="relative flex flex-col items-center text-center">
         <a
           href={link("how-you-sell.html")}
-          className="group inline-flex items-center gap-2.5 rounded-full border border-white/10 px-4 py-2 font-mono text-[12px] text-neutral-400 transition-colors hover:border-white/25 hover:text-neutral-200 sm:text-[13px]"
+          className="group inline-flex items-center gap-2.5 rounded-xl border border-white/10 px-4 py-2 font-mono text-[12px] text-neutral-400 transition-colors hover:border-white/25 hover:text-neutral-200 sm:text-[13px]"
         >
           <span>
             {t("Research-first marketing studio", "Marketing care începe cu cercetarea")}
-            <span className="hidden sm:inline">{" \xB7 Cluj-Napoca"}</span>
+            <span className="hidden sm:inline">{" · Cluj-Napoca"}</span>
           </span>
-          <IconArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" stroke={1.6} />
+          <IconArrowRight
+            className="size-3.5 transition-transform group-hover:translate-x-0.5"
+            stroke={1.6}
+          />
         </a>
         <h1 className="mt-7 max-w-[19ch] font-display text-[2.85rem] leading-[0.96] font-bold tracking-[-0.03em] text-balance text-white sm:text-6xl md:text-7xl lg:text-[5.2rem] min-[112.5rem]:max-w-[21ch] min-[112.5rem]:text-[6rem]">
           {t("We research your market before we touch", "Îți cercetăm piața înainte să ne atingem de")}{" "}

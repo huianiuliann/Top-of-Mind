@@ -17,7 +17,7 @@ import { PageHero } from "../../components/sections/PageHero";
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
 import { L, useT } from "../../i18n";
-import { DayOneScrollContainer, FirstMonthPlanMockup } from "./DayOnePreview";
+import { DayOnePreview } from "./DayOnePreview";
 import { FirstMonthTimeline, FirstMonthWeekCard } from "./FirstMonth";
 import { MethodTracingBeam, methodSteps } from "./Method";
 export default function ProcessPage() {
@@ -38,15 +38,7 @@ export default function ProcessPage() {
         )}
       />
       <section className="relative -mt-40 md:-mt-64">
-        <DayOneScrollContainer
-          titleComponent={
-            <p className="mb-4 font-mono text-[13px] text-neutral-400 md:mb-8">
-              {t("What you see on day one", "Ce vezi în prima zi")}
-            </p>
-          }
-        >
-          <FirstMonthPlanMockup />
-        </DayOneScrollContainer>
+        <DayOnePreview />
       </section>
       <section className="relative -mt-20 py-16 md:-mt-40 md:py-24">
         <Container>
@@ -54,20 +46,20 @@ export default function ProcessPage() {
             eyebrow={t("The method", "Metoda")}
             title={
               <>
-                {t("What happens in each step \u2014 ", "Ce se întâmplă la fiecare pas \u2014 ")}
+                {t("What happens in each step — ", "Ce se întâmplă la fiecare pas — ")}
                 <SerifEm>{t("and what you get.", "și ce primești.")}</SerifEm>
               </>
             }
           />
           <div className="mt-16">
-            <MethodTracingBeam className="px-2 md:px-6">
+            <MethodTracingBeam>
               <div className="space-y-24 md:space-y-32">
-                {methodSteps.map((step) => (
-                  <div key={step.n} className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
+                {methodSteps.map((step, index) => (
+                  <div key={index} className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
                     <Reveal variant="blur-in">
                       <p className="font-mono text-[13px] text-neutral-400">
                         {t("Step ", "Pasul ")}
-                        {Number(step.n)}
+                        {index + 1}
                       </p>
                       <h3 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] text-white md:text-5xl">
                         {t(step.title)}
@@ -75,7 +67,9 @@ export default function ProcessPage() {
                       <p className="mt-6 text-lg leading-relaxed text-neutral-300">{t(step.body)}</p>
                       <p className="mt-4 text-[15px] leading-relaxed text-neutral-500">{t(step.modes)}</p>
                       <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-                        <p className="font-mono text-[12px] text-neutral-400">{t("What you get", "Ce primești")}</p>
+                        <p className="font-mono text-[12px] text-neutral-400">
+                          {t("What you get", "Ce primești")}
+                        </p>
                         <ul className="mt-3 space-y-2.5">
                           {step.gets.map((deliverable) => (
                             <li
@@ -141,7 +135,7 @@ export default function ProcessPage() {
                       ].map((label) => (
                         <span
                           key={label.en}
-                          className="rounded-full border border-white/10 px-3 py-1 font-mono text-[12px] text-neutral-300"
+                          className="rounded-lg border border-white/10 px-3 py-1 font-mono text-[12px] text-neutral-300"
                         >
                           {t(label)}
                         </span>
@@ -164,14 +158,8 @@ export default function ProcessPage() {
                   >
                     <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                       {[
-                        {
-                          i: IconTarget,
-                          t: L("Positioning draft", "Schiță de poziționare"),
-                        },
-                        {
-                          i: IconMapPin,
-                          t: L("Channel plan", "Plan de canale"),
-                        },
+                        { i: IconTarget, t: L("Positioning draft", "Schiță de poziționare") },
+                        { i: IconMapPin, t: L("Channel plan", "Plan de canale") },
                         {
                           i: IconChartArrowsVertical,
                           t: L("The number we'll report", "Ce indicator raportăm"),

@@ -1,54 +1,53 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconArrowRight, IconCalendarEvent, IconFileInvoice, IconShoppingCart } from "@tabler/icons-react";
+import { IconArrowRight } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { L, useT } from "../../i18n";
+import { CALENDAR, CART, QUOTE } from "../../data/buyingModes";
+import { easeOutExpo } from "../../components/effects/motion";
 // `name` is shown lowercased after "You sell by"; its RO side is the form that follows "Vinzi prin".
 const quickCheckModes = [
   {
-    id: "quote",
-    icon: IconFileInvoice,
+    ...QUOTE,
     q: L("They ask me for a price first", "Mă întreabă întâi de preț"),
     name: L("The quote", "ofertă"),
     a: L(
-      "Nobody buys until they talk to you. We work on the gap between interested and in a conversation \u2014 and report qualified quote requests.",
+      "Nobody buys until they talk to you. We work on the gap between interested and in a conversation — and report qualified quote requests.",
       "Nimeni nu cumpără până nu vorbește cu tine. Lucrăm la drumul dintre „mă interesează” și o discuție adevărată — și raportăm cereri de ofertă calificate.",
     ),
   },
   {
-    id: "cart",
-    icon: IconShoppingCart,
+    ...CART,
     q: L("They buy online without talking to me", "Cumpără online fără să vorbească cu mine"),
     name: L("The cart", "coș"),
     a: L(
-      "They decide in seconds, on a phone. We work on creative volume and a checkout that doesn't leak \u2014 and report profitable orders.",
+      "They decide in seconds, on a phone. We work on creative volume and a checkout that doesn't leak — and report profitable orders.",
       "Clientul decide în câteva secunde, de pe telefon. Lucrăm la ritmul în care scoatem reclame noi și la un checkout care nu pierde comenzi — și raportăm comenzi profitabile.",
     ),
   },
   {
-    id: "calendar",
-    icon: IconCalendarEvent,
+    ...CALENDAR,
     q: L("They book a date, a slot or a stay", "Își rezervă o zi, o oră sau o cazare"),
     name: L("The calendar", "calendar"),
     a: L(
-      "An empty slot is gone for good. We work on filling dead days and winning bookings back from platforms \u2014 and report direct bookings.",
+      "An empty slot is gone for good. We work on filling dead days and winning bookings back from platforms — and report direct bookings.",
       "Un loc rămas liber azi nu se mai vinde mâine. Lucrăm să umplem zilele goale și să aducem rezervările de pe platforme direct la tine — și raportăm rezervări directe.",
     ),
   },
 ];
-export function HowYouSellQuickCheck({ className }) {
+export function HowYouSellQuickCheck() {
   const t = useT();
   const [selected, setSelected] = useState(null);
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden rounded-[1.8rem] border border-white/[0.08] bg-ink-900 p-6 md:p-10",
-        className,
-      )}
-    >
-      <p className="font-mono text-[13px] text-neutral-400">{t("Ten-second check", "Test de zece secunde")}</p>
+    <div className="relative overflow-hidden rounded-[1.8rem] border border-white/[0.08] bg-ink-900 p-6 md:p-10">
+      <p className="font-mono text-[13px] text-neutral-400">
+        {t("Ten-second check", "Test de zece secunde")}
+      </p>
       <h3 className="mt-2 font-display text-3xl font-bold tracking-[-0.02em] text-white md:text-4xl">
-        {t("When a new customer finds you, what happens next?", "Când te găsește un client nou, ce face mai departe?")}
+        {t(
+          "When a new customer finds you, what happens next?",
+          "Când te găsește un client nou, ce face mai departe?",
+        )}
       </h3>
       <div className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3">
         {quickCheckModes.map((mode, index) => (
@@ -81,15 +80,9 @@ export function HowYouSellQuickCheck({ className }) {
           {selected === null ? (
             <motion.p
               key="none"
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="pt-4 font-mono text-[13px] text-neutral-500"
             >
               {t(
@@ -100,22 +93,10 @@ export function HowYouSellQuickCheck({ className }) {
           ) : (
             <motion.div
               key={selected}
-              initial={{
-                opacity: 0,
-                y: 14,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                y: -10,
-              }}
-              transition={{
-                duration: 0.45,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.45, ease: easeOutExpo }}
               className="flex flex-col justify-between gap-4 rounded-2xl border border-white/12 bg-white/[0.03] p-5 md:flex-row md:items-center"
             >
               <div>

@@ -6,40 +6,22 @@ const competitorTeardowns = [
   {
     name: L("Competitor A", "Concurent A"),
     tags: [
-      {
-        t: L("Working \xB7 real photos", "Merge \xB7 poze reale"),
-        tone: "strong",
-      },
-      {
-        t: L("Copied \xB7 \u201Cbest price\u201D", "Copiat \xB7 \u201Ecel mai bun preț\u201D"),
-        tone: "neutral",
-      },
+      { t: L("Working · real photos", "Merge · poze reale"), tone: "strong" },
+      { t: L("Copied · “best price”", "Copiat · „cel mai bun preț”"), tone: "neutral" },
     ],
   },
   {
     name: L("Competitor B", "Concurent B"),
     tags: [
-      {
-        t: L("Copied \xB7 stock images", "Copiat \xB7 poze stock"),
-        tone: "neutral",
-      },
-      {
-        t: L("Missing \xB7 lead time", "Lipsă \xB7 termen de livrare"),
-        tone: "outline",
-      },
+      { t: L("Copied · stock images", "Copiat · poze stock"), tone: "neutral" },
+      { t: L("Missing · lead time", "Lipsă · termen de livrare"), tone: "outline" },
     ],
   },
   {
     name: L("Competitor C", "Concurent C"),
     tags: [
-      {
-        t: L("Working \xB7 fast reply", "Merge \xB7 răspuns rapid"),
-        tone: "strong",
-      },
-      {
-        t: L("Missing \xB7 proof", "Lipsă \xB7 dovezi"),
-        tone: "outline",
-      },
+      { t: L("Working · fast reply", "Merge · răspuns rapid"), tone: "strong" },
+      { t: L("Missing · proof", "Lipsă · dovezi"), tone: "outline" },
     ],
   },
 ];
@@ -65,17 +47,9 @@ export function CompetitorTeardownPanel() {
               {competitor.tags.map((tag, tagIndex) => (
                 <motion.span
                   key={tag.t.en}
-                  initial={{
-                    opacity: 0,
-                    scale: 0.8,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
                   transition={{
                     delay: 0.5 + competitorIndex * 0.25 + tagIndex * 0.12,
                     type: "spring",
@@ -91,15 +65,8 @@ export function CompetitorTeardownPanel() {
         ))}
         <motion.div
           className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-transparent via-white/[0.05] to-transparent"
-          animate={{
-            y: ["-60%", "640%"],
-          }}
-          transition={{
-            duration: 2.8,
-            repeat: 1 / 0,
-            ease: "easeInOut",
-            repeatType: "reverse",
-          }}
+          animate={{ y: ["-60%", "640%"] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", repeatType: "reverse" }}
         >
           <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
         </motion.div>

@@ -8,7 +8,9 @@ import { execSync } from "node:child_process";
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/(\w:)/, "$1")), "../..");
 const BASE = path.join(ROOT, ".unlazy/apply/baseline");
 const DIST = path.join(ROOT, "dist");
-const PAGES = ["index", "services", "process", "team", "contact", "how-you-sell"];
+const EN = ["index", "services", "process", "team", "contact", "how-you-sell"];
+const PAGES = [...EN, ...EN.map((p) => "ro/" + p)];
+const baseFile = (p) => path.join(BASE, p.replace("/", "__") + ".root.html");
 const fail = (m) => {
   console.error("FAIL: " + m);
   process.exit(1);
@@ -20,13 +22,21 @@ const srcFiles = () => walk(path.join(ROOT, "src")).map((f) => path.relative(ROO
 const srcLines = () => srcFiles().reduce((n, f) => n + read(f).split("\n").length - 1, 0);
 const rootOf = (html) => html.slice(html.indexOf('<div id="root">'), html.indexOf("</body>"));
 
-// Semantically neutral normalisation: class token order and empty class attributes do not change rendering.
-const normalize = (html) =>
-  html
+// Semantically neutral normalisation: class token order and empty class attributes do not change rendering,
+// and React useId values (_R_..._) only have to be unique and consistent, so they are renumbered by first appearance
+// (an id and every url(#id) pointing at it keep matching; a broken reference still shows up as a diff).
+const normalize = (html) => {
+  const ids = new Map();
+  return html
     .replace(/ class="([^"]*)"/g, (_, c) => {
       const t = c.split(/\s+/).filter(Boolean).sort();
       return t.length ? ` class="${t.join(" ")}"` : "";
+    })
+    .replace(/_R_[0-9a-zA-Z]+_/g, (id) => {
+      if (!ids.has(id)) ids.set(id, `_ID${ids.size}_`);
+      return ids.get(id);
     });
+};
 
 // Intended markup changes, each one documented in GATES.md. Applied to the new build only.
 const INTENDED = [
@@ -38,7 +48,7 @@ const checks = {
   snapshot() {
     execSync("npm run build", { cwd: ROOT, stdio: "pipe" });
     fs.mkdirSync(BASE, { recursive: true });
-    for (const p of PAGES) fs.writeFileSync(path.join(BASE, p + ".root.html"), rootOf(read(`dist/${p}.html`)));
+    for (const p of PAGES) fs.writeFileSync(baseFile(p), rootOf(read(`dist/${p}.html`)));
     fs.writeFileSync(path.join(BASE, "baseline.json"), JSON.stringify({ srcLines: srcLines(), srcFiles: srcFiles().length, at: new Date().toISOString() }, null, 2));
     console.log(`baseline stored: ${srcLines()} src lines`);
   },
@@ -49,11 +59,16 @@ const checks = {
   },
   markup() {
     // control: the comparison must notice a real difference
-    if (normalize(fs.readFileSync(path.join(BASE, "index.root.html"), "utf8")) === normalize(fs.readFileSync(path.join(BASE, "team.root.html"), "utf8")))
-      fail("control: index and team baselines compare equal");
+    if (normalize(fs.readFileSync(baseFile("index"), "utf8")) === normalize(fs.readFileSync(baseFile("ro/index"), "utf8")))
+      fail("control: EN and RO home baselines compare equal");
+    // control: renumbering useIds must not hide a reference that points at the wrong gradient
+    const home = fs.readFileSync(baseFile("index"), "utf8");
+    const [first, second] = [...new Set(home.match(/_R_[0-9a-zA-Z]+_/g))];
+    const broken = home.replace(`url(#beam-${first})`, `url(#beam-${second})`);
+    if (broken === home || normalize(broken) === normalize(home)) fail("control: a swapped url(#id) reference went unnoticed");
     let intendedHits = 0;
     for (const p of PAGES) {
-      const want = normalize(fs.readFileSync(path.join(BASE, p + ".root.html"), "utf8"));
+      const want = normalize(fs.readFileSync(baseFile(p), "utf8"));
       let got = rootOf(read(`dist/${p}.html`));
       for (const [re, to] of INTENDED) got = got.replace(re, (m) => (intendedHits++, to));
       got = normalize(got);
@@ -63,7 +78,7 @@ const checks = {
         fail(`${p} differs at ${i}\n want: ${JSON.stringify(want.slice(i - 120, i + 120))}\n got:  ${JSON.stringify(got.slice(i - 120, i + 120))}`);
       }
     }
-    console.log(`6 pages identical to baseline (${intendedHits} intended tilt-depth classes)`);
+    console.log(`${PAGES.length} pages identical to baseline (${intendedHits} intended tilt-depth classes)`);
   },
   head() {
     for (const p of PAGES) {
@@ -105,7 +120,7 @@ const checks = {
       "src/components/ui/SectionHeading.jsx": ["titleClassName", "Eyebrow({ children, className })"],
       "src/components/sections/PageHero.jsx": ['className = ""'],
       "src/components/ui/Button.jsx": ["IconArrowUpRight", '"up"'],
-      "src/components/effects/TextHoverEffect.jsx": ["duration ??", "(className", "setCursor", 'r="25%"'],
+      "src/components/effects/TextHoverEffect.jsx": ["duration ??", "(className", "setCursor"],
       "src/pages/home/Hero.jsx": ["rectangleClassName", "pointerClassName"],
       "src/pages/home/HowWeWork.jsx": ["initialSliderPercentage", "autoplay = false", "firstLabel &&"],
       "src/pages/team/Founders.jsx": ["autoplay", "setInterval"],
@@ -117,7 +132,7 @@ const checks = {
       "src/pages/home/Team.jsx": ["createContext", "useMouseEnter", "rotateZ"],
       "src/pages/team/WorkSplit.jsx": ["iulianRef", "sebastianRef", '"Iulian Huian"', "r: nodeRef"],
       "src/pages/services/AlignedChannels.jsx": ["ConvergingPathsEffect", "trackingPathLength"],
-      "src/pages/home/FinalCta.jsx": ["LampContainer"],
+      "src/pages/home/FinalCta.jsx": ["LampContainer = ({ children, className })", "min-h-[46rem]"],
       "src/pages/how-you-sell/Modes.jsx": ["m: Mode", "Number("],
       "src/pages/process/ProcessPage.jsx": ["Number("],
       "src/pages/home/HowYouSell.jsx": ["buyingModeIcons", "buyingModeVisuals", "fee:"],
@@ -137,11 +152,14 @@ const checks = {
       const tests = [
         [/\b1 \/ 0\b/, "1 / 0"],
         [/(?<![\w.-])\d+e\d+\b/, "exponent literal"],
-        [/\\u\{?[0-9A-Fa-f]{4,5}\}?|\\x[0-9A-Fa-f]{2}/, "unicode escape"],
         [/\b(\w+): \1(?=,|\s*\})/, "non-shorthand property"],
         [/\[0\.16, 1, 0\.3, 1\]/, "literal easeOutExpo"],
       ];
       for (const [re, what] of tests) if (re.test(s) && !(what === "literal easeOutExpo" && f.endsWith("motion.js"))) bad.push(`${f}: ${what} (${s.match(re)[0]})`);
+      // escapes are only allowed for characters you cannot see (NBSP, word joiner, zero-width and other format chars)
+      const invisible = (cp) => cp === 0xa0 || cp === 0xad || (cp >= 0x2000 && cp <= 0x200f) || (cp >= 0x2028 && cp <= 0x202f) || (cp >= 0x2060 && cp <= 0x206f) || cp === 0xfeff;
+      for (const m of s.matchAll(/\\u\{([0-9A-Fa-f]+)\}|\\u([0-9A-Fa-f]{4})|\\x([0-9A-Fa-f]{2})/g))
+        if (!invisible(parseInt(m[1] || m[2] || m[3], 16))) bad.push(`${f}: escape of a visible character (${m[0]})`);
     }
     if (bad.length) fail(bad.join("\n"));
   },

@@ -14,21 +14,10 @@ export function CtaBand({ title, subtitle, secondary }) {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_90%_at_50%_0%,rgba(244,244,246,0.05),transparent_65%)]" />
           <div className="relative">
             <motion.h2
-              initial={{
-                opacity: 0,
-                y: 18,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                duration: 0.9,
-                ease: easeOutExpo,
-              }}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: easeOutExpo }}
               className="mx-auto max-w-3xl font-display text-4xl leading-[1.04] font-bold tracking-[-0.02em] text-balance text-white md:text-6xl"
             >
               {title}

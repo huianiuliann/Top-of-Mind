@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconPlus } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { L, useT } from "../../i18n";
+import { easeOutExpo } from "../../components/effects/motion";
 const contactFaqItems = [
   {
     q: L("Do you have case studies?", "Aveți studii de caz?"),
@@ -71,12 +72,8 @@ export function ContactFaq() {
                 {t(item.q)}
               </span>
               <motion.span
-                animate={{
-                  rotate: isOpen ? 45 : 0,
-                }}
-                transition={{
-                  duration: 0.3,
-                }}
+                animate={{ rotate: isOpen ? 45 : 0 }}
+                transition={{ duration: 0.3 }}
                 className={cn(
                   "grid size-8 shrink-0 place-items-center rounded-full border transition-colors",
                   isOpen
@@ -90,22 +87,10 @@ export function ContactFaq() {
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
-                  initial={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    height: "auto",
-                    opacity: 1,
-                  }}
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                  transition={{
-                    duration: 0.35,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: easeOutExpo }}
                   className="overflow-hidden"
                 >
                   <p className="max-w-3xl pb-6 text-[15px] leading-relaxed text-neutral-400 md:text-base">

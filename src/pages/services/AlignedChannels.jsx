@@ -1,12 +1,8 @@
 import { useRef } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
-import { cn } from "../../lib/cn";
 import { SerifEm } from "../../components/ui/SectionHeading";
 import { useT } from "../../i18n";
-const convergingPathTransition = {
-  duration: 0,
-  ease: "linear",
-};
+import { DISCIPLINES } from "../../data/disciplines";
 const convergingPathShapes = [
   "M0 663C145.5 663 191 666.265 269 647C326.5 630 339.5 621 397.5 566C439 531.5 455 529.5 490 523C509.664 519.348 521 503.736 538 504.236C553.591 504.236 562.429 514.739 584.66 522.749C592.042 525.408 600.2 526.237 607.356 523.019C624.755 515.195 641.446 496.324 657 496.735C673.408 496.735 693.545 519.572 712.903 526.769C718.727 528.934 725.184 528.395 730.902 525.965C751.726 517.115 764.085 497.106 782 496.735C794.831 496.47 804.103 508.859 822.469 518.515C835.13 525.171 850.214 526.815 862.827 520.069C875.952 513.049 889.748 502.706 903.5 503.736C922.677 505.171 935.293 510.562 945.817 515.673C954.234 519.76 963.095 522.792 972.199 524.954C996.012 530.611 1007.42 534.118 1034 549C1077.5 573.359 1082.5 594.5 1140 629C1206 670 1328.5 662.5 1440 662.5",
   "M0 587.5C147 587.5 277 587.5 310 573.5C348 563 392.5 543.5 408 535C434 523.5 426 526.235 479 515.235C494 512.729 523 510.435 534.5 512.735C554.5 516.735 555.5 523.235 576 523.735C592 523.735 616 496.735 633 497.235C648.671 497.235 661.31 515.052 684.774 524.942C692.004 527.989 700.2 528.738 707.349 525.505C724.886 517.575 741.932 498.33 757.5 498.742C773.864 498.742 791.711 520.623 810.403 527.654C816.218 529.841 822.661 529.246 828.451 526.991C849.246 518.893 861.599 502.112 879.5 501.742C886.47 501.597 896.865 506.047 907.429 510.911C930.879 521.707 957.139 519.639 982.951 520.063C1020.91 520.686 1037.5 530.797 1056.5 537C1102.24 556.627 1116.5 570.704 1180.5 579.235C1257.5 589.5 1279 587 1440 588",
@@ -21,105 +17,77 @@ const convergingPathColors = [
   "rgba(244,244,246,0.5)",
   "rgba(244,244,246,0.26)",
 ];
-const ConvergingPathsEffect = ({ pathLengths, title, description, center, labels, className }) => (
-  <div className={cn("sticky top-40", className)}>
-    {title}
-    {description}
-    <div className="absolute -top-60 flex h-[890px] w-full items-center justify-center md:-top-40">
-      <div className="z-30 mt-8 md:mt-24">{center}</div>
-    </div>
-    {labels && (
-      <div className="pointer-events-none absolute -top-60 left-0 hidden h-[890px] w-full md:-top-40 md:block">
-        {labels.map((label, index) => (
-          <span
-            key={index}
-            className="absolute left-[3%] -translate-y-1/2 rounded-full border border-white/10 bg-ink-900 px-3 py-1 font-mono text-[11px] text-neutral-400 md:text-xs"
-            style={{
-              top: `${([663, 587, 514, 438, 364][index] / 890) * 100}%`,
-            }}
-          >
-            {label}
-          </span>
-        ))}
-      </div>
-    )}
-    <svg
-      width="1440"
-      height="890"
-      viewBox="0 0 1440 890"
-      xmlns="http://www.w3.org/2000/svg"
-      className="absolute -top-60 w-full md:-top-40"
-      aria-hidden="true"
-    >
-      {convergingPathShapes.map((path, index) => (
-        <motion.path
-          key={index}
-          d={path}
-          stroke={convergingPathColors[index]}
-          strokeWidth="1.5"
-          fill="none"
-          initial={{
-            pathLength: 0,
-          }}
-          style={{
-            pathLength: pathLengths[index],
-          }}
-          transition={convergingPathTransition}
-        />
-      ))}
-    </svg>
-  </div>
-);
+// Each path starts partly drawn (bottom path, tracking, the furthest) and completes as the section scrolls.
+const pathStarts = [0.2, 0.15, 0.1, 0.05, 0];
+function ConvergingPath({ d, stroke, start, progress }) {
+  const pathLength = useTransform(progress, [0, 0.8], [start, 1.2]);
+  return (
+    <motion.path
+      d={d}
+      stroke={stroke}
+      strokeWidth="1.5"
+      fill="none"
+      initial={{ pathLength: 0 }}
+      style={{ pathLength }}
+      transition={{ duration: 0, ease: "linear" }}
+    />
+  );
+}
 export function ServicesAlignedChannels() {
   const t = useT();
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const trackingPathLength = useTransform(scrollYProgress, [0, 0.8], [0.2, 1.2]);
-  const followUpPathLength = useTransform(scrollYProgress, [0, 0.8], [0.15, 1.2]);
-  const socialPathLength = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
-  const websitePathLength = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
-  const adsPathLength = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   return (
     <section ref={sectionRef} className="relative h-[170vh] w-full overflow-clip pt-28 md:h-[230vh] md:pt-40">
-      <ConvergingPathsEffect
-        pathLengths={[
-          trackingPathLength,
-          followUpPathLength,
-          socialPathLength,
-          websitePathLength,
-          adsPathLength,
-        ]}
-        labels={[
-          t("Tracking", "Tracking"),
-          t("Follow-up", "Follow-up"),
-          t("Social", "Social media"),
-          t("Website", "Site"),
-          t("Ads", "Reclame"),
-        ]}
-        title={
-          <h2 className="mx-auto max-w-4xl px-5 pb-4 text-center font-display text-4xl leading-[1.04] font-bold tracking-[-0.02em] text-white md:text-7xl">
-            {t("Every channel pulls ", "Toate canalele trag ")}
-            <SerifEm>{t("the same way.", "în aceeași direcție.")}</SerifEm>
-          </h2>
-        }
-        description={
-          <p className="mx-auto mt-4 max-w-xl px-5 text-center text-base text-neutral-400 md:text-xl">
-            {t(
-              "When the ad, the page, the feed and the follow-up tell the same story, your buyer only has to decide once.",
-              "Când reclama, pagina, feed-ul și follow-up-ul spun aceeași poveste, clientul tău trebuie să decidă o singură dată.",
-            )}
-          </p>
-        }
-        center={
-          <span className="relative inline-flex items-center gap-2.5 rounded-full border border-accent-400/50 bg-ink-950 px-5 py-2.5 font-mono text-[13px] text-neutral-100 md:text-sm">
-            <span className="size-1.5 rounded-full bg-accent-400" />
-            {t("One message they remember", "Un mesaj pe care îl țin minte")}
-          </span>
-        }
-      />
+      <div className="sticky top-40">
+        <h2 className="mx-auto max-w-4xl px-5 pb-4 text-center font-display text-4xl leading-[1.04] font-bold tracking-[-0.02em] text-white md:text-7xl">
+          {t("Every channel pulls ", "Toate canalele trag ")}
+          <SerifEm>{t("the same way.", "în aceeași direcție.")}</SerifEm>
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl px-5 text-center text-base text-neutral-400 md:text-xl">
+          {t(
+            "When the ad, the page, the feed and the follow-up tell the same story, your buyer only has to decide once.",
+            "Când reclama, pagina, feed-ul și follow-up-ul spun aceeași poveste, clientul tău trebuie să decidă o singură dată.",
+          )}
+        </p>
+        <div className="absolute -top-60 flex h-[890px] w-full items-center justify-center md:-top-40">
+          <div className="z-30 mt-8 md:mt-24">
+            <span className="relative inline-flex items-center gap-2.5 rounded-xl border border-accent-400/50 bg-ink-950 px-5 py-2.5 font-mono text-[13px] text-neutral-100 md:text-sm">
+              <span className="size-1.5 rounded-full bg-accent-400" />
+              {t("One message they remember", "Un mesaj pe care îl țin minte")}
+            </span>
+          </div>
+        </div>
+        <div className="pointer-events-none absolute -top-60 left-0 hidden h-[890px] w-full md:-top-40 md:block">
+          {[...DISCIPLINES].reverse().map((item, index) => (
+            <span
+              key={item.id}
+              className="absolute left-[3%] -translate-y-1/2 rounded-lg border border-white/10 bg-ink-900 px-3 py-1 font-mono text-[11px] text-neutral-400 md:text-xs"
+              style={{ top: `${([663, 587, 514, 438, 364][index] / 890) * 100}%` }}
+            >
+              {t(item.short)}
+            </span>
+          ))}
+        </div>
+        <svg
+          width="1440"
+          height="890"
+          viewBox="0 0 1440 890"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute -top-60 w-full md:-top-40"
+          aria-hidden="true"
+        >
+          {convergingPathShapes.map((path, index) => (
+            <ConvergingPath
+              key={index}
+              d={path}
+              stroke={convergingPathColors[index]}
+              start={pathStarts[index]}
+              progress={scrollYProgress}
+            />
+          ))}
+        </svg>
+      </div>
     </section>
   );
 }

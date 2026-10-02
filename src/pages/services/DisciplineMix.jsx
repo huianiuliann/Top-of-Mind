@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { IconCalendarEvent, IconFileInvoice, IconShoppingCart } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
 import { Reveal } from "../../components/effects/Reveal";
 import { Container } from "../../components/ui/Container";
 import { SectionHeading, SerifEm } from "../../components/ui/SectionHeading";
 import { L, useT } from "../../i18n";
+import { BUYING_MODES as buyingModes } from "../../data/buyingModes";
 const disciplineWeightsByBuyingMode = [
   [L("Paid advertising", "Publicitate plătită"), [2, 3, 2]],
   [L("Websites & SEO", "Site-uri și SEO"), [3, 2, 3]],
@@ -12,22 +12,11 @@ const disciplineWeightsByBuyingMode = [
   [L("Lead generation & follow-up", "Generare de lead-uri și follow-up"), [3, 1, 2]],
   [L("Tracking", "Tracking"), [3, 3, 3]],
 ];
+const LEVELS = ["", L("supporting", "secundar"), L("important", "major"), L("critical", "critic")];
+const levelColor = (level, weight) =>
+  level > weight ? "bg-white/[0.07]" : weight === 3 ? "bg-accent-500" : "bg-white/70";
 export function ServicesDisciplineMix() {
   const t = useT();
-  const buyingModes = [
-    {
-      name: L("The quote", "Oferta"),
-      icon: IconFileInvoice,
-    },
-    {
-      name: L("The cart", "Coșul"),
-      icon: IconShoppingCart,
-    },
-    {
-      name: L("The calendar", "Calendarul"),
-      icon: IconCalendarEvent,
-    },
-  ];
   return (
     <section className="theme-light relative py-20 md:py-28">
       <Container>
@@ -49,7 +38,9 @@ export function ServicesDisciplineMix() {
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  <th className="p-5 font-mono text-[12px] font-normal text-neutral-500">{t("Discipline", "Serviciu")}</th>
+                  <th className="p-5 font-mono text-[12px] font-normal text-neutral-500">
+                    {t("Discipline", "Serviciu")}
+                  </th>
                   {buyingModes.map((mode) => (
                     <th key={mode.name.en} className="p-5">
                       <span className="flex items-center gap-2 font-display text-lg font-bold text-white">
@@ -66,42 +57,24 @@ export function ServicesDisciplineMix() {
                     <td className="p-5 text-neutral-200">{t(discipline)}</td>
                     {weights.map((weight, modeIndex) => (
                       <td key={modeIndex} className="p-5">
-                        <div
-                          className="flex items-center gap-1.5"
-                          aria-label={["", t("supporting", "secundar"), t("important", "major"), t("critical", "critic")][weight]}
-                        >
+                        <div className="flex items-center gap-1.5" aria-label={t(LEVELS[weight])}>
                           {[1, 2, 3].map((level) => (
                             <motion.span
                               key={level}
-                              initial={{
-                                scale: 0.4,
-                                opacity: 0,
-                              }}
-                              whileInView={{
-                                scale: 1,
-                                opacity: 1,
-                              }}
-                              viewport={{
-                                once: true,
-                              }}
+                              initial={{ scale: 0.4, opacity: 0 }}
+                              whileInView={{ scale: 1, opacity: 1 }}
+                              viewport={{ once: true }}
                               transition={{
                                 delay: 0.15 + rowIndex * 0.08 + modeIndex * 0.05 + level * 0.06,
                                 type: "spring",
                                 stiffness: 300,
                                 damping: 18,
                               }}
-                              className={cn(
-                                "h-2.5 w-7 rounded-full",
-                                level <= weight
-                                  ? weight === 3
-                                    ? "bg-accent-500"
-                                    : "bg-white/70"
-                                  : "bg-white/[0.07]",
-                              )}
+                              className={cn("h-2.5 w-7 rounded-full", levelColor(level, weight))}
                             />
                           ))}
                           <span className="ml-2 hidden font-mono text-[11px] text-neutral-500 sm:inline">
-                            {["", t("supporting", "secundar"), t("important", "major"), t("critical", "critic")][weight]}
+                            {t(LEVELS[weight])}
                           </span>
                         </div>
                       </td>
@@ -126,14 +99,7 @@ export function ServicesDisciplineMix() {
                         {[1, 2, 3].map((level) => (
                           <span
                             key={level}
-                            className={cn(
-                              "h-2 w-5 rounded-full",
-                              level <= weights[modeIndex]
-                                ? weights[modeIndex] === 3
-                                  ? "bg-accent-500"
-                                  : "bg-white/70"
-                                : "bg-white/[0.07]",
-                            )}
+                            className={cn("h-2 w-5 rounded-full", levelColor(level, weights[modeIndex]))}
                           />
                         ))}
                       </span>

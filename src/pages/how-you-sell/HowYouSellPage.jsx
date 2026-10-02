@@ -42,7 +42,7 @@ export default function HowYouSellPage() {
             <a
               key={mode.id}
               href={`#${mode.id}`}
-              className="flex items-center gap-2 rounded-full border border-white/10 px-4 py-2.5 font-mono text-[13px] text-neutral-200 transition-colors hover:border-white/25 hover:text-white"
+              className="flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 font-mono text-[13px] text-neutral-200 transition-colors hover:border-white/25 hover:text-white"
             >
               <mode.icon className="size-4 text-neutral-500" stroke={1.6} />
               {t(mode.name)}
@@ -68,7 +68,7 @@ export default function HowYouSellPage() {
               <div>
                 <HowYouSellModeRail active={activeMode} />
               </div>
-              <HowYouSellModeDetail m={mode} i={index} onActive={setActiveMode} />
+              <HowYouSellModeDetail mode={mode} index={index} onActive={setActiveMode} />
             </div>
           </Container>
         </section>
@@ -88,10 +88,7 @@ export default function HowYouSellPage() {
           "We don't have a template industry. We have three ways people buy — and a method for each.",
           "Nu ne interesează atât industria, cât felul în care cumpără oamenii. Sunt trei feluri — și avem o metodă pentru fiecare.",
         )}
-        secondary={{
-          href: "process.html",
-          label: t("See the process", "Vezi procesul"),
-        }}
+        secondary={{ href: "process.html", label: t("See the process", "Vezi procesul") }}
       />
     </SiteLayout>
   );
